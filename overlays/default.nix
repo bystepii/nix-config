@@ -5,7 +5,7 @@
 { inputs, ... }:
 
 let
-  # Adds my custom packages
+  # Add in custom packages from this config
   additions =
     final: prev:
     (prev.lib.packagesFromDirectoryRecursive {

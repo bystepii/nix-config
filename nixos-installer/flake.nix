@@ -3,7 +3,7 @@
 
   inputs = {
     # FIXME(starter): adjust nixos version for the minimal environment as desired.
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     disko.url = "github:nix-community/disko"; # Declarative partitioning and formatting
   };
 
@@ -25,9 +25,8 @@
         name: disk: swapSize:
         (
           let
-            diskSpecPath =
-              ../hosts/common/disks/btrfs-disk.nix;
-         in
+            diskSpecPath = ../hosts/common/disks/btrfs-disk.nix;
+          in
           nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = minimalSpecialArgs;
