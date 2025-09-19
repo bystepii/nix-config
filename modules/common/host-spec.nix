@@ -6,7 +6,7 @@
   ...
 }:
 {
-  options.hostSpec = {
+  options.hostSpec = lib.mkOption {
     type = lib.types.submodule {
       freeformType = with lib.types; attrsOf str;
       options = {
@@ -70,6 +70,11 @@
           type = lib.types.bool;
           default = false;
           description = "Used to indicate a minimal host";
+        };
+        isMobile = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Used to indicate a mobile host";
         };
         isProduction = lib.mkOption {
           type = lib.types.bool;

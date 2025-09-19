@@ -20,7 +20,7 @@
     isMinimal = lib.mkForce true;
     hostName = "installer";
     # FIXME(starter): Add your primary username or whatever user you want to use for installation
-    username = "user";
+    username = "hiro";
   };
 
   fileSystems."/boot".options = [ "umask=0077" ]; # Removes permissions and security warnings.
@@ -44,7 +44,7 @@
     "systemd.journald.forward_to_console=1"
   ];
 
- environment.systemPackages = builtins.attrValues {
+  environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
       wget
       curl

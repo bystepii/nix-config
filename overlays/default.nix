@@ -19,20 +19,14 @@ let
     # example = prev.example.overrideAttrs (oldAttrs: let ... in {
     # ...
     # });
-    #    flameshot = prev.flameshot.overrideAttrs {
-    #      cmakeFlags = [
-    #        (prev.lib.cmakeBool "USE_WAYLAND_GRIM" true)
-    #        (prev.lib.cmakeBool "USE_WAYLAND_CLIPBOARD" true)
-    #      ];
-    #    };
   };
 
   stable-packages = final: _prev: {
     stable = import inputs.nixpkgs-stable {
       inherit (final) system;
       config.allowUnfree = true;
-      #      overlays = [
-      #     ];
+      #overlays = [
+      #];
     };
   };
 
@@ -40,8 +34,8 @@ let
     unstable = import inputs.nixpkgs-unstable {
       inherit (final) system;
       config.allowUnfree = true;
-      #      overlays = [
-      #     ];
+      #overlays = [
+      #];
     };
   };
 
