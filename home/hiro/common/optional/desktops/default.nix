@@ -4,7 +4,6 @@
     # Packages with custom configs go here
 
     ########## Utilities ##########
-    ./fonts.nix
     ./gtk.nix
   ];
   home.packages = [
