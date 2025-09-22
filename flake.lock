@@ -114,36 +114,36 @@
       }
     },
     "nix-secrets": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
       "locked": {
-        "lastModified": 1744387996,
-        "narHash": "sha256-3JPZM/rkcw8hh9tpgdXw0Rfqg74W8I4tXuv1VezNcb8=",
-        "ref": "simple",
-        "rev": "f61895e22f439bf3ff98dfe639b735aedd0dc5c4",
+        "lastModified": 1758248285,
+        "narHash": "sha256-EGK5v78CItrH55GahtUYDlUf4u/AbQZ5Jy26clrXS4E=",
+        "ref": "main",
+        "rev": "283fb49cb89f1c081caa862ce72d4169aeabeb92",
         "shallow": true,
         "type": "git",
-        "url": "ssh://git@github.com/emergentmind/nix-secrets-reference.git"
+        "url": "ssh://git@gitlab.com/emergentmind/nix-secrets.git"
       },
       "original": {
-        "ref": "simple",
+        "ref": "main",
         "shallow": true,
         "type": "git",
-        "url": "ssh://git@github.com/emergentmind/nix-secrets-reference.git"
+        "url": "ssh://git@gitlab.com/emergentmind/nix-secrets.git"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1749494155,
-        "narHash": "sha256-FG4DEYBpROupu758beabUk9lhrblSf5hnv84v1TLqMc=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "88331c17ba434359491e8d5889cce872464052c2",
-        "type": "github"
+        "lastModified": 1736916166,
+        "narHash": "sha256-puPDoVKxkuNmYIGMpMQiK8bEjaACcCksolsG36gdaNQ=",
+        "path": "/nix/store/awsvw44jla0idziiks2zwgzslfd2dczn-source",
+        "rev": "e24b4c09e963677b1beea49d411cd315a024ad3a",
+        "type": "path"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-25.05",
-        "repo": "nixpkgs",
-        "type": "github"
+        "id": "nixpkgs",
+        "type": "indirect"
       }
     },
     "nixpkgs-darwin": {
@@ -194,6 +194,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1749494155,
+        "narHash": "sha256-FG4DEYBpROupu758beabUk9lhrblSf5hnv84v1TLqMc=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "88331c17ba434359491e8d5889cce872464052c2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-25.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -223,7 +239,7 @@
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nix-secrets": "nix-secrets",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": "nixpkgs_2",
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",

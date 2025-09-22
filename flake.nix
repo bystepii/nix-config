@@ -16,7 +16,7 @@
       # NOTE(starter): Comment or uncomment architectures below as required by your hosts.
       forAllSystems = nixpkgs.lib.genAttrs [
         "x86_64-linux"
-        "aarch64-darwin"
+        #"aarch64-darwin"
       ];
 
       # ========== Extend lib with lib.custom ==========
