@@ -10,10 +10,22 @@ let
     # FIXME: Add per-system packages
     additions =
       final: prev:
-      (prev.lib.packagesFromDirectoryRecursive {
-        callPackage = prev.lib.callPackageWith final;
-        directory = ../pkgs;
-      });
+      let
+        system = final.stdenv.hostPlatform.system;
+      in
+      (
+        prev.lib.packagesFromDirectoryRecursive {
+          callPackage = prev.lib.callPackageWith final;
+          directory = ../pkgs;
+        }
+        # Any nixpkgs PRs that aren't upstream yet
+        // {
+        }
+      )
+      # Other external inputs
+      // {
+        neovim = inputs.neovim-flake.packages.${system}.default;
+      };
 
     linuxModifications = final: prev: {
       # linuxPackages_6_18 = prev.linuxPackages_6_18.extend (

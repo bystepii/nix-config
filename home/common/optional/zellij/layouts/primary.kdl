@@ -15,11 +15,14 @@ layout {
         }
         pane split_direction="vertical" {
             pane cwd="$HOME/src/nix/introdus/ta" size="60%" {
+
             }
             pane size="40%" {
                 pane cwd="$HOME/src/nix/introdus" size="75%" {
+
                 }
                 pane cwd="$HOME/src/nix/introdus" size="25%" {
+
                 }
             }
         }
@@ -32,17 +35,20 @@ layout {
             }
         }
     }
-    tab name="3 Nix-Config"  hide_floating_panes=true {
+    tab name="3 Nix-Config" hide_floating_panes=true {
         pane size=1 borderless=true {
             plugin location="compact-bar"
         }
         pane split_direction="vertical" {
             pane focus=true cwd="$HOME/src/nix/nix-config" size="60%" {
+
             }
             pane size="40%" {
                 pane cwd="src/nix/nix-config" size="75%" {
+
                 }
                 pane cwd="$HOME/src/nix/nix-config" size="25%" {
+
                 }
             }
         }
@@ -65,7 +71,6 @@ layout {
             }
             pane cwd="$HOME/src/abbot-wiki" size="40%"
         }
-
     }
     tab name="5 FidgetingBits" hide_floating_panes=true {
         pane size=1 borderless=true {
@@ -76,7 +81,25 @@ layout {
             pane cwd="$HOME/pub/nix/fidgetingbits/nix-config" size="40%"
         }
     }
-   new_tab_template {
+    tab name="6 neovim-flake" hide_floating_panes=true {
+        pane size=1 borderless=true {
+            plugin location="compact-bar"
+        }
+        pane split_direction="vertical" {
+            pane focus=true cwd="$HOME/src/nix/neovim-flake" size="60%" {
+
+            }
+            pane size="40%" {
+                pane cwd="$HOME/src/nix/neovim-flake" size="75%" {
+
+                }
+                pane cwd="$HOME/src/nix/neovim-flake" size="25%" {
+
+                }
+            }
+        }
+    }
+    new_tab_template {
         pane size=1 borderless=true {
             plugin location="compact-bar"
         }

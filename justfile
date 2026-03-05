@@ -10,7 +10,8 @@ default:
 [private]
 rebuild-pre HOST=`hostname`:
     just update-nix-secrets {{ HOST }} && \
-    just update-nix-assets {{ HOST }} && \
+    just update {{ HOST }} nix-assets && \
+    just update {{ HOST }} neovim-flake && \
     just update {{ HOST }} nix-index-database && \
     just update {{ HOST }} introdus
     @git add --intent-to-add .
@@ -69,11 +70,6 @@ check-sops:
 update-nix-secrets HOST=`hostname`:
     @(cd ../nix-secrets 2>/dev/null && git fetch && git rebase > /dev/null || echo "Push your nix-secrets changes") || true
     @just update {{ HOST }} nix-secrets
-
-# Update nix-assets
-[group("update")]
-update-nix-assets HOST=`hostname`:
-    @just update {{ HOST }} nix-assets
 
 # Build an iso image for installing new systems and create a symlink for qemu usage
 [group("building")]

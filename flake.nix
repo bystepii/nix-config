@@ -233,10 +233,10 @@
     };
     # vim4LMFQR!
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.11";
-      inputs.nixpkgs.follows = "nixpkgs";
-      #url = "github:nix-community/nixvim";
-      #inputs.nixpkgs.follows = "nixpkgs-unstable";
+      # url = "github:nix-community/nixvim/nixos-25.11";
+      # inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     # Pre-commit
     pre-commit-hooks = {
@@ -271,6 +271,11 @@
     introdus = {
       #url = "git+ssh://git@codeberg.org/fidgetingbits/introdus?shallow=1&ref=ta";
       url = "path:///home/ta/src/nix/introdus/ta";
+    };
+    neovim-flake = {
+      #url = "github:emergentmind/neovim?ref=master&shallow=1";
+      url = "path:///home/ta/src/nix/neovim";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
 }
