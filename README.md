@@ -101,6 +101,7 @@ For a large screenshot of the concept diagram, as well as previous iterations, s
 
 <div align="center">
 <a href="docs/anatomy.md"><img width="400" src="docs/diagrams/anatomy_v6.png" /></a>
+
 As of September 2025, we've been rethinking how to handle multiple users and the concept for Home is in a bit of flux. Some of the changes are reflected below but the latest diagram here represents the iteration prior to these changes until I have a better idea what the outcome will be and how to visually represent it.
 </div>
 
