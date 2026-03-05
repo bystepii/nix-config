@@ -35,7 +35,8 @@ layout {
     background-color "transparent"
     always-center-single-column
     gaps 10
-    // inside & outside    // FIXME: with this commented out apps will determine their own starting width
+    // FIXME: with this commented out apps will determine their own starting width
+    // inside & outside
     // Need try it out and decide
     default-column-width {
         proportion 0.75
@@ -49,6 +50,11 @@ layout {
         proportion 0.75
         proportion 0.8
         proportion 1.0
+        proportion 0.8
+        proportion 0.75
+        proportion 0.66667
+        proportion 0.5
+        proportion 0.33333
     }
     // Cycled though using `switch-preset-window-height` action
     preset-window-heights {
@@ -58,6 +64,11 @@ layout {
         proportion 0.66667
         proportion 0.75
         proportion 1.0
+        proportion 0.75
+        proportion 0.66667
+        proportion 0.5
+        proportion 0.33333
+        proportion 0.25
     }
     tab-indicator {
         // Set the gap between the tab indicator and the window in pixels.
@@ -112,7 +123,8 @@ window-rule {
         spread 5
         // offset x= y=
         draw-behind-window true
- // required with non-squared corners        color "#FF9400"
+        // required with non-squared corners
+        color "#FF9400"
     }
 }
 // ========== General transparency ==========
@@ -141,7 +153,7 @@ window-rule {
 }
 window-rule {
     match app-id="com.yubico.yubioath"
-    match app-id="^(Proton VPN)$"
+    match app-id=".protonvpn-app-wrapped"
     match app-id="^[Ss]potify$"
     open-on-workspace "Y_qrs"
 }
