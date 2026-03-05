@@ -360,8 +360,8 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1772679647,
-        "narHash": "sha256-WotrRjplHXI7nMZ7W0evZ9UwG0HQiefTZszENOMD0aI=",
+        "lastModified": 1772727076,
+        "narHash": "sha256-qsnHDdA55p7Ta7u8ed0U7WEk+cmTfTlekd1+4e3YCx0=",
         "path": "/home/ta/src/nix/introdus/ta",
         "type": "path"
       },
@@ -382,8 +382,8 @@
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1772679328,
-        "narHash": "sha256-D7uSGzET6K5XfNHboE+yw8tcDDjlbHwH70GeXnOfK/A=",
+        "lastModified": 1772683220,
+        "narHash": "sha256-DHMx9kf/rPC/Ph7GDaRLlAKIe9M38wHLVRZLetchlfM=",
         "path": "/home/ta/src/nix/neovim",
         "type": "path"
       },
