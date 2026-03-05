@@ -200,12 +200,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-25.11-darwin";
-    # nix-darwin = {
-    #   url = "github:lnl7/nix-darwin";
-    #   inputs.nixpkgs.follows = "nixpkgs-darwin";
-    # };
-
     #
     # ========= Utilities =========
     #
@@ -231,13 +225,6 @@
       url = "https://flakehub.com/f/AshleyYakeley/NixVirt/*.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # vim4LMFQR!
-    nixvim = {
-      # url = "github:nix-community/nixvim/nixos-25.11";
-      # inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
     # Pre-commit
     pre-commit-hooks = {
       url = "github:cachix/git-hooks.nix";
@@ -259,6 +246,10 @@
     #
     # ========= Personal Repositories =========
     #
+    introdus = {
+      #url = "git+ssh://git@codeberg.org/fidgetingbits/introdus?shallow=1&ref=ta";
+      url = "path:///home/ta/src/nix/introdus/ta";
+    };
     # Private secrets repo.  See ./docs/secretsmgmt.md
     # Authenticate via ssh and use shallow clone
     nix-secrets = {
@@ -267,10 +258,6 @@
     };
     nix-assets = {
       url = "github:emergentmind/nix-assets";
-    };
-    introdus = {
-      #url = "git+ssh://git@codeberg.org/fidgetingbits/introdus?shallow=1&ref=ta";
-      url = "path:///home/ta/src/nix/introdus/ta";
     };
     neovim-flake = {
       #url = "github:emergentmind/neovim?ref=master&shallow=1";

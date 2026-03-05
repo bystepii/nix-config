@@ -80,7 +80,6 @@ in
         base05 = "#D5C7A1"; # ++        foreground, caret, delimiters, operators
         base06 = "#EBDBB2"; # +++       light foreground, rarely used
         base07 = "#fbf1c7"; # ++++      lightest foreground, rarely used
-        #base08 = "#C03900"; # red       vars, xml tags, markup link text, markup lists, diff deleted
         base08 = "#D05000"; # red       vars, xml tags, markup link text, markup lists, diff deleted
         base09 = "#FE8019"; # orange    Integers, Boolean, Constants, XML Attributes, Markup Link Url
         base0A = "#FFCC1B"; # yellow    Classes, Markup Bold, Search Text Background

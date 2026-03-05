@@ -14,7 +14,8 @@
       "wheel"
       (ifTheyExist [
         "audio"
-        "video"
+        "video" # in part, for local llm gpu access
+        "render" # for local llm gpu access
         "docker"
         "git"
         "networkmanager"

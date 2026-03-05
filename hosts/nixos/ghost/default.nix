@@ -39,6 +39,7 @@
           "services/bluetooth.nix" # bluetooth, blueman and bluez via wireplumber
           "services/logrotate.nix" # log rotation
           "services/openssh.nix" # allow remote SSH access
+          "services/ollama.nix" # local llm
           "services/printing.nix" # CUPS
 
           # Misc
