@@ -18,7 +18,7 @@
   ];
 
   programs.nixvim = {
-    nixpkgs.pkgs = import <nixpkgs> { };
+    #nixpkgs.pkgs = import <nixpkgs> { };
 
     enable = true;
     #FIXME(vim): not working for many man pages.
