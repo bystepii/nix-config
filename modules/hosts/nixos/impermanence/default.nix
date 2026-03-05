@@ -69,7 +69,8 @@
             wantedBy = [ "initrd.target" ];
             after = [
               # NOTE: he \\x2d is a hyphen in the systemd unit name
-              "dev-mapper-encrypted\\x2dnixos.device"
+              #"dev-mapper-encrypted\\x2dnixos.device"
+              "dev-mapper-cryptprimary.device"
               # LUKS/TPM process
               "systemd-cryptsetup@${hostname}.service"
             ];
