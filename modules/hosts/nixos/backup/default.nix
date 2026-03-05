@@ -6,11 +6,8 @@
 }:
 let
   cfg = config.services.backup;
-  isImpermanent =
-    if config.system ? "impermanence" then
-      (pkgs.stdenv.isLinux && config.system.impermanence.enable)
-    else
-      false;
+
+  hasImpermanence = (config.system ? impermanence && config.system.impermanence.enable);
   hostName = config.networking.hostName;
   homeBase = if pkgs.stdenv.isLinux then "/home" else "/Users";
   homeDirectory = "${config.hostSpec.home}";
@@ -130,15 +127,11 @@ in
       default = "${homeDirectory}/mount/backup";
       description = "The directory to mount backups to";
     };
-    borgCacheDir =
-      let
-        persistFolder = lib.optionalString isImpermanent config.hostSpec.persistFolder;
-      in
-      lib.mkOption {
-        type = lib.types.str;
-        default = "${persistFolder}/.cache/borg";
-        description = "The cache directory for borg";
-      };
+    borgCacheDir = lib.mkOption {
+      type = lib.types.str;
+      default = "${config.hostSpec.persistFolder}/.cache/borg";
+      description = "The cache directory for borg";
+    };
     borgBackupPaths = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ "${homeDirectory}" ];
@@ -489,7 +482,7 @@ in
           borg-backup-delete
           borg-backup-restore
         ]
-        ++ lib.optional isImpermanent borg-backup-btrfs-subvolume;
+        ++ lib.optional hasImpermanence borg-backup-btrfs-subvolume;
         sops.secrets = {
           #FIXME(borg): make this an optional path
           "keys/ssh/borg" = {
@@ -504,8 +497,8 @@ in
         # Linux specific
         systemd =
           let
-            backupTool = if isImpermanent then borg-backup-btrfs-subvolume else borg-backup-paths;
-            backupToolName = if isImpermanent then "borg-backup-btrfs-subvolume" else "borg-backup-paths";
+            backupTool = if hasImpermanence then borg-backup-btrfs-subvolume else borg-backup-paths;
+            backupToolName = if hasImpermanence then "borg-backup-btrfs-subvolume" else "borg-backup-paths";
             serviceEntries = {
               services."borg-backup" = {
                 description = "Run ${backupToolName} to backup system";

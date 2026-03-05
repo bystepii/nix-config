@@ -6,7 +6,8 @@
       "ta"
     ];
 
-    persistFolder = "/persist"; # added for "completion" because of the disko spec that was used even though impermanence isn't actually enabled here yet.
+    isImpermanent = lib.mkForce true;
+    persistFolder = "/persist";
 
     # System type flags
     isAdmin = lib.mkForce true;

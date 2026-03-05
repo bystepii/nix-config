@@ -97,6 +97,11 @@
           default = false;
           description = "Indicate a minimal host";
         };
+        isImpermanent = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Indicate a host uses impermanence";
+        };
         isProduction = lib.mkOption {
           type = lib.types.bool;
           default = true;

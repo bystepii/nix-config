@@ -61,6 +61,11 @@
     ))
   ];
 
+  system.impermanence = {
+    enable = false;
+    autoPersistHomes = true;
+  };
+
   introdus.services = {
     silent-sddm.enable = true;
   };
