@@ -49,6 +49,10 @@
     nixvim-config.plugins.copilot.enable = lib.mkDefault false;
     nixvim-config.plugins.nvim-autopairs.enable = lib.mkDefault false;
     #
+    # ========== llm ==========
+    #
+    nixvim-config.plugins.avante.enable = lib.mkDefault false;
+    #
     # ========== languages ==========
     #
     # nixvim-config.plugins.treesitter.enable = lib.mkDefault true;
