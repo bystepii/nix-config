@@ -1,5 +1,5 @@
 <div align="center">
-<h1>
+<h1nsta>
 <img width="100" src="docs/nixos-ascendancy.png" /> <br>
 </h1>
 </div>
@@ -130,7 +130,6 @@ As of September 2025, we've been rethinking how to handle multiple users and the
     - `common` - Custom modules that will work on either nixos ~~or dariwn~~ but that aren't specific to home-manager
     - `home-manager` - Custom modules to home-manager
     - `nixos` - Custom modules specific to nixos-based hosts
-- `nixos-installer` - A stripped down version of the main nix-config flake used exclusively during installation of NixOS and nix-config on hosts.
 - `overlays` - Custom modifications to upstream packages.
 - `pkgs` - Custom packages meant to be shared or upstreamed.
     - `common` - Custom packages that will work on either nixos ~~or dariwn~~
