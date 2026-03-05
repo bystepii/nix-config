@@ -14,19 +14,15 @@
 }:
 {
   imports = lib.flatten [
-    (lib.custom.scanPaths ./.) # Load all host-specific *.nix files
-
     # ========== Hardware ==========
     inputs.nixos-facter-modules.nixosModules.facter
     { config.facter.reportPath = ./facter.json; }
 
-    # ========== Disk Layout ==========
-    inputs.disko.nixosModules.disko
-    (lib.custom.relativeToRoot "hosts/common/disks/ghost.nix")
-
     #
     # ========== Modules ==========
     #
+    (lib.custom.scanPaths ./.) # Load all host-specific *.nix files
+
     (map lib.custom.relativeToRoot (
       # ========== Required modules ==========
       [
@@ -67,7 +63,7 @@
   ];
 
   system.impermanence = {
-    enable = true;
+    enable = config.hostSpec.isImpermanent;
     autoPersistHomes = true;
   };
 
@@ -113,15 +109,6 @@
     # Fix for XBox controller disconnects
     extraModprobeConfig = "options bluetooth disable_ertm=1 ";
   };
-
-  #FIXME: move to ./disks.nix when we add the disks module
-  # needed to unlock LUKS on secondary drives
-  # use partition UUID
-  # https://wiki.nixos.org/wiki/Full_Disk_Encryption#Unlocking_secondary_drives
-  environment.etc.crypttab.text = lib.optionalString (!config.hostSpec.isMinimal) ''
-    cryptextra UUID=d90345b2-6673-4f8e-a5ef-dc764958ea14 /luks-secondary-unlock.key
-    cryptvms UUID=ce5f47f8-d5df-4c96-b2a8-766384780a91 /luks-secondary-unlock.key
-  '';
 
   environment.systemPackages = lib.attrValues {
     inherit (pkgs.unstable)

@@ -6,7 +6,6 @@
 ###############################################################
 
 {
-  inputs,
   lib,
   ...
 }:
@@ -18,16 +17,9 @@
     ./hardware-configuration.nix
 
     #
-    # ========== Disk Layout ==========
+    # ========== Modules ==========
     #
-    inputs.disko.nixosModules.disko
-    (lib.custom.relativeToRoot "hosts/common/disks/btrfs-disk.nix")
-    {
-      _module.args = {
-        disk = "/dev/vda";
-        withSwap = false;
-      };
-    }
+    (lib.custom.scanPaths ./.) # Load all host-specific *.nix files
 
     (map lib.custom.relativeToRoot [
       #
@@ -39,16 +31,8 @@
       # ========== Optional Configs ==========
       #
       "hosts/common/optional/services/openssh.nix"
-
     ])
   ];
-
-  #
-  # ========== Host Specification ==========
-  #
-  hostSpec = {
-    hostName = "guppy";
-  };
 
   networking = {
     networkmanager.enable = true;
@@ -64,4 +48,5 @@
   boot.initrd = {
     systemd.enable = true;
   };
+
 }

@@ -144,7 +144,7 @@ in
     };
     borgBtrfsVolume = lib.mkOption {
       type = lib.types.str;
-      default = "/dev/mapper/encrypted-nixos";
+      default = "/dev/mapper/cryptprimary";
       description = "The btrfs volume containing the subvolume backup";
     };
     # FIXME(borg): This should be a list of subvolumes to backup

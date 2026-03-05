@@ -6,6 +6,7 @@
       "ta"
     ];
 
+    isImpermanent = lib.mkForce false;
     persistFolder = "/persist";
 
     # System type flags

@@ -95,11 +95,11 @@
               (map customLib.custom.relativeToRoot [
                 # Minimal modules for quick setup
                 "modules/common/host-spec.nix"
-                # "modules/hosts/nixos/disks.nix"
+                "modules/hosts/nixos/disks.nix"
                 "modules/hosts/nixos/impermanence"
 
                 "hosts/nixos/${host}/host-spec.nix"
-                # "hosts/nixos/${host}/disks.nix"
+                "hosts/nixos/${host}/disks.nix"
 
                 "hosts/common/optional/minimal-configuration.nix"
               ])

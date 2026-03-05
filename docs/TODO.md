@@ -170,10 +170,10 @@ Add laptop support to the mix to handle stuff like power, lid state, wifi, and t
 QoL
 - [x] fix nvim/neo-tree default directory
 - [ ] stop calendar notifications from stealing focus... sort of dealt with using 'noinitialfocus' dispatcher but it happens immediately after focus has already been stolen
-- [~] move to niri... hyprland is pissing me off too often
+- [x] move to niri... hyprland is pissing me off too often
   - [x] usable for daily driver
-  - [~] parity with current state hyprland config
-  - [ ] refactor monitor toggling scripts
+  - [x] parity with current state hyprland config
+  - [/] refactor monitor toggling scripts
   - [ ] refactor for dynamic host handling. niri unfortunately uses .kdl which doesn't play well  with nixos currently so may be SoL for a while
         could consider using the niri flake but I'd prefer less reliance on someone else
 - [ ] Monitors Module improvements
@@ -181,13 +181,13 @@ QoL
 - [ ] Declarative audio output device for gusto if possible
 
 Rice
-- [~] ui dev
+- [/] ui dev
   - [x] ascendancy color set
     - [x] colors
     - [x] repo
     - [x] add to tinted gallery
   - [x] host specific colours (terminal in particular) via stylix
-  - [~] centralize custom color palette: waiting for stylix to catchup to tinted-themes
+  - [/] centralize custom color palette: waiting for stylix to catchup to tinted-themes
 - [ ] eww as a potential replacement to waybar
 - [ ] ssh-motd
 - [x] swww background service [and](and) random cycling
@@ -213,12 +213,12 @@ Inspirational sets:
 
 ## 8. Squeaky clean
 
-### 8.1 Impermanence
+### 8.1 Impermanence   - completed: 2026.02.20
 
 - [x] declare what needs to persist
   - [x] Need to sort out how to maintain /etc/ssh/ssh_host_ed25519_key and /etc/ssh/ssh_host_ed25519_key.pub
   - [x] make sure to include `/luks-secondary-unlock.key` (will be handled by modules/nixos/disks)
-- [ ] enable impermanence
+- [x] enable impermanence
 
 ### 8.2 Cleaning - Nice to Have
 

@@ -18,27 +18,15 @@
     #
     inputs.nixos-facter-modules.nixosModules.facter
     { config.facter.reportPath = ./facter.json; }
-    (lib.custom.scanPaths ./.) # Load all extra host-specific *.nix files
 
     # FIXME: Seems this is still needed for Fn keys to work?
     inputs.nixos-hardware.nixosModules.lenovo-thinkpad-e15-intel
 
     #
-    # ========== Disk Layout ==========
-    #
-    inputs.disko.nixosModules.disko
-    (lib.custom.relativeToRoot "hosts/common/disks/btrfs-luks-impermanence-disk.nix")
-    {
-      _module.args = {
-        disk = "/dev/nvme0n1";
-        withSwap = true;
-        swapSize = 16;
-      };
-    }
-
-    #
     # ========== Modules ==========
     #
+    (lib.custom.scanPaths ./.) # Load all host-specific *.nix files
+
     (map lib.custom.relativeToRoot (
       # ========== Required modules==========
       [
@@ -75,7 +63,7 @@
   ];
 
   system.impermanence = {
-    enable = false;
+    enable = config.hostSpec.isImpermanent;
     autoPersistHomes = true;
   };
 

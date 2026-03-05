@@ -55,6 +55,7 @@ Chat with me directly on our [Discord server](https://discord.gg/XTFg57xGxC).
 
 - Secrets management via sops-nix and a _private_ nix-secrets repo that is included as a flake input
 - Declarative, LUKS-encrypted btrfs partitions via disko
+- Impermanence - files that aren't explicitly persisted are deleted on reboot
 - Automated remote-bootstrapping of NixOS, nix-config, and _private_ nix-secrets
 - Handles multiple YubiKey devices and agent forwarding for touch-based/passwordless authentication during:
 
@@ -107,10 +108,9 @@ As of September 2025, we've been rethinking how to handle multiple users and the
 - `hosts` - NixOS configurations accessible via `sudo nixos-rebuild switch --flake .#<host>`.
   - `common` - Shared configurations consumed by the machine specific ones.
     - `core` - Configurations present across all hosts. This is a hard rule! If something isn't core, it is optional.
-    - `disks` - Declarative disk partition and format specifications via disko.
     - `optional` - Optional configurations present across more than one host.
     - `users` - Host level user configurations present across at least one host.
-        -h `<user>/keys` - Public keys for the user that are symlinked to ~/.ssh
+        - `<user>/keys` - Public keys for the user that are symlinked to ~/.ssh
   - `nixos` - machine specific configurations for NixOS-based hosts
       - `genoa` - ThinkPad E15 - 3.5/4.7GHz i7-1255U (6C/12T), 16GB RAM
       - `ghost` - Primary box - 4.8GHz Ryzen 9 5900XT (16C/32T), 64GB RAM, RX 9070XT

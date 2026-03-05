@@ -7,6 +7,7 @@
 
 {
   inputs,
+  config,
   lib,
   ...
 }:
@@ -17,24 +18,12 @@
     #
     inputs.nixos-facter-modules.nixosModules.facter
     { config.facter.reportPath = ./facter.json; }
-    (lib.custom.scanPaths ./.) # Load all extra host-specific *.nix files
-
-    #
-    # ========== Disk Layout ==========
-    #
-    inputs.disko.nixosModules.disko
-    (lib.custom.relativeToRoot "hosts/common/disks/btrfs-impermanence-disk.nix")
-    {
-      _module.args = {
-        disk = "/dev/nvme0n1";
-        withSwap = true;
-        swapSize = 8;
-      };
-    }
 
     #
     # ========== Modules ==========
     #
+    (lib.custom.scanPaths ./.) # Load all host-specific *.nix files
+
     (map lib.custom.relativeToRoot (
       # ========== Required modules ==========
       [
@@ -62,7 +51,7 @@
   ];
 
   system.impermanence = {
-    enable = false;
+    enable = config.hostSpec.isImpermanent;
     autoPersistHomes = true;
   };
 
@@ -71,7 +60,6 @@
   };
 
   boot.initrd.systemd.enable = true;
-
   boot.loader.systemd-boot = {
     enable = true;
     # When using plymouth, initrd can expand by a lot each time, so limit how
