@@ -11,9 +11,9 @@
 
     # System type flags
     isAdmin = lib.mkForce true;
-    isWork = lib.mkForce false;
     isProduction = lib.mkForce true;
-    isRemote = lib.mkForce true;
+    isRemote = lib.mkForce false;
+    isWork = lib.mkForce false;
 
     # Functionality
     useYubikey = lib.mkForce true;
