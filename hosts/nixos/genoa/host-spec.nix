@@ -6,12 +6,13 @@
       "ta"
     ];
 
-    isImpermanent = lib.mkForce false;
+    isImpermanent = lib.mkForce true;
     persistFolder = "/persist";
 
     # System type flags
     isAdmin = lib.mkForce true;
-    isRemote = lib.mkForce false; # not remotely managed
+    isProduction = lib.mkForce true;
+    isRemote = lib.mkForce false;
     isRoaming = lib.mkForce true;
 
     # Functionality
