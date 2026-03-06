@@ -4,9 +4,6 @@
     # extra settings
     ./scripts.nix
 
-    # utilities
-    # TODO: lock screen
-
     ../wlogout.nix # wayland logout menu
   ];
   home = {

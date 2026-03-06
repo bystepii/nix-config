@@ -8,11 +8,31 @@ binds {
     Super+Shift+Slash {
         show-hotkey-overlay
     }
-    // logout menu
+    // Shutting up hotkey-overlay defaults. I don't have/use mod5
+    Mod5+Up hotkey-overlay-title=null {
+        move-column-to-workspace-up
+    }
+    Mod5+Down hotkey-overlay-title=null {
+        move-column-to-workspace-down
+    }
+    Mod5+Left hotkey-overlay-title=null {
+        focus-column-left
+    }
+    Mod5+Right hotkey-overlay-title=null {
+        focus-column-right
+    }
+    Mod5+Q hotkey-overlay-title=null {
+        quit
+    }
+    //
+    // ========== Exit menu ==========
+    //
     Super+Shift+E hotkey-overlay-title="Logout (wlogout)" {
         spawn "wlogout"
     }
-    // Overview mode
+    //
+    // ========== Overview mode ==========
+    //
     Super+O repeat=false {
         toggle-overview
     }
