@@ -360,8 +360,8 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1772727076,
-        "narHash": "sha256-qsnHDdA55p7Ta7u8ed0U7WEk+cmTfTlekd1+4e3YCx0=",
+        "lastModified": 1772729015,
+        "narHash": "sha256-QM2shGC461YHd0iXP1Pvs4Oqa7t61K6uNi23YW5AkJA=",
         "path": "/home/ta/src/nix/introdus/ta",
         "type": "path"
       },
@@ -382,14 +382,18 @@
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1772683220,
-        "narHash": "sha256-DHMx9kf/rPC/Ph7GDaRLlAKIe9M38wHLVRZLetchlfM=",
-        "path": "/home/ta/src/nix/neovim",
-        "type": "path"
+        "lastModified": 1772764457,
+        "narHash": "sha256-hda6SKZr+AWXfLmgi5lAl1kRYQuF4btcoxU9LOrXWyo=",
+        "owner": "emergentmind",
+        "repo": "neovim",
+        "rev": "5d1beee94728ba5771f071fe4f02050fe7a0c019",
+        "type": "github"
       },
       "original": {
-        "path": "/home/ta/src/nix/neovim",
-        "type": "path"
+        "owner": "emergentmind",
+        "ref": "master",
+        "repo": "neovim",
+        "type": "github"
       }
     },
     "nix-assets": {
@@ -432,10 +436,10 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1772660300,
-        "narHash": "sha256-d5fkzh1iETjQpEVj6GYvHANXX1l+uPt3wrJnObArFZg=",
+        "lastModified": 1772821575,
+        "narHash": "sha256-YfsvX8OMrmXtQWum/KsiMSzniEcMIyLT68whBU2pjsQ=",
         "ref": "main",
-        "rev": "c8ffdb32e405e2262e3983854ca744a3b072057f",
+        "rev": "206b56289c0df4b1f42bf9e3a4e9dcf7dd783b39",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@gitlab.com/emergentmind/nix-secrets.git"
