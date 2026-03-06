@@ -166,13 +166,14 @@ in
         description = "List of drives to add to mdadm raid array. Raid disabled if not set";
       };
       extraDisks = lib.mkOption {
-        type = lib.types.listOf (lib.types.attrsOf lib.types.str);
-        default = [
-          {
-            name = "encrypted-storage";
-            uuid = "TBD";
-          }
-        ];
+        type = lib.types.nullOr (lib.types.listOf (lib.types.attrsOf lib.types.str));
+        default = null;
+        # [
+        # {
+        #   name = "encrypted-storage";
+        #   uuid = "TBD";
+        # }
+        # ];
         description = "Names and UUIDs of non-primary luks-encrypted disks, used for automatic boot-time LUKS unlocking";
         example = [
           {
@@ -285,14 +286,16 @@ in
     # Find UUID with: lsblk -o name,uuid,mountpoints
     #
     environment = {
-      etc.crypttab.text = lib.optionalString (!config.hostSpec.isMinimal) (
-        lib.concatMapStringsSep "\n" (
-          d:
-          # FIXME: noauto doesn't work, so UUID has to be correct or boot fails
-          # investigate a way to make this work and just mount from a script after the normal boot proceed, or ideally have x-systemd.automount mount on access for us (but need to test how it fails if UUID is wrong)
-          "${d.name} ${d.path} /luks-secondary-unlock.key noauto,nofail,x-systemd.device-timeout=10,x-systemd.automount"
-        ) cfg.extraDisks
-      );
+      etc.crypttab.text =
+        lib.optionalString (!config.hostSpec.isMinimal && !(builtins.isNull cfg.extraDisks))
+          (
+            lib.concatMapStringsSep "\n" (
+              d:
+              # FIXME: noauto doesn't work, so UUID has to be correct or boot fails
+              # investigate a way to make this work and just mount from a script after the normal boot proceed, or ideally have x-systemd.automount mount on access for us (but need to test how it fails if UUID is wrong)
+              "${d.name} ${d.path} /luks-secondary-unlock.key noauto,nofail,x-systemd.device-timeout=10,x-systemd.automount"
+            ) cfg.extraDisks
+          );
     }
     // lib.optionalAttrs config.system.impermanence.enable {
       persistence."${config.hostSpec.persistFolder}" = {
