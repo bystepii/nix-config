@@ -19,6 +19,7 @@
     useYubikey = lib.mkForce true;
 
     # Graphical
+    #defaultDesktop = "niri";
     defaultDesktop = "niri-uwsm";
     theme = lib.mkForce "darcula";
     wallpaper = "${inputs.nix-assets}/images/wallpapers/zen-02.jpg";
