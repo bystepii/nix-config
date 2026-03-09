@@ -204,6 +204,7 @@ window-rule {
     match title="^(Dashboard | glass*)(.*)"
     match title="^(Live video from*)(.*)$"
     match title="^(Netflix)(.*)$"
+    match title="^(F1 TV)(.*)$"
     match title="^(.*YouTube.*)$"
     match title="^(Picture-in-Picture)$"
     // rules

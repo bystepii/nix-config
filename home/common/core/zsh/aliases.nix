@@ -46,6 +46,7 @@ in
   cnh = "cd ${devNix}/nixos-hardware";
   cnp = "cd ${devNix}/nixpkgs";
   cni = "cd ${devNix}/introdus";
+  cnv = "cd ${devNix}/neovim";
 
   #-----------Nix commands----------------
   nfc = "nix flake check";
