@@ -68,7 +68,10 @@
   };
 
   introdus.services = {
-    silent-sddm.enable = true;
+    silent-sddm = {
+      enable = true;
+      theme = "rei";
+    };
   };
 
   boot.initrd = {
