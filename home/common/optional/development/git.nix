@@ -39,7 +39,17 @@ in
   programs.git = {
     enable = true;
     ignores = [
-      ".csvignore"
+      # Environment
+      ".env"
+      # direnv
+      ".direnv/"
+      ".envrc"
+      # Devenv
+      ".devenv*"
+      "devenv.local.nix"
+      "devenv.local.yaml"
+      # pre-commit
+      ".pre-commit-config.yaml"
       # nix
       "*.drv"
       "result"
@@ -49,9 +59,8 @@ in
       "*.py?"
       "__pycache__/"
       ".venv/"
-      # direnv
-      ".direnv/"
-      ".envrc"
+      #data
+      ".csvignore"
     ];
 
     settings = {
