@@ -93,22 +93,22 @@ binds {
     Super+Y {
         focus-workspace "Y_qrs"
     }
-    Super+Minus hotkey-overlay-title="Focus workspace previous" {
+    Super+Period hotkey-overlay-title="Focus workspace previous" {
         focus-workspace-previous
     }
-    Super+Comma hotkey-overlay-title="Focus workspace up" {
-        focus-workspace-up
-    }
-    Super+Period hotkey-overlay-title="Focus workspace down" {
-        focus-workspace-down
-    }
+    // Super+Comma hotkey-overlay-title="Focus workspace up" {
+    //     focus-workspace-up
+    // }
+    // Super+Period hotkey-overlay-title="Focus workspace down" {
+    //     focus-workspace-down
+    // }
     // ==========  Move workspace ==========
-    Super+Shift+Comma hotkey-overlay-title="Move workspace up" {
-        move-workspace-up
-    }
-    Super+Shift+Period hotkey-overlay-title="Move workspace down" {
-        move-workspace-down
-    }
+    // Super+Shift+Comma hotkey-overlay-title="Move workspace up" {
+    //     move-workspace-up
+    // }
+    // Super+Shift+Period hotkey-overlay-title="Move workspace down" {
+    //     move-workspace-down
+    // }
     //
     // ========== Window and column actions ==========
     //

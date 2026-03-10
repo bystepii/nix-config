@@ -168,7 +168,7 @@ keybinds clear-defaults=true {
         }
         // Order for FocusPreviousPane is not guaranteed.
         // "Previous" is previous pane in the layout tree, _not_ previously focused!
-        bind "Alt -" {
+        bind "Alt ." {
             FocusPreviousPane
         }
         bind "Alt 1" {
