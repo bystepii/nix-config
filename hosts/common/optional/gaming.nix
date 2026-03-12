@@ -1,7 +1,13 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   hardware.xpadneo.enable = true;
 
+  environment.systemPackages = lib.attrValues {
+    inherit (pkgs)
+      lsfg-vk
+      lsfg-vk-ui
+      ;
+  };
   programs = {
     steam = {
       enable = true;
