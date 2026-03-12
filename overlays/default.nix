@@ -24,7 +24,7 @@ let
       )
       # Other external inputs
       // {
-        neovim = inputs.neovim-flake.packages.${system}.default;
+        neovim = inputs.emergentvim.packages.${system}.default;
       };
 
     linuxModifications = final: prev: {

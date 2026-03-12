@@ -254,15 +254,16 @@
     # Authenticate via ssh and use shallow clone
     nix-secrets = {
       url = "git+ssh://git@gitlab.com/emergentmind/nix-secrets.git?ref=main&shallow=1";
-      inputs = { };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-assets = {
       url = "github:emergentmind/nix-assets";
     };
-    neovim-flake = {
+    emergentvim = {
       #url = "github:emergentmind/neovim?ref=master&shallow=1";
       url = "path:///home/ta/src/nix/neovim";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.flake-parts.follows = "flake-parts";
     };
   };
 }

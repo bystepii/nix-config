@@ -11,7 +11,7 @@ default:
 rebuild-pre HOST=`hostname`:
     just update-nix-secrets {{ HOST }} && \
     just update {{ HOST }} nix-assets && \
-    just update {{ HOST }} neovim-flake && \
+    just update {{ HOST }} emergentvim && \
     just update {{ HOST }} nix-index-database && \
     just update {{ HOST }} introdus
     @git add --intent-to-add .
