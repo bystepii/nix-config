@@ -83,7 +83,6 @@ As with many personal projects, the code here tends to evolve away from what it 
 
 ## Requirements
 
-- When using NixOS, v23.11 or later is required to properly receive passphrase prompts when building in the private nix-secrets repo
 - Patience
 - Attention to detail
 - Persistence
@@ -100,7 +99,7 @@ For details about design concepts, constraints, and how structural elements inte
 For a large screenshot of the concept diagram, as well as previous iterations, see [Anatomy](docs/anatomy.md).
 
 <div align="center">
-<a href="docs/anatomy.md"><img width="400" src="docs/diagrams/anatomy_v6.png" /></a>
+<a href="docs/anatomy.md"><img width="400" src="docs/diagrams/anatomy_v7.png" /></a>
 
 As of September 2025, we've been rethinking how to handle multiple users and the concept for Home is in a bit of flux. Some of the changes are reflected below but the latest diagram here represents the iteration prior to these changes until I have a better idea what the outcome will be and how to visually represent it.
 </div>
