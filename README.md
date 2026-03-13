@@ -30,7 +30,6 @@ The way out, is through.
 ## Table of Contents
 
 - [Feature Highlights](#feature-highlights)
-- [A Quick Note on Tags and Branches](#a-quick-note-on-tags-and-branches)
 - [Roadmap of TODOs](docs/TODO.md)
 - [Requirements](#requirements)
 - [Structure](#structure-quick-reference)
@@ -38,6 +37,7 @@ The way out, is through.
 - [Secrets Management](#secrets-management)
 - [Initial Install Notes](docs/installnotes.md)
 - [Troubleshooting](docs/TROUBLESHOOTING.md)
+- [Tags and Branches](#a-quick-note-on-tags-and-branches)
 - [Acknowledgements](#acknowledgements)
 - [Guidance and Resources](#guidance-and-resources)
 
@@ -71,15 +71,6 @@ Chat with me directly on our [Discord server](https://discord.gg/XTFg57xGxC).
 The roadmap of additional features is laid across functionally thematic stages that can be viewed, along with short term objectives, in the [Roadmap of TODOs](docs/TODO.md).
 
 Completed features will be added here as each stage is complete.
-
-## A Quick Note on Tags and Branches
-
-As with many personal projects, the code here tends to evolve away from what it was when the video/article content was published.
-
-- Videos - To find code relevant to when a specific video/article was published, look through tags with the word 'video' as they are commits from roughly the same time.
-
-- Darwin - To find relevant to handling hosts using both NixOS and Darwin, refer to the `darwin` branch. Starting in 2026, we are migrating away from Darwin support for the foreseeable future but will retain it 'as is' in the `darwin` branch for reference.
-
 
 ## Requirements
 
@@ -165,6 +156,14 @@ I intentionally keep all of my content ad-free but some platforms, such as YouTu
 - Yubikey
   - <https://wiki.nixos.org/wiki/Yubikey>
   - [DrDuh YubiKey-Guide](https://github.com/drduh/YubiKey-Guide)
+
+## Tags and Branches
+
+As with many personal projects, the code here tends to evolve away from what it was when the video/article content was published.
+
+- Videos - To find code relevant to when a specific video/article was published, look through tags with the word 'video' as they are commits from roughly the same time.
+
+- Darwin - To find relevant to handling hosts using both NixOS and Darwin, refer to the `darwin` branch. Starting in 2026, we are migrating away from Darwin support for the foreseeable future but will retain it 'as is' in the `darwin` branch for reference.
 
 ## Acknowledgements
 
