@@ -8,11 +8,14 @@
 let
   hostSpec = config.hostSpec;
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
+  hasSopsPassword = builtins.hasAttr "passwords/${hostSpec.username}" config.sops.secrets;
 
   # Decrypt password to /run/secrets-for-users/ so it can be used to create the user
-  sopsHashedPasswordFile = lib.optionalString (
-    !config.hostSpec.isMinimal
-  ) config.sops.secrets."passwords/${hostSpec.username}".path;
+  sopsHashedPasswordFile =
+    if (!config.hostSpec.isMinimal) && hasSopsPassword then
+      config.sops.secrets."passwords/${hostSpec.username}".path
+    else
+      "";
 in
 {
   users.mutableUsers = false; # Only allow declarative credentials; Required for password to be set via sops during system activation!

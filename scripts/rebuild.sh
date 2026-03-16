@@ -93,6 +93,11 @@ if [ $? -eq 0 ]; then
 
 	# Check if there are any pending changes that would affect the build succeeding.
 	if git diff --exit-code >/dev/null && git diff --staged --exit-code >/dev/null; then
+		if ! git config user.name >/dev/null || ! git config user.email >/dev/null; then
+			yellow "Git identity not configured in this repo; skipping buildable tag"
+			exit 0
+		fi
+
 		# Check if the current commit has a buildable tag
 		if git tag --points-at HEAD | grep -q buildable; then
 			yellow "Current commit is already tagged as buildable"
