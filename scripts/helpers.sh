@@ -98,7 +98,11 @@ function sops_add_shared_creation_rules() {
 			yq -i "($shared_selector).key_groups[].age[-1] alias = $h" "$SOPS_FILE"
 		fi
 	else
-		red "shared.yaml rule not found"
+		green "Adding new shared.yaml creation rule"
+		yq -i '.creation_rules += [{"path_regex":"shared\\.yaml$","key_groups":[{"age":[]}] }]' "$SOPS_FILE"
+		yq -i "($shared_selector).key_groups[].age += [$u, $h]" "$SOPS_FILE"
+		yq -i "($shared_selector).key_groups[].age[-2] alias = $u" "$SOPS_FILE"
+		yq -i "($shared_selector).key_groups[].age[-1] alias = $h" "$SOPS_FILE"
 	fi
 }
 
@@ -113,7 +117,8 @@ function sops_add_host_creation_rules() {
 	host_selector=".creation_rules[] | select(.path_regex | contains(\"${host}\.yaml\"))"
 	if [[ -z $(yq "$host_selector" "${SOPS_FILE}") ]]; then
 		green "Adding new host file creation rule"
-		yq -i ".creation_rules += {\"path_regex\": \"${host}\\.yaml$\", \"key_groups\": [{\"age\": [$u, $h]}]}" "$SOPS_FILE"
+		yq -i ".creation_rules += [{\"path_regex\": \"${host}\\.yaml$\", \"key_groups\": [{\"age\": [$u, $h]}]}]" "$SOPS_FILE"
+		yq -i "($host_selector).key_groups[].age += [$w, $n]" "$SOPS_FILE"
 		# Add aliases one by one
 		yq -i "($host_selector).key_groups[].age[0] alias = $u" "$SOPS_FILE"
 		yq -i "($host_selector).key_groups[].age[1] alias = $h" "$SOPS_FILE"
@@ -158,6 +163,20 @@ function sops_setup_user_age_key() {
 
 	secret_file="${nix_secrets_dir}/sops/${target_hostname}.yaml"
 	config="${nix_secrets_dir}/.sops.yaml"
+
+	# Some callers pass args as <host> <user>. If host key exists only for the first arg,
+	# swap to preserve backward compatibility with existing workflows/tests.
+	if [[ -f $config ]]; then
+		host_for_hostname=$(yq ".keys.hosts[] | select(anchor == \"${target_hostname}\")" "$config" || true)
+		host_for_user=$(yq ".keys.hosts[] | select(anchor == \"${target_user}\")" "$config" || true)
+		if [[ -z $host_for_hostname && -n $host_for_user ]]; then
+			tmp_user="$target_user"
+			target_user="$target_hostname"
+			target_hostname="$tmp_user"
+			secret_file="${nix_secrets_dir}/sops/${target_hostname}.yaml"
+		fi
+	fi
+
 	# If the secret file doesn't exist, it means we're generating a new user key as well
 	if [ ! -f "$secret_file" ]; then
 		green "Host secret file does not exist. Creating $secret_file"

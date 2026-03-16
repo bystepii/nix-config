@@ -8,8 +8,17 @@
   bats-test =
     pkgs.runCommand "bats-test"
       {
-        src = ../.;
-        buildInputs = builtins.attrValues { inherit (pkgs) bats yq-go inetutils; };
+        src = ./.;
+        buildInputs = builtins.attrValues {
+          inherit (pkgs)
+            bats
+            yq-go
+            inetutils
+            sops
+            age
+            ripgrep
+            ;
+        };
       }
       ''
         cd $src
