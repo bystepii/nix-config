@@ -63,6 +63,7 @@
       enable = true;
       ports = [ 22 ];
       settings.PermitRootLogin = "yes";
+      settings.PubkeyAcceptedAlgorithms = "+ssh-rsa";
       authorizedKeysFiles = lib.mkForce [ "/etc/ssh/authorized_keys.d/%u" ];
     };
   };
