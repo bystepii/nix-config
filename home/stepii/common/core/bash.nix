@@ -6,7 +6,6 @@
     shellAliases = {
     };
 
-    initExtra = ''
-   '';
+    initExtra = '''';
   };
 }

@@ -10,8 +10,8 @@
   imports = lib.flatten [
     # FIXME(starter): comment/uncomment the following two lines depending on if you want a cli-only, minimal iso, or a graphical iso that installs gnome
     # If you are planning to make use of `nix-config/nixos-installer`, you will not require a graphical iso.
-    "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-    #"${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
+    #"${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+    "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
     "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
     # This is overkill but I want my core home level utils if I need to use the iso environment for recovery purpose
     inputs.home-manager.nixosModules.home-manager
@@ -27,12 +27,12 @@
   hostSpec = {
     hostName = "iso";
     # FIXME(starter): the username below will be available in additional the the standard `root` and `nixos` users from the nixos installation image.
-    username = "hiro";
+    username = "stepii";
     isProduction = lib.mkForce false;
 
     # FIXME(starter): add your github username and github-noreply email address
-    handle = "hiroprotagonist";
-    email.gitHub = "foo@users.noreply.github.com";
+    handle = "stepii";
+    email.gitHub = "stepii@users.noreply.github.com";
   };
 
   # root's ssh key are mainly used for remote deployment

@@ -3,7 +3,7 @@
 
 #############################################################
 #
-#  Hostname1 - Example Desktop
+#  nix-vm - Example Desktop
 #
 ###############################################################
 
@@ -30,9 +30,9 @@
     # must modify or create new dikso specs.
     {
       _module.args = {
-        disk = "/dev/nvme0n1";
+        disk = "/dev/vda";
         withSwap = true;
-        swapSize = 16;
+        swapSize = 4;
       };
     }
 
@@ -48,7 +48,7 @@
       # FIXME(starter): the primary user, defined in `nix-config/hosts/common/users`, is added by default, via
       # `hosts/common/core` above.
       # To create additional users, specify the path to their config file, as shown in the commented line below, and create/modify
-      # the specified file as required. See `nix-config/hosts/common/users/exampleSecondUser` for more info. 
+      # the specified file as required. See `nix-config/hosts/common/users/exampleSecondUser` for more info.
 
       #"hosts/common/users/exampleSecondUser"
 
@@ -71,7 +71,7 @@
   # more than one host can be declared in `nix-config/hosts/common/core/` see the default.nix file there
   # for examples.
   hostSpec = {
-    hostName = "hostname1";
+    hostName = "nix-vm";
   };
 
   networking = {
