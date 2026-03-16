@@ -79,6 +79,7 @@
     qemuGuest.enable = true;
     openssh = {
       settings.PermitRootLogin = lib.mkForce "yes";
+      settings.PubkeyAcceptedAlgorithms = "+ssh-rsa";
     };
   };
 

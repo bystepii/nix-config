@@ -34,6 +34,10 @@ rebuild-trace: rebuild-pre && rebuild-post
   scripts/rebuild.sh trace
   just check
 
+# Run remote bootstrap installer flow for a target host
+bootstrap HOST DESTINATION SSH_KEY ARGS="":
+	scripts/bootstrap-nixos.sh -n {{HOST}} -d {{DESTINATION}} -k {{SSH_KEY}} {{ARGS}}
+
 # Update the flake
 update:
   nix flake update

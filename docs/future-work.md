@@ -38,7 +38,19 @@ Target: use YubiKey broadly across the system while retaining backup access path
   - lockscreen unlock
   - sudo authentication
   - nix-secrets/sops-related access and operational workflows
+  - age private key operations for secrets workflows (decrypt/edit/rekey) with YubiKey-backed mechanisms
 - Keep non-YubiKey fallback credentials only for recovery scenarios.
+
+## Nix-Secrets Scheme Migration (Later)
+
+- Current state: this starter setup uses the `simple` `nix-secrets` scheme.
+- Target state: migrate to the `complex` scheme after VM baseline is stable.
+- Reference implementation source:
+  - https://github.com/EmergentMind/nix-config
+- Migration goals:
+  - preserve current bootstrap/install workflow while moving to `complex`
+  - align `hosts/common/core/sops.nix` and related home/user sops modules with upstream complex patterns
+  - validate end-to-end key management, creation rules, and rebuild flow in VM before physical hosts
 
 ## Notes
 
