@@ -1,11 +1,16 @@
 # `...` is needed because dikso passes diskoFile
 {
   lib,
+  config,
   disk ? "/dev/vda",
   withSwap ? false,
   swapSize,
   ...
 }:
+let
+  useImpermanence =
+    config ? system && config.system ? impermanence && config.system.impermanence.enable;
+in
 {
   disko.devices = {
     disk = {
@@ -50,6 +55,17 @@
                       "noatime"
                     ];
                   };
+                }
+                // (lib.optionalAttrs useImpermanence {
+                  "@persist" = {
+                    mountpoint = config.hostSpec.persistFolder;
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
+                })
+                // {
                   "@swap" = lib.mkIf withSwap {
                     mountpoint = "/.swapvol";
                     swap.swapfile.size = "${swapSize}G";

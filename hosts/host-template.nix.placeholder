@@ -20,7 +20,7 @@ in
     #
     # ========== Disk Layout ==========
     #
-    #inputs.disko.nixosModules.disko
+    # Uses shared reusable disk module from modules/hosts/nixos/disks.nix
 
     #
     # ========== Misc Inputs ==========
@@ -50,6 +50,14 @@ in
     hostName = "foo";
     scaling = lib.mkForce "1";
   };
+
+  # Shared disk module options (see modules/hosts/nixos/disks.nix)
+  # system.disks = {
+  #   enable = true;
+  #   primary = "/dev/vda";
+  #   useLuks = false;
+  #   swapSize = 4;
+  # };
 
   networking = {
     networkmanager.enable = true;

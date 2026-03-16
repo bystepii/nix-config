@@ -61,7 +61,7 @@
         };
         persistFolder = lib.mkOption {
           type = lib.types.str;
-          description = "The folder to persist data if impermenance is enabled";
+          description = "The folder to persist data if impermanence is enabled";
           default = "";
         };
 
@@ -96,6 +96,11 @@
           type = lib.types.bool;
           default = false;
           description = "Used to indicate a host that is darwin";
+        };
+        isImpermanent = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Used to indicate a host with ephemeral root and persisted state";
         };
         useYubikey = lib.mkOption {
           type = lib.types.bool;

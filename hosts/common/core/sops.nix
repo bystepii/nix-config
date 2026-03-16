@@ -14,6 +14,11 @@ let
   sharedSecretsFile = "${sopsFolder}/sops/shared.yaml";
   hasSharedSecrets = builtins.pathExists sharedSecretsFile;
   passwordSecretsFile = if hasSharedSecrets then sharedSecretsFile else hostSecretsFile;
+  hostSshKeyPath =
+    if (config ? system && config.system ? impermanence && config.system.impermanence.enable) then
+      "${config.hostSpec.persistFolder}/etc/ssh/ssh_host_ed25519_key"
+    else
+      "/etc/ssh/ssh_host_ed25519_key";
 in
 {
   #the import for inputs.sops-nix.nixosModules.sops is handled in hosts/common/core/default.nix so that it can be dynamically input according to the platform
@@ -23,7 +28,10 @@ in
     validateSopsFiles = false;
     age = {
       # automatically import host SSH keys as age keys
-      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+      sshKeyPaths = [
+        hostSshKeyPath
+        "/etc/ssh/ssh_host_ed25519_key"
+      ];
     };
     # secrets will be output to /run/secrets
     # e.g. /run/secrets/msmtp-password

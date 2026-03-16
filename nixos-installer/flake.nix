@@ -5,6 +5,7 @@
     # FIXME(starter): adjust nixos version for the minimal environment as desired.
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     disko.url = "github:nix-community/disko"; # Declarative partitioning and formatting
+    impermanence.url = "github:nix-community/impermanence";
   };
 
   outputs =
@@ -22,40 +23,39 @@
       };
 
       newConfig =
-        name: disk: swapSize:
-        (
-          let
-            diskSpecPath = ../hosts/common/disks/btrfs-disk.nix;
-          in
-          nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            specialArgs = minimalSpecialArgs;
-            modules = [
-              inputs.disko.nixosModules.disko
-              diskSpecPath
-              {
-                _module.args = {
-                  inherit disk;
-                  withSwap = swapSize > 0;
-                  swapSize = builtins.toString swapSize;
-                };
-              }
-              ./minimal-configuration.nix
-              ../hosts/nixos/${name}/hardware-configuration.nix
+        name: disk: swapSize: impermanence:
+        nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = minimalSpecialArgs;
+          modules = [
+            # Shared reusable disk module (imports disko internally)
+            ../modules/hosts/nixos/disks.nix
+            ../modules/hosts/nixos/impermanence
+            {
+              hostSpec.persistFolder = "/persist";
+              system.disks = {
+                enable = true;
+                primary = disk;
+                useLuks = false;
+                swapSize = if swapSize > 0 then swapSize else null;
+              };
+              system.impermanence.enable = impermanence;
+            }
+            ./minimal-configuration.nix
+            ../hosts/nixos/${name}/hardware-configuration.nix
 
-              { networking.hostName = name; }
-            ];
-          }
-        );
+            { networking.hostName = name; }
+          ];
+        };
     in
     {
       nixosConfigurations = {
         # This should mimic what is specified in the respective `nix-config/hosts/[platform]/[hostname]/default.nix`
         # Add entries for each host you will be bootstrapping
 
-        # host = newConfig "name" disk" "swapSize"
+        # host = newConfig "name" "disk" swapSize impermanence
         # Swap size is in GiB
-        nix-vm = newConfig "nix-vm" "/dev/vda" 4;
+        nix-vm = newConfig "nix-vm" "/dev/vda" 4 true;
       };
     };
 }

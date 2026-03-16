@@ -15,7 +15,7 @@
 }:
 {
   default = pkgs.mkShell {
-    NIX_CONFIG = "extra-experimental-features = nix-command flakes";
+    NIX_CONFIG = "extra-experimental-features = nix-command flakes pipe-operators";
     BOOTSTRAP_USER = "stepii";
     BOOTSTRAP_SSH_PORT = "22";
     BOOTSTRAP_SSH_KEY = "~/.ssh/id_manu";

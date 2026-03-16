@@ -8,7 +8,6 @@
 ###############################################################
 
 {
-  inputs,
   lib,
   ...
 }:
@@ -18,23 +17,6 @@
     # ========== Hardware ==========
     #
     ./hardware-configuration.nix
-
-    #
-    # ========== Disk Layout ==========
-    #
-    inputs.disko.nixosModules.disko
-    # FIXME(starter): modify with the disko spec file you want to use.
-    (lib.custom.relativeToRoot "hosts/common/disks/btrfs-disk.nix")
-    # FIXME(starter): modify the options below to inform disko of the host's disk path and swap requirements.
-    # IMPORTANT: nix-config-starter assumes a single disk per host. If you require more disks, you
-    # must modify or create new dikso specs.
-    {
-      _module.args = {
-        disk = "/dev/vda";
-        withSwap = true;
-        swapSize = 4;
-      };
-    }
 
     (map lib.custom.relativeToRoot [
       #
@@ -72,6 +54,21 @@
   # for examples.
   hostSpec = {
     hostName = "nix-vm";
+    persistFolder = "/persist";
+    isImpermanent = true;
+  };
+
+  system.impermanence = {
+    enable = true;
+    autoPersistHomes = true;
+  };
+
+  # Reuse shared disk module instead of host-local disko args.
+  system.disks = {
+    enable = true;
+    primary = "/dev/vda";
+    useLuks = false;
+    swapSize = 4;
   };
 
   networking = {

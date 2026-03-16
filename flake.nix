@@ -152,6 +152,10 @@
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Ephemeral root with persisted paths
+    impermanence = {
+      url = "github:nix-community/impermanence";
+    };
     # Pre-commit
     pre-commit-hooks = {
       url = "github:cachix/git-hooks.nix";

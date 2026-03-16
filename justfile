@@ -75,7 +75,7 @@ iso-install DRIVE: iso
 # Configure a drive password using disko
 disko DRIVE PASSWORD:
   echo "{{PASSWORD}}" > /tmp/disko-password
-  sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- \
+  sudo nix --experimental-features "nix-command flakes pipe-operators" run github:nix-community/disko -- \
     --mode disko \
     disks/btrfs-luks-impermanence-disko.nix \
     --arg disk '"{{DRIVE}}"' \
