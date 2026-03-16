@@ -163,10 +163,8 @@
     #
     # Private secrets repo.  See ./docs/secretsmgmt.md
     # Authenticates via ssh and use shallow clone
-    # FIXME(starter): The url below points to the 'simple' branch of the public, nix-secrets-reference repository which is inherently INSECURE!
-    # Replace the url with your personal, private nix-secrets repo.
     nix-secrets = {
-      url = "git+ssh://git@github.com/bystepii/nix-secrets.git?ref=simple&shallow=1";
+      url = "git+ssh://git@github.com/bystepii/nix-secrets.git?ref=complex&shallow=1";
       inputs = { };
     };
   };
