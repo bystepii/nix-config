@@ -175,15 +175,25 @@ sudo cryptsetup --verbose open --test-passphrase /path/to/dev/
 ```
 
 #### Enroll yubikeys for touch-based unlock
-Enable yubikey support:
+Enable yubikey support after setting your permanent LUKS passphrase.
 
-NOTE: This requires LUKS2 (use cryptsetup luksDump /path/to/dev/ to check)
+NOTE: This requires LUKS2 (use `cryptsetup luksDump /path/to/dev/` to check)
 
 ```bash
 sudo systemd-cryptenroll --fido2-device=auto /path/to/dev/
 ```
 
 You will need to do it for each yubikey you want to use.
+
+Optional helper script from `nix-config/` root:
+
+```bash
+./scripts/enroll-luks-fido2.sh /path/to/dev/
+```
+
+The helper keeps the process manual and interactive, but adds basic safety checks.
+
+Recovery recommendation: keep at least one strong fallback passphrase enrolled so you can still unlock if a token is unavailable.
 
 #### Update the unlock passphrase for secondary drive unlock
 If you passed the `--luks-secondary-drive-labels` arg when running the bootstrap script, it automatically created a `/luks-secondary-unlock.key` file for you using the passphrase you specified during bootstrap.

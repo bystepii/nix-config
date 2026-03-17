@@ -87,36 +87,39 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    boot.initrd =
-      let
-        hostname = config.networking.hostName;
-      in
-      {
-        supportedFilesystems = [ "btrfs" ];
-        systemd.services.btrfs-rollback = {
-          description = "Rollback BTRFS root subvolume to a pristine state";
-          wantedBy = [ "initrd.target" ];
-          wants = lib.optional (!useLuks) rootDeviceUnit;
-          after =
-            if useLuks then
-              [
-                "dev-mapper-cryptprimary.device"
-                "systemd-cryptsetup@${hostname}.service"
-              ]
-            else
-              [ rootDeviceUnit ];
-          before = [ "sysroot.mount" ];
-          unitConfig.DefaultDependencies = "no";
-          serviceConfig = {
-            Type = "oneshot";
-            Environment = [
-              "ROOT_DEVICE=${cfg.rootDevice}"
-              "OLD_ROOT_RETENTION_DAYS=${toString cfg.removeTmpFilesOlderThan}"
-            ];
-          };
-          script = lib.readFile ./btrfs-wipe-root.sh;
+    boot.initrd = {
+      supportedFilesystems = [ "btrfs" ];
+      systemd.services.btrfs-rollback = {
+        description = "Rollback BTRFS root subvolume to a pristine state";
+        wantedBy = [ "initrd.target" ];
+        wants =
+          if useLuks then
+            [
+              "dev-mapper-cryptprimary.device"
+              "systemd-cryptsetup@cryptprimary.service"
+            ]
+          else
+            [ rootDeviceUnit ];
+        after =
+          if useLuks then
+            [
+              "dev-mapper-cryptprimary.device"
+              "systemd-cryptsetup@cryptprimary.service"
+            ]
+          else
+            [ rootDeviceUnit ];
+        before = [ "sysroot.mount" ];
+        unitConfig.DefaultDependencies = "no";
+        serviceConfig = {
+          Type = "oneshot";
+          Environment = [
+            "ROOT_DEVICE=${cfg.rootDevice}"
+            "OLD_ROOT_RETENTION_DAYS=${toString cfg.removeTmpFilesOlderThan}"
+          ];
         };
+        script = lib.readFile ./btrfs-wipe-root.sh;
       };
+    };
 
     fileSystems."${config.hostSpec.persistFolder}".neededForBoot = true;
 

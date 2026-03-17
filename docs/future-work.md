@@ -36,15 +36,18 @@ Target: use YubiKey broadly across the system while retaining backup access path
   - optional host wrapper is added and enabled on `nix-vm` (`hosts/common/optional/yubikey.nix`)
   - Home Manager YubiKey touch detector module is added and enabled on `nix-vm`
   - home sops module now supports conditional YubiKey U2F/SSH secret extraction when `hostSpec.useYubikey = true`
+  - `nix-vm` now enables reusable disko LUKS (`system.disks.useLuks = true`) for full-disk encryption testing
 - Remaining rollout work:
   - add/verify required YubiKey entries in `nix-secrets/sops/shared.yaml` (`keys/u2f`, `keys/ssh/<name>`)
   - validate end-to-end login/sudo/lockscreen behavior in VM and tune toggles
   - enroll backup YubiKey(s) before tightening fallback policy
 
-- Full disk encryption:
-  - initialize LUKS with passphrase first
+- Full disk encryption (upstream-aligned flow):
+  - bootstrap install with passphrase-backed LUKS first
+  - after first boot, change temporary passphrase to permanent passphrase
   - enroll YubiKey(s) with FIDO2 (`systemd-cryptenroll --fido2-device=auto <device>`)
   - keep at least one strong fallback passphrase as break-glass access
+  - optionally use `scripts/enroll-luks-fido2.sh` as a convenience wrapper for manual enrollment
 - Expand YubiKey usage to:
   - user login
   - lockscreen unlock

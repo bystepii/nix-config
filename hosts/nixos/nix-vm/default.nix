@@ -68,7 +68,7 @@
   system.disks = {
     enable = true;
     primary = "/dev/vda";
-    useLuks = false;
+    useLuks = true;
     swapSize = 4;
   };
 

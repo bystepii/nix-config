@@ -30,6 +30,7 @@ Example in this repo:
 From `nix-config`:
 
 - `just bootstrap HOST DESTINATION SSH_KEY [ARGS]`
+- `./scripts/enroll-luks-fido2.sh /path/to/dev/`
 - `just sops-update-user-age-key USER HOST KEY`
 - `just sops-update-host-age-key HOST KEY`
 - `just sops-add-creation-rules USER HOST`
@@ -51,9 +52,10 @@ Ensure these exist:
 Ensure installer has this host entry:
 
 - `nixos-installer/flake.nix`:
-  - `nixosConfigurations.<host> = newConfig "<host>" "<disk>" <swapGiB> <impermanenceBool>;`
+  - `nixosConfigurations.<host> = newConfig "<host>" "<disk>" <swapGiB> <impermanenceBool> <useLuksBool>;`
 
 If the host uses impermanence, set `<impermanenceBool>` to `true`.
+If the host uses encrypted root in its main host config, set `<useLuksBool>` to `true` here as well.
 
 ### 1a. Impermanence preflight (required for impermanent hosts)
 
@@ -63,7 +65,7 @@ Impermanence hosts require `@persist` to exist from install time. That only happ
 Example:
 
 ```nix
-nix-vm = newConfig "nix-vm" "/dev/vda" 4 true;
+nix-vm = newConfig "nix-vm" "/dev/vda" 4 true true;
 ```
 
 If this is `false` (or omitted in older versions), the install may complete, but the first
@@ -165,11 +167,46 @@ Useful optional args:
 Typical prompt answers for a new host:
 
 1. `Run nixos-anywhere installation?` -> `y`
-2. `Generate a new hardware config...?` -> `n` if file already exists, otherwise `y`
-3. `Generate host (ssh-based) age key?` -> `y`
-4. `Generate user age key?` -> `y`
-5. `Copy full nix-config and nix-secrets?` -> `y`
-6. `Rebuild immediately?` -> `y` (or `n` if you want to validate `/persist` mount first)
+2. `Manually set luks encryption passphrase?` -> `y` (recommended; set a temporary passphrase if you plan to rotate it post-install)
+3. `Generate a new hardware config...?` -> `n` if file already exists, otherwise `y`
+4. `Generate host (ssh-based) age key?` -> `y`
+5. `Generate user age key?` -> `y`
+6. `Copy full nix-config and nix-secrets?` -> `y`
+7. `Rebuild immediately?` -> `y` (or `n` if you want to validate `/persist` mount first)
+
+### 6a. Post-install LUKS + YubiKey enrollment (for encrypted hosts)
+
+If the host uses LUKS, finish these steps after first boot.
+
+1. Confirm the device is LUKS2:
+
+```bash
+sudo cryptsetup luksDump /path/to/dev/
+```
+
+2. If you used a temporary passphrase during bootstrap, rotate it:
+
+```bash
+sudo cryptsetup --verbose open --test-passphrase /path/to/dev/
+sudo cryptsetup luksChangeKey /path/to/dev/
+sudo cryptsetup --verbose open --test-passphrase /path/to/dev/
+```
+
+3. Enroll YubiKey(s) for touch-based unlock:
+
+```bash
+sudo systemd-cryptenroll --fido2-device=auto /path/to/dev/
+```
+
+Repeat enrollment once per key, including backup YubiKey(s).
+
+Optional helper wrapper from `nix-config` root:
+
+```bash
+./scripts/enroll-luks-fido2.sh /path/to/dev/
+```
+
+Keep at least one strong fallback passphrase enrolled for recovery.
 
 ### 7. Validate
 
@@ -287,13 +324,15 @@ Likely cause:
 - host was installed without impermanence enabled in `nixos-installer/flake.nix`
 - so the `@persist` subvolume was never created
 - later rebuild enabled impermanence and expected `/persist`, causing activation/mount failures
+- or installer `useLuks` was `false` while host config expects `system.disks.useLuks = true`, causing boot-time root device mismatch
 
 Fix:
 
 1. Set the host installer entry to use impermanence (`... swapGiB true`).
-2. Reinstall the host (fresh VM is simplest and safest).
-3. Bootstrap again using `--impermanence`.
-4. Verify `/persist` is mounted before/after the first rebuild.
+2. Ensure installer `useLuks` matches the host config (`... true true` for impermanence + LUKS).
+3. Reinstall the host (fresh VM is simplest and safest).
+4. Bootstrap again using `--impermanence`.
+5. Verify `/persist` is mounted before/after the first rebuild.
 
 ## Recommended Routine After Any Key Changes
 

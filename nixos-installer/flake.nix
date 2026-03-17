@@ -23,7 +23,7 @@
       };
 
       newConfig =
-        name: disk: swapSize: impermanence:
+        name: disk: swapSize: impermanence: useLuks:
         nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = minimalSpecialArgs;
@@ -36,7 +36,7 @@
               system.disks = {
                 enable = true;
                 primary = disk;
-                useLuks = false;
+                inherit useLuks;
                 swapSize = if swapSize > 0 then swapSize else null;
               };
               system.impermanence.enable = impermanence;
@@ -53,9 +53,9 @@
         # This should mimic what is specified in the respective `nix-config/hosts/[platform]/[hostname]/default.nix`
         # Add entries for each host you will be bootstrapping
 
-        # host = newConfig "name" "disk" swapSize impermanence
+        # host = newConfig "name" "disk" swapSize impermanence useLuks
         # Swap size is in GiB
-        nix-vm = newConfig "nix-vm" "/dev/vda" 4 true;
+        nix-vm = newConfig "nix-vm" "/dev/vda" 4 true true;
       };
     };
 }
