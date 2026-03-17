@@ -18,7 +18,7 @@ This guide documents the end-to-end host lifecycle for this repository:
 
 - You run commands from `nix-config` unless stated otherwise.
 - The target host already has a host directory in `hosts/nixos/<host>/`.
-- `nixos-installer/flake.nix` contains an entry for the host.
+- `flake.nix` contains a `minimalHostInstallers` entry for the host.
 
 Example in this repo:
 
@@ -49,10 +49,10 @@ Ensure these exist:
 - `hosts/nixos/<host>/hardware-configuration.nix`
 - `home/<user>/<host>.nix` (if used by your HM layout)
 
-Ensure installer has this host entry:
+Ensure the main flake has this host installer entry:
 
-- `nixos-installer/flake.nix`:
-  - `nixosConfigurations.<host> = newConfig "<host>" "<disk>" <swapGiB> <impermanenceBool> <useLuksBool>;`
+- `flake.nix`:
+  - `minimalHostInstallers.<host> = { disk = "<disk>"; swapSize = <swapGiB>; impermanence = <impermanenceBool>; useLuks = <useLuksBool>; };`
 
 If the host uses impermanence, set `<impermanenceBool>` to `true`.
 If the host uses encrypted root in its main host config, set `<useLuksBool>` to `true` here as well.
@@ -60,12 +60,17 @@ If the host uses encrypted root in its main host config, set `<useLuksBool>` to 
 ### 1a. Impermanence preflight (required for impermanent hosts)
 
 Impermanence hosts require `@persist` to exist from install time. That only happens if
-`nixos-installer/flake.nix` enables impermanence for that host entry.
+`flake.nix` enables impermanence for that host entry in `minimalHostInstallers`.
 
 Example:
 
 ```nix
-nix-vm = newConfig "nix-vm" "/dev/vda" 4 true true;
+minimalHostInstallers.nix-vm = {
+  disk = "/dev/vda";
+  swapSize = 4;
+  impermanence = true;
+  useLuks = true;
+};
 ```
 
 If this is `false` (or omitted in older versions), the install may complete, but the first
@@ -236,9 +241,9 @@ Delete host files from `nix-config`:
 - `hosts/nixos/<host>/`
 - `home/<user>/<host>.nix` (if present)
 
-Remove installer entry from `nixos-installer/flake.nix`:
+Remove installer entry from `flake.nix`:
 
-- remove `nixosConfigurations.<host> = newConfig ...`
+- remove `minimalHostInstallers.<host> = { ... };`
 
 ### 2. Remove host secrets files
 
@@ -269,7 +274,7 @@ just update-nix-secrets
 ### 5. Validate no dangling references
 
 ```bash
-rg "<host>" hosts home nixos-installer
+rg "<host>" hosts home flake.nix
 just check
 ```
 
@@ -321,7 +326,7 @@ Fix:
 
 Likely cause:
 
-- host was installed without impermanence enabled in `nixos-installer/flake.nix`
+- host was installed without impermanence enabled in `flake.nix` `minimalHostInstallers`
 - so the `@persist` subvolume was never created
 - later rebuild enabled impermanence and expected `/persist`, causing activation/mount failures
 - or installer `useLuks` was `false` while host config expects `system.disks.useLuks = true`, causing boot-time root device mismatch

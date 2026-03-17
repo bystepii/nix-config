@@ -18,28 +18,23 @@
 
   hostSpec = {
     isMinimal = lib.mkForce true;
-    hostName = "installer";
-    # FIXME(starter): Add your primary username or whatever user you want to use for installation
     username = "stepii";
   };
 
-  fileSystems."/boot".options = [ "umask=0077" ]; # Removes permissions and security warnings.
+  fileSystems."/boot".options = [ "umask=0077" ];
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot = {
     enable = true;
-    # we use Git for version control, so we don't need to keep too many generations.
     configurationLimit = lib.mkDefault 3;
-    # pick the highest resolution for systemd-boot's console.
     consoleMode = lib.mkDefault "max";
   };
   boot.initrd = {
     systemd.enable = true;
-    systemd.emergencyAccess = true; # Don't need to enter password in emergency mode
+    systemd.emergencyAccess = true;
   };
   boot.kernelParams = [
     "systemd.setenv=SYSTEMD_SULOGIN_FORCE=1"
     "systemd.show_status=true"
-    #"systemd.log_level=debug"
     "systemd.log_target=console"
     "systemd.journald.forward_to_console=1"
   ];
@@ -69,7 +64,6 @@
   };
 
   nix = {
-    # registry and nixPath shouldn't be required here because flakes but removal results in warning spam on build
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
@@ -77,6 +71,7 @@
       experimental-features = [
         "nix-command"
         "flakes"
+        "pipe-operators"
       ];
       warn-dirty = false;
     };

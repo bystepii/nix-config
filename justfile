@@ -1,14 +1,15 @@
 SOPS_FILE := "../nix-secrets/.sops.yaml"
 
 # Define path to helpers
-export HELPERS_PATH := justfile_directory() + "/scripts/helpers.sh"
+export HELPERS_PATH := env_var('HELPERS_PATH')
 
 # default recipe to display help information
 default:
   @just --list
 
 # Update commonly changing flakes and prep for a rebuild
-rebuild-pre: update-nix-secrets
+rebuild-pre HOST=`hostname`:
+  @just update-nix-secrets {{HOST}}
   @git add --intent-to-add .
 
 # Run post-rebuild checks, like if sops is running properly afterwards
@@ -17,26 +18,28 @@ rebuild-post: check-sops
 # Run a flake check on the config and installer
 check ARGS="":
 	NIXPKGS_ALLOW_UNFREE=1 REPO_PATH=$(pwd) nix flake check --impure --keep-going --show-trace {{ARGS}}
-	cd nixos-installer && NIXPKGS_ALLOW_UNFREE=1 REPO_PATH=$(pwd) nix flake check --impure --keep-going --show-trace {{ARGS}}
 
 # Rebuild the system
-rebuild: rebuild-pre && rebuild-post
+rebuild HOST=`hostname`:
   # NOTE: Add --option eval-cache false if you end up caching a failure you can't get around
-  scripts/rebuild.sh
+  just rebuild-host {{HOST}}
+  just rebuild-post
 
 # Rebuild the system and run a flake check
-rebuild-full: rebuild-pre && rebuild-post
-  scripts/rebuild.sh
+rebuild-full HOST=`hostname`:
+  just rebuild-host {{HOST}}
+  just rebuild-post
   just check
 
 # Rebuild the system and run a flake check
-rebuild-trace: rebuild-pre && rebuild-post
-  scripts/rebuild.sh trace
+rebuild-trace HOST=`hostname`:
+  just rebuild-host {{HOST}}
+  just rebuild-post
   just check
 
 # Run remote bootstrap installer flow for a target host
 bootstrap HOST DESTINATION SSH_KEY ARGS="":
-	scripts/bootstrap-nixos.sh -n {{HOST}} -d {{DESTINATION}} -k {{SSH_KEY}} {{ARGS}}
+  bootstrap-nixos -n {{HOST}} -d {{DESTINATION}} -k {{SSH_KEY}} {{ARGS}}
 
 # Update the flake
 update:
@@ -55,10 +58,10 @@ age-key:
 
 # Check if sops-nix activated successfully
 check-sops:
-  scripts/check-sops.sh
+  check-sops
 
 # Update nix-secrets flake
-update-nix-secrets:
+update-nix-secrets HOST=`hostname`:
   @(cd ../nix-secrets && git fetch && git rebase > /dev/null) || true
   nix flake update nix-secrets --timeout 5
 
@@ -89,6 +92,11 @@ sync USER HOST PATH:
 # Run nixos-rebuild on the remote host
 build-host HOST:
 	NIX_SSHOPTS="-p22" nixos-rebuild --target-host {{HOST}} --use-remote-sudo --show-trace --impure --flake .#"{{HOST}}" switch
+
+# Rebuild the specified host from this repository
+rebuild-host HOST=`hostname`:
+  @just rebuild-pre {{HOST}}
+  @rebuild-host {{HOST}}
 
 # Called by the rekey recipe
 sops-rekey:

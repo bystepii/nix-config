@@ -48,21 +48,30 @@ in
       inherit pkgs inputs;
       hostSpec = config.hostSpec;
     };
-    users.${hostSpec.username}.imports = lib.flatten (
-      lib.optional (!hostSpec.isMinimal) [
-        (
-          { config, ... }:
-          import (lib.custom.relativeToRoot "home/${hostSpec.username}/${hostSpec.hostName}.nix") {
-            inherit
-              pkgs
-              inputs
-              config
-              lib
-              hostSpec
-              ;
-          }
-        )
-      ]
-    );
+    users.${hostSpec.username} = {
+      # Upstream pattern: always provide these required HM fields so minimal
+      # profiles don't fail assertions.
+      home = {
+        stateVersion = lib.mkDefault "24.11";
+        homeDirectory = lib.mkDefault "/home/${hostSpec.username}";
+        username = lib.mkDefault hostSpec.username;
+      };
+      imports = lib.flatten (
+        lib.optional (!hostSpec.isMinimal) [
+          (
+            { config, ... }:
+            import (lib.custom.relativeToRoot "home/${hostSpec.username}/${hostSpec.hostName}.nix") {
+              inherit
+                pkgs
+                inputs
+                config
+                lib
+                hostSpec
+                ;
+            }
+          )
+        ]
+      );
+    };
   };
 }

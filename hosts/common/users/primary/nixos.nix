@@ -22,7 +22,6 @@ in
   users.users.${hostSpec.username} = {
     home = "/home/${hostSpec.username}";
     isNormalUser = true;
-    hashedPasswordFile = sopsHashedPasswordFile; # Blank if sops is not working.
 
     extraGroups = lib.flatten [
       "wheel"
@@ -36,6 +35,9 @@ in
         "lp" # for print/scan"
       ])
     ];
+  }
+  // lib.optionalAttrs (sopsHashedPasswordFile != "") {
+    hashedPasswordFile = sopsHashedPasswordFile;
   };
 
   # No matter what environment we are in we want these tools for root, and the user(s)
@@ -44,8 +46,10 @@ in
   # root's ssh key are mainly used for remote deployment, borg, and some other specific ops
   users.users.root = {
     shell = pkgs.bash;
-    hashedPasswordFile = config.users.users.${hostSpec.username}.hashedPasswordFile;
     hashedPassword = config.users.users.${hostSpec.username}.hashedPassword; # This comes from hosts/common/optional/minimal.nix and gets overridden if sops is working
     openssh.authorizedKeys.keys = config.users.users.${hostSpec.username}.openssh.authorizedKeys.keys; # root's ssh keys are mainly used for remote deployment.
+  }
+  // lib.optionalAttrs (sopsHashedPasswordFile != "") {
+    hashedPasswordFile = sopsHashedPasswordFile;
   };
 }

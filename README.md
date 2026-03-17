@@ -30,7 +30,7 @@ Note that my actual nix-config has already deviated from this repository and wil
 - a clone of this repository that you will configure according to your needs (instructions below)
 - a clone of my `nix-secrets-reference` repository (simple branch) that you will configure according to you needs (instructions below)
 
-NOTE: You may have noticed that this repo includes a directory called `nixos-installer`. The installer included there is oriented towards installing NixOS and nix-config on a remote host _from_ a machine already running NixOS and the nix-config. While it can technically be used otherwise, I don't recommend doing so for new users. If you are installing to a remote target, and are already comfortable with nix configuration, you can use it at your own discretion. Information on how it works is referenced below in the [Installation on Remote Targets](#installation-on-remote-targets) section below.
+NOTE: Remote installation now uses minimal installer outputs exposed directly from the main `flake.nix` (for example, `nixosConfigurations.<host>Minimal`) and is orchestrated by `bootstrap-nixos` from `introdus`.
 
 ## How To Use
 
@@ -120,7 +120,18 @@ If there are any specific references you are looking for or that you think shoul
 
 ## Installation on Remote Targets
 
-For details on how to use the nixos-installer directory and `scripts/bootstrap-nixos.sh` script, please see my article and accompanying YouTube video [Remotely Installing NixOS and nix-config with Secrets](https://unmovedcentre.com/posts/remote-install-nixos-config/).
+For details on remote installation workflow and `bootstrap-nixos`, please see my article and accompanying YouTube video [Remotely Installing NixOS and nix-config with Secrets](https://unmovedcentre.com/posts/remote-install-nixos-config/). If examples reference `nixos-installer`, map them to the main flake's `nixosConfigurations.<host>Minimal` outputs.
+
+### Script Parity Notes
+
+This repo follows upstream behavior and relies on `introdus` for:
+
+- `bootstrap-nixos`
+- `check-sops`
+- `rebuild-host`
+- helper functions sourced through `HELPERS_PATH`
+
+Scripts that are not supplied by `introdus` are kept locally (for example, `scripts/enroll-luks-fido2.sh`).
 
 
 ## Support This Project

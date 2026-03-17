@@ -24,6 +24,64 @@
       # see: https://github.com/nix-community/home-manager/pull/3454
       lib = nixpkgs.lib.extend (self: super: { custom = import ./lib { inherit (nixpkgs) lib; }; });
 
+      hostNames = builtins.attrNames (builtins.readDir ./hosts/nixos);
+
+      mkHost = host: {
+        name = host;
+        value = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs outputs lib;
+            isDarwin = false;
+          };
+          modules = [ ./hosts/nixos/${host} ];
+        };
+      };
+
+      # Minimal installer-oriented host profiles folded into the main flake.
+      minimalHostInstallers = {
+        # host = { disk = "/dev/<disk>"; swapSize = <GiB>; impermanence = <bool>; useLuks = <bool>; };
+        nix-vm = {
+          disk = "/dev/vda";
+          swapSize = 4;
+          impermanence = true;
+          useLuks = true;
+        };
+      };
+
+      mkMinimalHost =
+        host: cfg:
+        nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit inputs outputs lib;
+            isDarwin = false;
+          };
+          modules = [
+            ./modules/hosts/nixos/disks.nix
+            ./modules/hosts/nixos/impermanence
+            inputs.home-manager.nixosModules.home-manager
+            {
+              hostSpec.hostName = lib.mkDefault host;
+              hostSpec.persistFolder = "/persist";
+              system.disks = {
+                enable = true;
+                primary = cfg.disk;
+                inherit (cfg) useLuks;
+                swapSize = if cfg.swapSize > 0 then cfg.swapSize else null;
+              };
+              system.impermanence.enable = cfg.impermanence;
+            }
+            ./hosts/common/optional/minimal-configuration.nix
+            ./hosts/nixos/${host}/hardware-configuration.nix
+            { networking.hostName = host; }
+          ];
+        };
+
+      minimalNixosConfigurations = lib.mapAttrs' (host: cfg: {
+        name = "${host}Minimal";
+        value = mkMinimalHost host cfg;
+      }) minimalHostInstallers;
+
     in
     {
       #
@@ -36,18 +94,7 @@
       # ========= Host Configurations =========
       #
       # Building configurations is available through `just rebuild` or `nixos-rebuild --flake .#hostname`
-      nixosConfigurations = builtins.listToAttrs (
-        map (host: {
-          name = host;
-          value = nixpkgs.lib.nixosSystem {
-            specialArgs = {
-              inherit inputs outputs lib;
-              isDarwin = false;
-            };
-            modules = [ ./hosts/nixos/${host} ];
-          };
-        }) (builtins.attrNames (builtins.readDir ./hosts/nixos))
-      );
+      nixosConfigurations = builtins.listToAttrs (map mkHost hostNames) // minimalNixosConfigurations;
 
       # darwinConfigurations = builtins.listToAttrs (
       #   map (host: {
@@ -106,8 +153,17 @@
       # Custom shell for bootstrapping on new hosts, modifying nix-config, and secrets management
       devShells = forAllSystems (
         system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [
+              inputs.introdus.overlays.default
+              self.overlays.default
+            ];
+          };
+        in
         import ./shell.nix {
-          pkgs = nixpkgs.legacyPackages.${system};
+          inherit pkgs;
           checks = self.checks.${system};
         }
       );
@@ -165,6 +221,11 @@
     #
     # ========= Personal Repositories =========
     #
+    introdus = {
+      url = "git+https://codeberg.org/fidgetingbits/introdus?shallow=1&ref=ta";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Private secrets repo.  See ./docs/secretsmgmt.md
     # Authenticates via ssh and use shallow clone
     nix-secrets = {
