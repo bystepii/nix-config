@@ -103,6 +103,31 @@
           default = false;
           description = "Used to indicate a host that uses work resources";
         };
+        isDevelopment = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Used to indicate a host used for development";
+        };
+        isRoaming = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Used to indicate a roaming host for wireless, battery use, etc";
+        };
+        isRemote = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Used to indicate a host that is remotely managed";
+        };
+        isLocal = lib.mkOption {
+          type = lib.types.bool;
+          default = !config.hostSpec.isRemote;
+          description = "Used to indicate a host that is locally managed";
+        };
+        isAdmin = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Used to indicate a host used to administer other systems";
+        };
         # Sometimes we can't use pkgs.stdenv.isLinux due to infinite recursion
         isDarwin = lib.mkOption {
           type = lib.types.bool;
@@ -129,6 +154,11 @@
           default = false;
           description = "Used to indicate a host that wants auto styling like stylix";
         };
+        theme = lib.mkOption {
+          type = lib.types.str;
+          default = "dracula";
+          description = "Theme label used by optional styling modules";
+        };
         useNeovimTerminal = lib.mkOption {
           type = lib.types.bool;
           default = false;
@@ -154,6 +184,41 @@
           default = "1";
           description = "Used to indicate what scaling to use. Floating point number";
         };
+        useWayland = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Used to indicate a host that uses Wayland";
+        };
+        useX11 = lib.mkOption {
+          type = lib.types.bool;
+          default = if config.hostSpec.useWindowManager && (!config.hostSpec.useWayland) then true else false;
+          description = "Used to indicate a host that uses X11";
+        };
+        defaultBrowser = lib.mkOption {
+          type = lib.types.str;
+          default = "firefox";
+          description = "Default browser command";
+        };
+        defaultEditor = lib.mkOption {
+          type = lib.types.str;
+          default = "nvim";
+          description = "Default editor command";
+        };
+        defaultMediaPlayer = lib.mkOption {
+          type = lib.types.str;
+          default = "vlc";
+          description = "Default media player command";
+        };
+        defaultDesktop = lib.mkOption {
+          type = lib.types.str;
+          default = "niri";
+          description = "Default desktop session identifier";
+        };
+        timeZone = lib.mkOption {
+          type = lib.types.str;
+          default = "Europe/Madrid";
+          description = "Timezone used for host and shared module logic";
+        };
       };
     };
   };
@@ -174,6 +239,10 @@
         {
           assertion = !isImpermanent || (isImpermanent && !("${config.hostSpec.persistFolder}" == ""));
           message = "config.system.impermanence.enable is true but no persistFolder path is provided";
+        }
+        {
+          assertion = !(config.hostSpec.voiceCoding && config.hostSpec.useWayland);
+          message = "voiceCoding requires X11-compatible tooling and should not be enabled with Wayland";
         }
         {
           assertion = lib.elem config.hostSpec.primaryUsername config.hostSpec.users;

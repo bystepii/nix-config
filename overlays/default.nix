@@ -2,40 +2,37 @@
 # This file defines overlays/custom modifications to upstream packages
 #
 
-{ inputs, ... }:
+{ inputs, lib, ... }:
 
 let
-  # Add in custom packages from this config
-  additions =
-    final: prev:
-    (prev.lib.packagesFromDirectoryRecursive {
-      callPackage = prev.lib.callPackageWith final;
-      directory = ../pkgs/common;
-    });
+  overlays = {
+    additions =
+      final: prev:
+      (prev.lib.packagesFromDirectoryRecursive {
+        callPackage = prev.lib.callPackageWith final;
+        directory = ../pkgs/common;
+      });
 
-  linuxModifications = final: prev: prev.lib.mkIf final.stdenv.isLinux { };
+    linuxModifications = _final: _prev: { };
 
-  modifications = final: prev: {
-    # example = prev.example.overrideAttrs (oldAttrs: let ... in {
-    # ...
-    # });
-  };
-
-  stable-packages = final: _prev: {
-    stable = import inputs.nixpkgs-stable {
-      inherit (final) system;
-      config.allowUnfree = true;
-      #overlays = [
-      #];
+    modifications = final: prev: {
+      # example = prev.example.overrideAttrs (oldAttrs: let ... in {
+      # ...
+      # });
     };
-  };
 
-  unstable-packages = final: _prev: {
-    unstable = import inputs.nixpkgs-unstable {
-      inherit (final) system;
-      config.allowUnfree = true;
-      #overlays = [
-      #];
+    stable-packages = final: _prev: {
+      stable = import inputs.nixpkgs-stable {
+        inherit (final) system;
+        config.allowUnfree = true;
+      };
+    };
+
+    unstable-packages = final: _prev: {
+      unstable = import inputs.nixpkgs-unstable {
+        inherit (final) system;
+        config.allowUnfree = true;
+      };
     };
   };
 
@@ -43,10 +40,5 @@ in
 {
   default =
     final: prev:
-
-    (additions final prev)
-    // (modifications final prev)
-    // (linuxModifications final prev)
-    // (stable-packages final prev)
-    // (unstable-packages final prev);
+    lib.attrNames overlays |> map (name: overlays.${name} final prev) |> lib.mergeAttrsList;
 }

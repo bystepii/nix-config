@@ -4,21 +4,15 @@
     {
       self,
       nixpkgs,
+      flake-parts,
       # nix-darwin,
       ...
     }@inputs:
     let
       inherit (self) outputs;
       baseLib = nixpkgs.lib;
-
-      #
-      # ========= Architectures =========
-      #
-      # NOTE(starter): Comment or uncomment architectures below as required by your hosts.
-      forAllSystems = nixpkgs.lib.genAttrs [
-        "x86_64-linux"
-        #"aarch64-darwin"
-      ];
+      namespace = "stepii";
+      secrets = inputs.nix-secrets;
 
       # ========== Extend lib with lib.custom ==========
       # NOTE: This approach allows lib.custom to propagate into hm
@@ -38,35 +32,41 @@
           in
           systemFunc {
             specialArgs = {
-              inherit inputs outputs lib;
+              inherit
+                inputs
+                outputs
+                lib
+                namespace
+                secrets
+                ;
               inherit isDarwin;
             };
             modules = [ ./hosts/${if isDarwin then "darwin" else "nixos"}/${host} ];
           };
       };
 
-      mkMinimalHost = host: cfg: {
+      mkMinimalHost = host: {
         "${host}Minimal" = baseLib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
-            inherit inputs outputs lib;
+            inherit
+              inputs
+              outputs
+              lib
+              namespace
+              secrets
+              ;
             isDarwin = false;
           };
           modules = [
+            ./modules/common/host-spec.nix
             ./modules/hosts/nixos/disks.nix
             ./modules/hosts/nixos/impermanence
             inputs.home-manager.nixosModules.home-manager
-            {
-              hostSpec.hostName = lib.mkDefault host;
-              hostSpec.persistFolder = "/persist";
-              system.disks = {
-                enable = true;
-                primary = cfg.disk;
-                inherit (cfg) useLuks;
-                swapSize = if cfg.swapSize > 0 then cfg.swapSize else null;
-              };
-              system.impermanence.enable = cfg.impermanence;
-            }
+
+            ./hosts/nixos/${host}/host-spec.nix
+            ./hosts/nixos/${host}/disks.nix
+
             ./hosts/common/optional/minimal-configuration.nix
             ./hosts/nixos/${host}/hardware-configuration.nix
             { networking.hostName = host; }
@@ -75,119 +75,98 @@
       };
 
       mkHostConfigs =
-        hosts: isDarwin: minimalInstallers:
+        hosts: isDarwin:
+        let
+          minimalHosts = baseLib.filter (
+            h:
+            h != "iso"
+            && builtins.pathExists ./hosts/nixos/${h}/host-spec.nix
+            && builtins.pathExists ./hosts/nixos/${h}/disks.nix
+            && builtins.pathExists ./hosts/nixos/${h}/hardware-configuration.nix
+          ) hosts;
+        in
         baseLib.foldl' (acc: set: acc // set) { } (
-          (map (host: mkHost host isDarwin) hosts)
-          ++ (map (host: mkMinimalHost host minimalInstallers.${host}) (baseLib.attrNames minimalInstallers))
+          (map (host: mkHost host isDarwin) hosts) ++ (map mkMinimalHost minimalHosts)
         );
 
       hostNames = readHosts "nixos";
 
-      # Minimal installer-oriented host profiles folded into the main flake.
-      minimalHostInstallers = {
-        # host = { disk = "/dev/<disk>"; swapSize = <GiB>; impermanence = <bool>; useLuks = <bool>; };
-        nix-vm = {
-          disk = "/dev/vda";
-          swapSize = 4;
-          impermanence = true;
-          useLuks = true;
-        };
-      };
-
-      # Safety assertion: keep minimal installer declarations constrained to real hosts.
-      nixosConfigurations = builtins.seq (builtins.map (
-        host:
-        if builtins.elem host hostNames then
-          true
-        else
-          throw "minimalHostInstallers contains unknown host '${host}'"
-      ) (baseLib.attrNames minimalHostInstallers)) (mkHostConfigs hostNames false minimalHostInstallers);
+      nixosConfigurations = mkHostConfigs hostNames false;
 
     in
-    {
-      #
-      # ========= Overlays =========
-      #
-      # Custom modifications/overrides to upstream packages
-      overlays = import ./overlays { inherit inputs; };
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+        "x86_64-linux"
+      ];
 
-      #
-      # ========= Host Configurations =========
-      #
-      # Building configurations is available through `just rebuild` or `nixos-rebuild --flake .#hostname`
-      inherit nixosConfigurations;
+      flake = {
+        # Custom modifications/overrides to upstream packages
+        overlays = import ./overlays {
+          inherit inputs;
+          lib = baseLib;
+        };
 
-      # darwinConfigurations = builtins.listToAttrs (
-      #   map (host: {
-      #     name = host;
-      #     value = nix-darwin.lib.darwinSystem {
-      #       specialArgs = {
-      #         inherit inputs outputs lib;
-      #         isDarwin = true;
-      #       };
-      #       modules = [ ./hosts/darwin/${host} ];
-      #     };
-      #   }) (builtins.attrNames (builtins.readDir ./hosts/darwin))
-      # );
+        # Building configurations is available through `just rebuild` or `nixos-rebuild --flake .#hostname`
+        inherit nixosConfigurations;
 
-      #
-      # ========= Packages =========
-      #
-      # Expose custom packages
+        # darwinConfigurations = builtins.listToAttrs (
+        #   map (host: {
+        #     name = host;
+        #     value = nix-darwin.lib.darwinSystem {
+        #       specialArgs = {
+        #         inherit inputs outputs lib;
+        #         isDarwin = true;
+        #       };
+        #       modules = [ ./hosts/darwin/${host} ];
+        #     };
+        #   }) (builtins.attrNames (builtins.readDir ./hosts/darwin))
+        # );
+      };
 
-      /*
-        NOTE: This is only for exposing packages exterally; ie, `nix build .#packages.x86_64-linux.cd-gitroot`
-        For internal use, these packages are added through the default overlay in `overlays/default.nix`
-      */
-
-      packages = forAllSystems (
-        system:
+      perSystem =
+        { system, ... }:
         let
-          pkgs = import nixpkgs {
+          packagesPkgs = import nixpkgs {
             inherit system;
             overlays = [ self.overlays.default ];
           };
-        in
-        nixpkgs.lib.packagesFromDirectoryRecursive {
-          callPackage = nixpkgs.lib.callPackageWith pkgs;
-          directory = ./pkgs/common;
-        }
-      );
-
-      #
-      # ========= Formatting =========
-      #
-      # Nix formatter available through 'nix fmt' https://github.com/NixOS/nixfmt
-      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
-      # Pre-commit checks
-      checks = forAllSystems (
-        system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-        in
-        import ./checks { inherit inputs system pkgs; }
-      );
-
-      #
-      # ========= DevShell =========
-      #
-      # Custom shell for bootstrapping on new hosts, modifying nix-config, and secrets management
-      devShells = forAllSystems (
-        system:
-        let
-          pkgs = import nixpkgs {
+          shellPkgs = import nixpkgs {
             inherit system;
             overlays = [
               inputs.introdus.overlays.default
               self.overlays.default
             ];
           };
+          checksPkgs = shellPkgs;
+          formatter = checksPkgs.nixfmt-rfc-style;
+          checks = import ./checks {
+            inherit
+              inputs
+              system
+              formatter
+              ;
+            pkgs = checksPkgs;
+            lib = baseLib;
+          };
         in
-        import ./shell.nix {
-          inherit pkgs;
-          checks = self.checks.${system};
-        }
-      );
+        {
+          # Expose custom packages
+          # NOTE: This is only for exposing packages externally.
+          packages = nixpkgs.lib.packagesFromDirectoryRecursive {
+            callPackage = nixpkgs.lib.callPackageWith packagesPkgs;
+            directory = ./pkgs/common;
+          };
+
+          # Nix formatter available through 'nix fmt'
+          inherit formatter checks;
+
+          # Custom shell for bootstrapping on new hosts, modifying nix-config, and secrets management
+          devShells = import ./shell.nix {
+            pkgs = shellPkgs;
+            inherit checks;
+            lib = baseLib;
+          };
+        };
     };
 
   inputs = {
@@ -220,6 +199,11 @@
     #
     # ========= Utilities =========
     #
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";

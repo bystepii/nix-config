@@ -1,54 +1,57 @@
 # Shell for bootstrapping flake-enabled nix and other tooling
 {
-  pkgs ?
-    # If pkgs is not defined, instantiate nixpkgs from locked commit
-    let
-      lock = (builtins.fromJSON (builtins.readFile ./flake.lock)).nodes.nixpkgs.locked;
-      nixpkgs = fetchTarball {
-        url = "https://github.com/nixos/nixpkgs/archive/${lock.rev}.tar.gz";
-        sha256 = lock.narHash;
-      };
-    in
-    import nixpkgs { overlays = [ ]; },
+  pkgs,
   checks,
+  lib,
   ...
 }:
 {
   default = pkgs.mkShell {
-    nativeBuildInputs =
-      builtins.attrValues {
-        inherit (pkgs)
+    # Nix utility settings
+    NIX_CONFIG = "extra-experimental-features = nix-command flakes pipe-operators";
+    NIXPKGS_ALLOW_BROKEN = "1";
 
-          # NOTE(starter): add any packages you want available in the shell when accessing the parent directory.
-          # These will be installed regardless of what was installed specific for the host or home configs
+    # Bootstrap script settings
+    BOOTSTRAP_USER = "stepii";
+    BOOTSTRAP_SSH_PORT = "22";
+    BOOTSTRAP_SSH_KEY = "~/.ssh/id_manu";
+
+    # This is needed in case we manually run scripts or bats tests directly.
+    HELPERS_PATH = "${pkgs.introdus.introdus-helpers}/share/introdus-helpers/helpers.sh";
+
+    buildInputs = checks.pre-commit-check.enabledPackages;
+    nativeBuildInputs =
+      lib.attrValues {
+        inherit (pkgs)
           nix
           nixos-rebuild
           home-manager
-          nh
           git
           just
           pre-commit
           deadnix
+          statix
+          git-crypt
+          attic-client
+          nh
           sops
-          yq-go # jq for yaml, used for build scripts
-          bats # for bash testing
-          age # for bootstrap script
-          ssh-to-age # for bootstrap script
+          yq-go
+          bats
+          age
+          ssh-to-age
+          gum
+          ;
+        inherit (pkgs.introdus)
+          bootstrap-nixos
+          check-sops
           ;
       }
       ++ [
-        pkgs.introdus.bootstrap-nixos
-        pkgs.introdus.check-sops
         (pkgs.introdus.rebuild-host.overrideAttrs (_: {
           perHostLocks = false;
         }))
+        pkgs.unstable.nixVersions.git
       ];
-
-    NIX_CONFIG = "extra-experimental-features = nix-command flakes pipe-operators";
-    BOOTSTRAP_USER = "stepii";
-    BOOTSTRAP_SSH_PORT = "22";
-    BOOTSTRAP_SSH_KEY = "~/.ssh/id_manu";
-    HELPERS_PATH = "${pkgs.introdus.introdus-helpers}/share/introdus-helpers/helpers.sh";
 
     shellHook = ''
       if [ -z "''${NIX_SECRETS_DIR:-}" ]; then
@@ -56,6 +59,5 @@
       fi
     ''
     + checks.pre-commit-check.shellHook;
-    buildInputs = checks.pre-commit-check.enabledPackages;
   };
 }

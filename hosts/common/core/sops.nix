@@ -1,19 +1,19 @@
-# FIXME(starter): The nix-config-starter repo assumes use of a `simple` nix-secrets scheme.
-# The complex scheme will require modification to this file. Refer to the relevant files in
-# EmergentMind's Nix-Config (the full version) to determine the required changes.
-
-# hosts level sops. see home/[user]/common/optional/sops.nix for home/user level
+# Host-level sops configuration. See home/<user>/common/optional/sops.nix for
+# user-level secrets.
 {
   inputs,
   config,
   ...
 }:
 let
-  sopsFolder = builtins.toString inputs.nix-secrets;
-  hostSecretsFile = "${sopsFolder}/sops/${config.hostSpec.hostName}.yaml";
-  sharedSecretsFile = "${sopsFolder}/sops/shared.yaml";
+  sopsRoot = builtins.toString inputs.nix-secrets;
+  hostSecretsFile = "${sopsRoot}/sops/${config.hostSpec.hostName}.yaml";
+  sharedSecretsFile = "${sopsRoot}/sops/shared.yaml";
   hasSharedSecrets = builtins.pathExists sharedSecretsFile;
+  # Prefer shared passwords in complex secrets layouts; keep host-file fallback
+  # for migration and recovery compatibility.
   passwordSecretsFile = if hasSharedSecrets then sharedSecretsFile else hostSecretsFile;
+
   hostSshKeyPath =
     if (config ? system && config.system ? impermanence && config.system.impermanence.enable) then
       "${config.hostSpec.persistFolder}/etc/ssh/ssh_host_ed25519_key"
@@ -21,7 +21,7 @@ let
       "/etc/ssh/ssh_host_ed25519_key";
 in
 {
-  #the import for inputs.sops-nix.nixosModules.sops is handled in hosts/common/core/default.nix so that it can be dynamically input according to the platform
+  # Import for sops-nix is handled in hosts/common/core/default.nix based on platform.
 
   sops = {
     defaultSopsFile = hostSecretsFile;

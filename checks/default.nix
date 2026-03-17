@@ -2,8 +2,13 @@
   inputs,
   system,
   pkgs,
+  lib,
+  formatter,
   ...
 }:
+let
+  introdusLib = inputs.introdus.lib.mkIntrodusLib { inherit lib; };
+in
 {
   bats-test =
     pkgs.runCommand "bats-test"
@@ -29,7 +34,7 @@
   pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
     src = ../.;
     default_stages = [ "pre-commit" ];
-    hooks = {
+    hooks = lib.recursiveUpdate (introdusLib.checks.mkPreCommitHooks pkgs formatter) {
       check-added-large-files = {
         enable = true;
         excludes = [
