@@ -42,6 +42,7 @@
       "hosts/common/optional/services/openssh.nix" # allow remote SSH access
       "hosts/common/optional/audio.nix" # pipewire and cli controls
       "hosts/common/optional/xfce.nix" # lightweight x-based window manager
+      "hosts/common/optional/yubikey.nix" # yubikey auth + lock/unlock integration
     ])
   ];
 

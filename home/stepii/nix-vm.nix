@@ -22,4 +22,6 @@
     common/optional/sops.nix
   ];
 
+  services.yubikey-touch-detector.enable = true;
+
 }

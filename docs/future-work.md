@@ -14,20 +14,32 @@ This file tracks planned work that is intentionally deferred while bootstrapping
   - desktop (NVIDIA GPU)
 - Add host-specific modules for NVIDIA setup and tune per device after VM baseline is stable.
 
-## Impermanence Plan (Later)
+## Impermanence Plan (In Progress)
 
 Goal: ephemeral root filesystem where root state is reset on reboot, while important data persists.
 
-- Add an impermanence-capable disk layout (likely btrfs + persisted subvolumes).
-- Define explicit persistent paths for:
+- Current status:
+  - reusable impermanence module and btrfs rollback flow are implemented
+  - reusable disko layout supports persisted subvolumes and optional LUKS
+- Continue validating and refining persistent paths for:
   - system state needed across reboots
   - user state that must survive
   - secrets-related paths and machine identity where required
 - Validate reboot behavior and recovery workflow in VM first.
 
-## YubiKey-First Security Plan (Later)
+## YubiKey-First Security Plan (In Progress)
 
 Target: use YubiKey broadly across the system while retaining backup access paths.
+
+- Current status:
+  - upstream-style reusable host YubiKey module is added (`modules/hosts/common/yubikey.nix`)
+  - optional host wrapper is added and enabled on `nix-vm` (`hosts/common/optional/yubikey.nix`)
+  - Home Manager YubiKey touch detector module is added and enabled on `nix-vm`
+  - home sops module now supports conditional YubiKey U2F/SSH secret extraction when `hostSpec.useYubikey = true`
+- Remaining rollout work:
+  - add/verify required YubiKey entries in `nix-secrets/sops/shared.yaml` (`keys/u2f`, `keys/ssh/<name>`)
+  - validate end-to-end login/sudo/lockscreen behavior in VM and tune toggles
+  - enroll backup YubiKey(s) before tightening fallback policy
 
 - Full disk encryption:
   - initialize LUKS with passphrase first
@@ -41,16 +53,10 @@ Target: use YubiKey broadly across the system while retaining backup access path
   - age private key operations for secrets workflows (decrypt/edit/rekey) with YubiKey-backed mechanisms
 - Keep non-YubiKey fallback credentials only for recovery scenarios.
 
-## Nix-Secrets Scheme Migration (Later)
+## Nix-Secrets Scheme Status
 
-- Current state: this starter setup uses the `simple` `nix-secrets` scheme.
-- Target state: migrate to the `complex` scheme after VM baseline is stable.
-- Reference implementation source:
-  - https://github.com/EmergentMind/nix-config
-- Migration goals:
-  - preserve current bootstrap/install workflow while moving to `complex`
-  - align `hosts/common/core/sops.nix` and related home/user sops modules with upstream complex patterns
-  - validate end-to-end key management, creation rules, and rebuild flow in VM before physical hosts
+- Current state: this repo is already using a `complex`-style `nix-secrets` layout (`sops/shared.yaml` + per-host files).
+- Continue validating key management, creation rules, and rebuild flow in VM before physical hosts.
 
 ## Notes
 
