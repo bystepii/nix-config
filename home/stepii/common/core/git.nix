@@ -9,12 +9,12 @@
   programs.git = {
     enable = true;
     package = pkgs.gitAndTools.gitFull;
-    userName = lib.mkDefault (hostSpec.userFullName or hostSpec.username);
+    userName = lib.mkDefault hostSpec.userFullName;
     userEmail = lib.mkDefault (
       if hostSpec ? email && hostSpec.email ? user then
         hostSpec.email.user
       else
-        "${hostSpec.username}@${hostSpec.domain or "localhost"}"
+        "${hostSpec.primaryUsername}@${hostSpec.domain}"
     );
 
     ignores = [

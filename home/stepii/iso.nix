@@ -2,7 +2,5 @@
 # In this case, because the host is the ISO, very little is needed for the user.
 { ... }:
 {
-  imports = [
-    common/core
-  ];
+  imports = [ ];
 }

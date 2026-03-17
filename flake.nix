@@ -9,6 +9,7 @@
     }@inputs:
     let
       inherit (self) outputs;
+      baseLib = nixpkgs.lib;
 
       #
       # ========= Architectures =========
@@ -22,35 +23,30 @@
       # ========== Extend lib with lib.custom ==========
       # NOTE: This approach allows lib.custom to propagate into hm
       # see: https://github.com/nix-community/home-manager/pull/3454
-      lib = nixpkgs.lib.extend (self: super: { custom = import ./lib { inherit (nixpkgs) lib; }; });
+      lib = baseLib.extend (_self: _super: { custom = import ./lib { lib = baseLib; }; });
 
-      hostNames = builtins.attrNames (builtins.readDir ./hosts/nixos);
+      readHosts =
+        folder:
+        baseLib.attrNames (
+          baseLib.filterAttrs (_name: kind: kind == "directory") (builtins.readDir ./hosts/${folder})
+        );
 
-      mkHost = host: {
-        name = host;
-        value = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs outputs lib;
-            isDarwin = false;
+      mkHost = host: isDarwin: {
+        ${host} =
+          let
+            systemFunc = if isDarwin then inputs.nix-darwin.lib.darwinSystem else baseLib.nixosSystem;
+          in
+          systemFunc {
+            specialArgs = {
+              inherit inputs outputs lib;
+              inherit isDarwin;
+            };
+            modules = [ ./hosts/${if isDarwin then "darwin" else "nixos"}/${host} ];
           };
-          modules = [ ./hosts/nixos/${host} ];
-        };
       };
 
-      # Minimal installer-oriented host profiles folded into the main flake.
-      minimalHostInstallers = {
-        # host = { disk = "/dev/<disk>"; swapSize = <GiB>; impermanence = <bool>; useLuks = <bool>; };
-        nix-vm = {
-          disk = "/dev/vda";
-          swapSize = 4;
-          impermanence = true;
-          useLuks = true;
-        };
-      };
-
-      mkMinimalHost =
-        host: cfg:
-        nixpkgs.lib.nixosSystem {
+      mkMinimalHost = host: cfg: {
+        "${host}Minimal" = baseLib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
             inherit inputs outputs lib;
@@ -76,11 +72,36 @@
             { networking.hostName = host; }
           ];
         };
+      };
 
-      minimalNixosConfigurations = lib.mapAttrs' (host: cfg: {
-        name = "${host}Minimal";
-        value = mkMinimalHost host cfg;
-      }) minimalHostInstallers;
+      mkHostConfigs =
+        hosts: isDarwin: minimalInstallers:
+        baseLib.foldl' (acc: set: acc // set) { } (
+          (map (host: mkHost host isDarwin) hosts)
+          ++ (map (host: mkMinimalHost host minimalInstallers.${host}) (baseLib.attrNames minimalInstallers))
+        );
+
+      hostNames = readHosts "nixos";
+
+      # Minimal installer-oriented host profiles folded into the main flake.
+      minimalHostInstallers = {
+        # host = { disk = "/dev/<disk>"; swapSize = <GiB>; impermanence = <bool>; useLuks = <bool>; };
+        nix-vm = {
+          disk = "/dev/vda";
+          swapSize = 4;
+          impermanence = true;
+          useLuks = true;
+        };
+      };
+
+      # Safety assertion: keep minimal installer declarations constrained to real hosts.
+      nixosConfigurations = builtins.seq (builtins.map (
+        host:
+        if builtins.elem host hostNames then
+          true
+        else
+          throw "minimalHostInstallers contains unknown host '${host}'"
+      ) (baseLib.attrNames minimalHostInstallers)) (mkHostConfigs hostNames false minimalHostInstallers);
 
     in
     {
@@ -94,7 +115,7 @@
       # ========= Host Configurations =========
       #
       # Building configurations is available through `just rebuild` or `nixos-rebuild --flake .#hostname`
-      nixosConfigurations = builtins.listToAttrs (map mkHost hostNames) // minimalNixosConfigurations;
+      inherit nixosConfigurations;
 
       # darwinConfigurations = builtins.listToAttrs (
       #   map (host: {
@@ -144,7 +165,7 @@
         let
           pkgs = nixpkgs.legacyPackages.${system};
         in
-        import ./checks.nix { inherit inputs system pkgs; }
+        import ./checks { inherit inputs system pkgs; }
       );
 
       #

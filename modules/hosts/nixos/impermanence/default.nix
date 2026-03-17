@@ -142,7 +142,7 @@ in
         ]
         (lib.optional cfg.autoPersistHomes {
           directory = config.hostSpec.home;
-          user = config.hostSpec.username;
+          user = config.hostSpec.primaryUsername;
           group = if pkgs.stdenv.isDarwin then "staff" else "users";
           mode = "u=rwx,g=,o=";
         })

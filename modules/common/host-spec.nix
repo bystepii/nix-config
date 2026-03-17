@@ -11,9 +11,14 @@
       freeformType = with lib.types; attrsOf str;
       options = {
         # Data variables that don't dictate configuration settings
-        username = lib.mkOption {
+        primaryUsername = lib.mkOption {
           type = lib.types.str;
-          description = "The username of the host";
+          description = "The primary administrative username of the host";
+        };
+        primaryDesktopUsername = lib.mkOption {
+          type = lib.types.str;
+          description = "The primary desktop user on the host";
+          default = config.hostSpec.primaryUsername;
         };
         hostName = lib.mkOption {
           type = lib.types.str;
@@ -40,10 +45,12 @@
         };
         domain = lib.mkOption {
           type = lib.types.str;
+          default = "local";
           description = "The domain of the host";
         };
         userFullName = lib.mkOption {
           type = lib.types.str;
+          default = config.hostSpec.primaryUsername;
           description = "The full name of the user";
         };
         handle = lib.mkOption {
@@ -55,7 +62,7 @@
           description = "The home directory of the user";
           default =
             let
-              user = config.hostSpec.username;
+              user = config.hostSpec.primaryUsername;
             in
             if pkgs.stdenv.isLinux then "/home/${user}" else "/Users/${user}";
         };
@@ -66,6 +73,11 @@
         };
 
         # Configuration Settings
+        users = lib.mkOption {
+          type = lib.types.listOf lib.types.str;
+          description = "List of users on the host";
+          default = [ config.hostSpec.primaryUsername ];
+        };
         isMinimal = lib.mkOption {
           type = lib.types.bool;
           default = false;
@@ -162,6 +174,10 @@
         {
           assertion = !isImpermanent || (isImpermanent && !("${config.hostSpec.persistFolder}" == ""));
           message = "config.system.impermanence.enable is true but no persistFolder path is provided";
+        }
+        {
+          assertion = lib.elem config.hostSpec.primaryUsername config.hostSpec.users;
+          message = "primaryUsername must be present in hostSpec.users";
         }
       ];
   };

@@ -13,10 +13,8 @@
 }:
 {
   imports = lib.flatten [
-    #
-    # ========== Hardware ==========
-    #
-    ./hardware-configuration.nix
+    # Load all host-specific *.nix files (hardware, host-spec, disks)
+    (lib.custom.scanPaths ./.)
 
     (map lib.custom.relativeToRoot [
       #
@@ -53,23 +51,9 @@
   # FIXME(starter): declare any host-specific hostSpec options. Note that hostSpec options pertaining to
   # more than one host can be declared in `nix-config/hosts/common/core/` see the default.nix file there
   # for examples.
-  hostSpec = {
-    hostName = "nix-vm";
-    persistFolder = "/persist";
-    isImpermanent = true;
-  };
-
   system.impermanence = {
     enable = true;
     autoPersistHomes = true;
-  };
-
-  # Reuse shared disk module instead of host-local disko args.
-  system.disks = {
-    enable = true;
-    primary = "/dev/vda";
-    useLuks = true;
-    swapSize = 4;
   };
 
   networking = {

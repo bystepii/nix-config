@@ -32,6 +32,8 @@ Note that my actual nix-config has already deviated from this repository and wil
 
 NOTE: Remote installation now uses minimal installer outputs exposed directly from the main `flake.nix` (for example, `nixosConfigurations.<host>Minimal`) and is orchestrated by `bootstrap-nixos` from `introdus`.
 
+Layout note: user declarations now follow per-user folders under `hosts/common/users/<user>/` (for example key files in `hosts/common/users/stepii/keys/`).
+
 ## How To Use
 
 Your being here likely means that you are relatively new to Nix and NixOS, or perhaps you are just looking to improve your config. That's great, welcome!
@@ -132,6 +134,16 @@ This repo follows upstream behavior and relies on `introdus` for:
 - helper functions sourced through `HELPERS_PATH`
 
 Scripts that are not supplied by `introdus` are kept locally (for example, `scripts/enroll-luks-fido2.sh`).
+
+### Operational Workflow Notes
+
+- Checks are defined in `checks/default.nix`.
+- Per-host lock files are stored in `locks/<host>.lock`.
+- Initialize or refresh host locks with:
+    - `just lock-init <host>`
+    - `just lock-refresh <host> [inputs...]`
+- Run scoped checks with:
+    - `just check <host>`
 
 
 ## Support This Project

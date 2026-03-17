@@ -2,7 +2,7 @@
 { config, ... }:
 {
   # Set a temp password for use by minimal builds like installer and iso
-  users.users.${config.hostSpec.username} = {
+  users.users.${config.hostSpec.primaryUsername} = {
     isNormalUser = true;
 
     #FIXME(starter): if desired, you can change the password that is used by the ISO below.

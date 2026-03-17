@@ -33,7 +33,7 @@ in
   services.ssh-agent.enable = true;
 
   home = {
-    username = lib.mkDefault config.hostSpec.username;
+    username = lib.mkDefault config.hostSpec.primaryUsername;
     homeDirectory = lib.mkDefault config.hostSpec.home;
     stateVersion = lib.mkDefault "24.11";
     sessionPath = [

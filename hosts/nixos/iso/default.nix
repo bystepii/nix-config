@@ -8,6 +8,8 @@
 }:
 {
   imports = lib.flatten [
+    # Load all host-specific *.nix files (host-spec and future host-local modules)
+    (lib.custom.scanPaths ./.)
     # FIXME(starter): comment/uncomment the following two lines depending on if you want a cli-only, minimal iso, or a graphical iso that installs gnome
     # If you are planning to make use of `nix-config/nixos-installer`, you will not require a graphical iso.
     #"${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
@@ -18,28 +20,17 @@
     (map lib.custom.relativeToRoot [
       "modules/common/host-spec.nix"
       # We want primary default so we get ssh authorized keys, zsh, and some basic tty tools. It also pulls in the hm spec for iso.
-      # Note that we are not pulling in "hosts/common/users/primary/nixos.nix" for the iso as it's not needed.
-      "hosts/common/users/primary/"
+      # Note that we are not pulling in host-specific platform user enrichments for the iso beyond the shared users module.
+      "hosts/common/users/"
       "hosts/common/optional/minimal-user.nix"
     ])
   ];
 
-  hostSpec = {
-    hostName = "iso";
-    # FIXME(starter): the username below will be available in additional the the standard `root` and `nixos` users from the nixos installation image.
-    username = "stepii";
-    isProduction = lib.mkForce false;
-
-    # FIXME(starter): add your github username and github-noreply email address
-    handle = "stepii";
-    email.gitHub = "stepii@users.noreply.github.com";
-  };
-
   # root's ssh key are mainly used for remote deployment
   users.extraUsers.root = {
-    inherit (config.users.users.${config.hostSpec.username}) hashedPassword;
+    inherit (config.users.users.${config.hostSpec.primaryUsername}) hashedPassword;
     openssh.authorizedKeys.keys =
-      config.users.users.${config.hostSpec.username}.openssh.authorizedKeys.keys;
+      config.users.users.${config.hostSpec.primaryUsername}.openssh.authorizedKeys.keys;
   };
 
   environment.etc = {

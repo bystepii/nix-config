@@ -37,7 +37,8 @@ From `nix-config`:
 - `just rekey`
 - `just update-nix-secrets`
 - `just rebuild`
-- `just check`
+- `just check HOST`
+- `just lock-init HOST`
 
 ## Part 1: Bootstrap a New Host
 
@@ -217,7 +218,7 @@ Keep at least one strong fallback passphrase enrolled for recovery.
 
 ```bash
 just check-sops
-just check
+just check nix-vm
 ```
 
 For impermanence hosts, also verify persistence paths are mounted and seeded:
@@ -275,7 +276,7 @@ just update-nix-secrets
 
 ```bash
 rg "<host>" hosts home flake.nix
-just check
+just check <host>
 ```
 
 Optional local SSH cleanup:
@@ -344,5 +345,5 @@ Fix:
 ```bash
 just rekey
 just update-nix-secrets
-just check
+just check nix-vm
 ```

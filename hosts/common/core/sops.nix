@@ -44,8 +44,8 @@ in
     # These age keys are are unique for the user on each host and are generated on their own
     # (i.e. they are not derived from an ssh key).
     "keys/age" = {
-      owner = config.users.users.${config.hostSpec.username}.name;
-      inherit (config.users.users.${config.hostSpec.username}) group;
+      owner = config.users.users.${config.hostSpec.primaryUsername}.name;
+      inherit (config.users.users.${config.hostSpec.primaryUsername}) group;
       # We need to ensure the entire directory structure is that of the user...
       path = "${config.hostSpec.home}/.config/sops/age/keys.txt";
       sopsFile = hostSecretsFile;
@@ -53,7 +53,7 @@ in
 
     # Decrypt password hash for user creation. Prefer shared.yaml in complex scheme,
     # but fall back to host file for migration/recovery scenarios.
-    "passwords/${config.hostSpec.username}" = {
+    "passwords/${config.hostSpec.primaryUsername}" = {
       sopsFile = passwordSecretsFile;
       neededForUsers = true;
     };
@@ -64,8 +64,8 @@ in
   system.activationScripts.sopsSetAgeKeyOwnership =
     let
       ageFolder = "${config.hostSpec.home}/.config/sops/age";
-      user = config.users.users.${config.hostSpec.username}.name;
-      group = config.users.users.${config.hostSpec.username}.group;
+      user = config.users.users.${config.hostSpec.primaryUsername}.name;
+      group = config.users.users.${config.hostSpec.primaryUsername}.group;
     in
     ''
       mkdir -p ${ageFolder} || true
