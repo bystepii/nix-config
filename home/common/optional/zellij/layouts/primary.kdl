@@ -81,7 +81,7 @@ layout {
       pane cwd="$HOME/pub/nix/fidgetingbits/nix-config" size="40%"
     }
   }
-  tab name="6 emergentvim" hide_floating_panes=true {
+  tab name="6 neovim" hide_floating_panes=true {
     pane size=1 borderless=true {
       plugin location="compact-bar"
     }

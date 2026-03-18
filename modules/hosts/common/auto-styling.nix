@@ -68,7 +68,8 @@ in
       #};
     }
     // lib.optionalAttrs (config.hostSpec.hostName == "ghost") {
-      #FIXME(stylix): finalize ascendancy custom colours and upstream to https://github.com/tinted-theming/schemes
+      #FIXME(stylix): upstreamed to https://github.com/tinted-theming/schemes -
+      #  stylix not caught up yet
       override = {
         scheme = "ascendancy";
         author = "emergentmind";
