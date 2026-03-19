@@ -1,6 +1,7 @@
-{ pkgs, ... }:
+{ ... }:
 {
-  home.packages = [
-    pkgs.neovim
-  ];
+  introdus.neovim = {
+    enable = true;
+    wrapper = "emergentvim";
+  };
 }

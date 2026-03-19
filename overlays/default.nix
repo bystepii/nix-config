@@ -11,7 +11,7 @@ let
     additions =
       final: prev:
       let
-        system = final.stdenv.hostPlatform.system;
+        # system = final.stdenv.hostPlatform.system;
       in
       (
         prev.lib.packagesFromDirectoryRecursive {
@@ -24,7 +24,6 @@ let
       )
       # Other external inputs
       // {
-        neovim = inputs.emergentvim.packages.${system}.default;
       };
 
     linuxModifications = final: prev: {
