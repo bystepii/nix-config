@@ -66,7 +66,7 @@ in
     settings = {
       # FIXME(git): better place for this?
       safe.directory = "${home}/sync/obsidian-vault-01/wiki";
-      log.showSignature = "true";
+      # log.showSignature = "true";
 
       core.excludeFiles = builtins.toFile "global-gitignore" ''
         .DS_Store
