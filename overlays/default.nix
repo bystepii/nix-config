@@ -57,9 +57,9 @@ let
             bootdev-cli = unstable_prev.bootdev-cli.overrideAttrs (
               previousAttrs:
               let
-                version = "1.26.0";
+                version = "1.27.4";
                 hashes = {
-                  "1.26.0" = "sha256-hr8mqnX4mv6P8WpXCpP678lLUaanUu6X4jL5GJeBdzo=";
+                  "1.27.4" = "sha256-9avSkYxXqwaLCJeNTJJG8biEVUwZVYRauZclw8wbd50=";
                 };
               in
               rec {

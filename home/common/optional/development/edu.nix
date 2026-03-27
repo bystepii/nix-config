@@ -1,4 +1,4 @@
 { pkgs, ... }:
 {
-  home.packages = [pkgs.unstable.bootdev-cli];
+  home.packages = [ pkgs.unstable.bootdev-cli ];
 }
