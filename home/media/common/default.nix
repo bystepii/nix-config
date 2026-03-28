@@ -4,7 +4,8 @@
     map lib.custom.relativeToRoot (
       map (f: "home/common/optional/${f}") [
         "browsers/brave.nix"
-        "browsers/firefox.nix"
+        # comes from module now
+        # "browsers/firefox.nix"
         "networking/protonvpn.nix"
 
         "media.nix"
@@ -21,6 +22,6 @@
 
   home.file = {
     # Avatar used by login managers like SDDM (must be PNG)
-    ".face.icon".source = "${inputs.nix-assets}/images/avatars/camera.jpg";
+    ".face.icon".source = "${inputs.nix-assets}/images/avatars/camera.png";
   };
 }

@@ -55,17 +55,17 @@
             #(extension "user-agent-switcher" "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}") # failed
 
             # Privacy / Security
-            (extension "noscript" "{73a6fe31-595d-460b-a920-fcc0f8843232}")
-            (extension "ublock-origin" "uBlock0@raymondhill.net")
+-            (extension "noscript" "{73a6fe31-595d-460b-a920-fcc0f8843232}")
+-            (extension "ublock-origin" "uBlock0@raymondhill.net")
             (extension "ignore-cookies" "jid1-KKzOGWgsW3Ao4Q@jetpack") # failed # Ignore cookie setting pop-ups
-            (extension "proton-pass" "78272b6fa58f4a1abaac99321d503a20@proton.me")
-            (extension "proton-vpn-firefox-extension" "vpn@proton.ch") # failed
+-            (extension "proton-pass" "78272b6fa58f4a1abaac99321d503a20@proton.me")
+-            (extension "proton-vpn-firefox-extension" "vpn@proton.ch") # failed
             (extension "privacy-badger17" "jid1-MnnxcxisBPnSXQ@jetpack")
-            (extension "cookie-autodelete" "CookieAutoDelete@kennydo.com")
+-            (extension "cookie-autodelete" "CookieAutoDelete@kennydo.com")
 
             # Layout / Themeing
             (extension "tree-style-tab" "treestyletab@piro.sakura.ne.jp")
-            (extension "darkreader" "addon@darkreader.org")
+-            (extension "darkreader" "addon@darkreader.org")
 
             # Voice
             (extension "domain-in-title" "{966515fa-4c81-4afe-9879-9bbaf8576390}")
@@ -73,7 +73,7 @@
 
             # Misc
             (extension "s3download-statusbar" "{6913849f-c79f-4f3e-83e4-890d91ad6154}")
-            (extension "auto-tab-discard" "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}")
+-            (extension "auto-tab-discard" "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}")
             (extension "reddit-enhancement-suite" "jid1-xUfzOsOFlzSOXg@jetpack")
           ]
         )
