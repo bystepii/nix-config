@@ -18,6 +18,7 @@
 
     # Functionality
     useYubikey = lib.mkForce true;
+    useNeovimTerminal = lib.mkForce true;
 
     # Graphical
     defaultDesktop = "niri";
