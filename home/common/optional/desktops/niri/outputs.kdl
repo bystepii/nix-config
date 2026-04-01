@@ -6,26 +6,34 @@
 // | DP-2 | | DP-1 | | DP-3 |
 //  ------   ------   ------
 output "HDMI-A-1" {
-    mode "2560x1440@144"
-    position x=3200 y=0
-    transform "180"
- // 3840 - 2560 = 1280 / 2 = 640 + 2560 = 3200
+  mode "2560x1440@144"
+  // below position is if other monitors are at 1.0 scale
+  // position x=3200 y=0
+  // position when other monitors scaled to 1.25
+  position x=3072 y=0
+  transform "180"
 }
 output "DP-2" {
-    mode "2560x2880@60"
-    scale 1
-    position x=0 y=1440
+  mode "2560x2880@60"
+  scale 1.25
+  position x=0 y=1440
 }
 output "DP-1" {
-    mode "3840x2160@60"
-    scale 1
-    position x=2560 y=1440
-    // vrr only enabled for window-rules that matcvh variable-refresh-rate
-    variable-refresh-rate on-demand=true
-    focus-at-startup
+  mode "3840x2160@60"
+  scale 1.25
+  // below position is if other monitors are at 1.0 scale
+  // position x=2560 y=1440
+  // when at 1.25: 2048 = 2560 (width of DP2) / 1.25
+  position x=2048 y=1440
+  // vrr only enabled for window-rules that match variable-refresh-rate
+  variable-refresh-rate on-demand=true
+  focus-at-startup
 }
 output "DP-3" {
-    mode "2560x2880@60"
-    scale 1
-    position x=6400 y=1440
+  mode "2560x2880@60"
+  scale 1.25
+  // below position is if other monitors are at 1.0 scale
+  // position x=6400 y=1440
+  // when at 1.25: 5120 = 2048 + (3840 / 1.25)
+  position x=5120 y=1440
 }

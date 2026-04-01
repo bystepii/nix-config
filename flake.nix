@@ -244,6 +244,11 @@
       url = "git+https://git.sr.ht/~rycee/mozilla-addons-to-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # desktop shell
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     #
     # ========= Ricing =========
     #

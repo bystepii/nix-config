@@ -5,6 +5,9 @@
     ./gnome
     ./niri
 
+    ########## Shell ##########
+    ./noctalia.nix
+
     ########## Utilities ##########
     ./services/dunst.nix # Notification daemon
     ./services/kanshi.nix # Monitor profiles

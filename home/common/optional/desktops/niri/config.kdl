@@ -61,13 +61,12 @@ overview {
 //
 // ========== Startup ==========
 //
-// WIP Neovim stuff
-// spawn-sh-at-startup "nvim-neovide -- -c term"
+spawn-at-startup "noctalia-shell"
+spawn-sh-at-startup "uwsm finalize NIRI_SOCKET"
 spawn-sh-at-startup "nvim-neovide -- -c 'lua require([[resession]]).load([[nix]])'"
-spawn-sh-at-startup "ghostty -e zellij attach asc"
+// spawn-sh-at-startup "ghostty -e zellij attach asc"
 spawn-sh-at-startup "ghostty --title=btop -e btop"
 //
-spawn-sh-at-startup "uwsm finalize NIRI_SOCKET"
 spawn-at-startup "obsidian"
 spawn-at-startup "copyq"
 spawn-at-startup "signal-desktop"
