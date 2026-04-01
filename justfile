@@ -13,12 +13,19 @@ rebuild-pre HOST=`hostname`:
     just update {{ HOST }} nix-assets && \
     just update {{ HOST }} emergentvim && \
     just update {{ HOST }} nix-index-database && \
-    just update {{ HOST }} introdus
-    @git add --intent-to-add .
+    just update {{ HOST }} introdus && \
+    git add --intent-to-add . && \
+    just update-neovim-flake
 
 # Run post-build checks, like if sops is running properly afterwards
 [private]
 rebuild-post: check-sops
+
+# Run nix flake update on neovim flake to ensure latest introdus is input
+[private]
+update-neovim-flake:
+  cd /home/ta/src/nix/neovim && \
+  nix flake update introdus
 
 # Run a flake check on the config and installer
 [group("checks")]
@@ -89,10 +96,10 @@ iso-install DRIVE HOST=`hostname`:
 disko DRIVE PASSWORD:
     echo "{{ PASSWORD }}" > /tmp/disko-password
     sudo nix --experimental-features "nix-command flakes pipe-operators" run github:nix-community/disko -- \
-    	--mode disko \
-    	hosts/common/disks/btrfs-luks-impermanence-disko.nix \
-    	--arg disk '"{{ DRIVE }}"' \
-    	--arg password '"{{ PASSWORD }}"'
+      --mode disko \
+      hosts/common/disks/btrfs-luks-impermanence-disko.nix \
+      --arg disk '"{{ DRIVE }}"' \
+      --arg password '"{{ PASSWORD }}"'
     rm /tmp/disko-password
 
 # Run nixos-rebuild on the remote host
