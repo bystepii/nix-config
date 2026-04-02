@@ -102,8 +102,8 @@
         "wrappers": "wrappers_2"
       },
       "locked": {
-        "lastModified": 1775077374,
-        "narHash": "sha256-zW3HO+sAxjY/W2l92iSX7MMoCRgeXG1njuvORez+dyI=",
+        "lastModified": 1775147181,
+        "narHash": "sha256-Tt9lZFjhJnJUy0gVUcwB3ll6A7g9FdEEWS69lFhySaA=",
         "path": "/home/ta/src/nix/neovim",
         "type": "path"
       },
@@ -518,7 +518,7 @@
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1775072329,
+        "lastModified": 1775147077,
         "narHash": "sha256-+wfed+SZ2BBVzIIO6cg6NhURUOhktJLBNb9KyQ/lQI0=",
         "path": "/home/ta/src/nix/introdus/ta",
         "type": "path"
@@ -546,7 +546,7 @@
         "wrappers": "wrappers_3"
       },
       "locked": {
-        "lastModified": 1775072329,
+        "lastModified": 1775147077,
         "narHash": "sha256-+wfed+SZ2BBVzIIO6cg6NhURUOhktJLBNb9KyQ/lQI0=",
         "path": "/home/ta/src/nix/introdus/ta",
         "type": "path"
@@ -824,7 +824,7 @@
     "noctalia": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs"
+          "nixpkgs-unstable"
         ],
         "noctalia-qs": "noctalia-qs"
       },

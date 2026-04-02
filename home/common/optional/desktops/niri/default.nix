@@ -3,8 +3,6 @@
   imports = [
     # extra settings
     ./scripts.nix
-
-    ../wlogout.nix # wayland logout menu
   ];
   home = {
     packages = lib.attrValues {

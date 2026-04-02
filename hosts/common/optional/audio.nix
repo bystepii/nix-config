@@ -17,7 +17,7 @@
 
   environment.systemPackages = lib.attrValues {
     inherit (pkgs)
-      playerctl # cli utility and lib for controlling media players
+      #playerctl # cli utility and lib for controlling media players
       # pamixer # cli pulseaudio sound mixer
       ;
   };

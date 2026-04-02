@@ -12,11 +12,6 @@
     ./services/dunst.nix # Notification daemon
     ./services/kanshi.nix # Monitor profiles
 
-    ./hyprlock.nix
-    ./rofi.nix # app launcher
-    ./waybar.nix # infobar
-
-    #./wlogout # wayland logout menu (import as needed by specific WM)
     #./playerctl.nix # cli util and lib for controlling media players that implement MPRIS
   ];
   home.packages = [
