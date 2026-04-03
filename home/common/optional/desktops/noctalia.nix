@@ -34,12 +34,21 @@
       };
       version = 2;
     };
-    #FIXME: figure out if plug settings go here or below. below doesn't seem to
-    # 'stick' for some settings
     pluginSettings = {
       privacy-indicator = {
+        activeColor = "error";
+        enableToast = false;
+        hideInactive = lib.mkForce true;
+        iconSpacing = 4;
+        inactiveColor = "none";
+        micFilterRegex = "";
+        removeMargins = false;
       };
       timer = {
+        compactMode = false;
+        defaultDuration = 0;
+        iconColor = "none";
+        textColor = "none";
       };
     };
     settings = {
@@ -81,7 +90,7 @@
         volumeFeedback = false;
         volumeFeedbackSoundFile = "";
         volumeOverdrive = false;
-        volumeStep = 1;
+        volumeStep = 5;
       };
       brightness = {
         backlightDeviceMappings = [
@@ -432,7 +441,7 @@ deepin-system-monitor || pantheon-system-monitor";
         overviewEnabled = true;
         overviewTint = 0.21;
         panelPosition = "center";
-        randomIntervalSec = 6240;
+        randomIntervalSec = 3600;
         setWallpaperOnAllMonitors = true;
         showHiddenFiles = false;
         skipStartupTransition = false;
@@ -473,7 +482,7 @@ deepin-system-monitor || pantheon-system-monitor";
         density = "comfortable";
         displayMode = "always_visible";
         enableExclusionZoneInset = true;
-        fontScale = 1;
+        fontScale = 1.25;
         frameRadius = 12;
         frameThickness = 8;
         hideOnOverview = false;
@@ -498,14 +507,14 @@ deepin-system-monitor || pantheon-system-monitor";
         showOnWorkspaceSwitch = true;
         showOutline = false;
         useSeparateOpacity = true;
-        widgetSpacing = 7;
+        widgetSpacing = 6;
         widgets = {
           center = [
             {
               defaultSettings = {
                 activeColor = "primary";
                 enableToast = true;
-                hideInactive = lib.mkForce true;
+                hideInactive = false;
                 iconSpacing = 4;
                 inactiveColor = "none";
                 micFilterRegex = "";
@@ -548,16 +557,16 @@ deepin-system-monitor || pantheon-system-monitor";
               followFocusedScreen = false;
               fontWeight = "semibold";
               groupedBorderOpacity = 1;
-              hideUnoccupied = true;
+              hideUnoccupied = false;
               iconScale = 0.8;
               id = "Workspace";
               labelMode = "name";
               occupiedColor = "tertiary";
-              pillSize = 0.77;
+              pillSize = lib.mkForce 0.85;
               showApplications = false;
               showApplicationsHover = false;
               showBadge = true;
-              showLabelsOnlyWhenOccupied = true;
+              showLabelsOnlyWhenOccupied = false;
               unfocusedIconsOpacity = 1;
             }
           ];
@@ -624,7 +633,7 @@ deepin-system-monitor || pantheon-system-monitor";
             }
           ];
         };
-        backgroundOpacity = lib.mkForce 0.7;
+        backgroundOpacity = lib.mkForce 0.85;
       };
       dock = {
         animationSpeed = 1;

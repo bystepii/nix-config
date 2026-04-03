@@ -1,18 +1,10 @@
 //
 // ========== Layer Rules ==========
 //
+// Set the overview wallpaper on the backdrop.
 layer-rule {
-  //FIXME: confirm namespace for dmenu
-  match namespace="drun"
-  shadow {
-    on
-    spread 4
-    // softness 8
-    // offset x= y=
-    // required with non-squared corners
-    draw-behind-window true
-    color "#FF9400"
-  }
+  match namespace="^noctalia-overview*"
+  place-within-backdrop true
 }
 // ========== Screen capture & screen share blackout ==========
 // see also layer rule of same name
