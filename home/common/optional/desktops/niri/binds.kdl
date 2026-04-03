@@ -193,10 +193,10 @@ binds {
   Super+Apostrophe {
     consume-or-expel-window-right
   }
-  Super+Shift+BracketRight hotkey-overlay-title="Move column to first" {
+  Super+Shift+BracketLeft hotkey-overlay-title="Move column to first" {
     move-column-to-first
   }
-  Super+Shift+BracketLeft hotkey-overlay-title="Move column to last" {
+  Super+Shift+BracketRight hotkey-overlay-title="Move column to last" {
     move-column-to-last
   }
   Super+Ctrl+Shift+H hotkey-overlay-title="Move window to monitor left" {
