@@ -350,20 +350,20 @@ binds {
   // ========== Noctalia calls ==========
   //
   Super+Shift+E hotkey-overlay-title="Session Menu" {
-    spawn-sh "noctalia-shell ipc call sessionMenu toggle"
+    spawn "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"
   }
   Super+Space hotkey-overlay-title="Launcher" {
-    spawn-sh "noctalia-shell ipc call launcher toggle"
+    spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"
   }
   Super+Shift+Space hotkey-overlay-title="Command Launcher" {
-    spawn-sh "noctalia-shell ipc call launcher command"
+    spawn "noctalia-shell" "ipc" "call" "launcher" "command"
   }
   Super+Comma hotkey-overlay-title="Noctalia Settings" {
-    spawn-sh "noctalia-shell ipc call settings open"
+    spawn "noctalia-shell" "ipc" "call" "settings" "open"
   }
   // this is redundant with alt+tab for niri window selector
   // Super+Tab hotkey-overlay-title="Window switcher" {
-  //   spawn "noctalia-shell ipc call launcher windows"
+  //   spawn "noctalia-shell" "ipc" "call" "launcher" "windows"
   // }
   //
   // ========== Quick Launch ==========
