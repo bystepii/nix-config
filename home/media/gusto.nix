@@ -31,7 +31,7 @@
         "ui.systemUsesDarkTheme" = 1; # force dark theme
       };
       # Tweaks for Firefox ui/layout
-      userChrome = '''';
+      userChrome = "";
       bookmarks = {
         force = true;
         settings = [
@@ -79,7 +79,7 @@
     Install.WantedBy = [ "graphical-session.target" ];
     Service = {
       Type = "simple";
-      ExecStart = "/home/ca/.nix-profile/bin/firefox";
+      ExecStart = "/home/media/.nix-profile/bin/firefox";
       Restart = "always";
       RestartSec = 5;
     };
