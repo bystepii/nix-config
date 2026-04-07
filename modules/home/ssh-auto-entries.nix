@@ -145,7 +145,7 @@ in
             hostname = "${host}.${osConfig.hostSpec.domain}";
             port = osConfig.hostSpec.networking.ports.tcp.ssh;
             # FIXME: Fix the default name later
-            user = inputs.self.nixosConfigurations.${host}.osConfig.hostSpec.primaryUsername or "aa";
+            user = inputs.self.nixosConfigurations.${host}.osConfig.hostSpec.primaryUsername or "ta";
           };
         })
         |> lib.attrsets.mergeAttrsList;
