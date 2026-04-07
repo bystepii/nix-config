@@ -1,45 +1,13 @@
-//order matters
-include "inputs.kdl"
-include "outputs.kdl"
-include "binds.kdl"
-include "rules.kdl"
-//
-// ========== Named Workspaces ==========
-//
-workspace "8_l" {
-  open-on-output "DP-2"
-}
-workspace "9_u" {
-  open-on-output "HDMI-A-1"
-}
-workspace "0_r" {
-  open-on-output "DP-3"
-}
-workspace "1_dev" {
-  open-on-output "DP-1"
-}
-workspace "2_uci" {
-  open-on-output "DP-1"
-}
-workspace "3_edu" {
-  open-on-output "DP-1"
-}
-workspace "4_gig" {
-  open-on-output "DP-1"
-}
-workspace "5_gmz" {
-  open-on-output "DP-1"
-}
-workspace "Y_qrs" {
-  open-on-output "DP-1"
-}
+// NOTE: Includes are automatically added by default.nix to allow per-host
+// values
+// include "inputs.kdl"
+// include "outputs.kdl"
+// include "binds.kdl"
+// include "rules.kdl"
 //
 // ========== Animations ==========
 //
 animations {
-  //FIXME(niri): go through available options
-  // Whether to disable animations.
-  //off
   // Slow down or speed up animations by this factor. Values below 1 speed animations up.
   slowdown 0.7
 }
@@ -47,18 +15,14 @@ animations {
 // ========== Overview screen ==========
 //
 overview {
-  // Configuration of shadows around workspaces in the overview.
   workspace-shadow {
     off
- // softness 40
-    // spread 20
-    // offset x=0 y=0
-    // color "#000"
   }
 }
 //
 // ========== Startup ==========
 //
+// FIXME: possibly move these to this to per host files
 spawn-at-startup "noctalia-shell"
 spawn-sh-at-startup "uwsm finalize NIRI_SOCKET"
 spawn-sh-at-startup "nvim-neovide -- -c 'lua require([[resession]]).load([[nix]])'"

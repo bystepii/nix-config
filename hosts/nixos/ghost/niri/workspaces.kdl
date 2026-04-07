@@ -1,0 +1,57 @@
+// HACK: this should really be tied to user but since I'm the only user it's
+// faster to put it in the same place as outputs.kdl
+//
+// ========== Named Workspaces ==========
+//
+workspace "8_l" {
+  open-on-output "DP-2"
+}
+workspace "9_u" {
+  open-on-output "HDMI-A-1"
+}
+workspace "0_r" {
+  open-on-output "DP-3"
+}
+workspace "1_dev" {
+  open-on-output "DP-1"
+}
+workspace "2_uci" {
+  open-on-output "DP-1"
+}
+workspace "3_edu" {
+  open-on-output "DP-1"
+}
+workspace "4_gig" {
+  open-on-output "DP-1"
+}
+workspace "5_gmz" {
+  open-on-output "DP-1"
+}
+workspace "Y_qrs" {
+  open-on-output "DP-1"
+}
+// ========== Workspace Assignments ==========
+window-rule {
+  match app-id="^[Oo]bsidian$"
+  open-on-workspace "8_l"
+}
+window-rule {
+  match app-id="signal"
+  match app-id="discord"
+  match app-id="brave-browser"
+  open-on-workspace "9_u"
+}
+window-rule {
+  match app-id="com.mitchellh.ghostty" title="btop"
+  open-on-workspace "0_r"
+}
+window-rule {
+  match app-id="steam"
+  open-on-workspace "5_gmz"
+}
+window-rule {
+  match app-id="com.yubico.yubioath"
+  match app-id=".protonvpn-app-wrapped"
+  match app-id="^[Ss]potify$"
+  open-on-workspace "Y_qrs"
+}

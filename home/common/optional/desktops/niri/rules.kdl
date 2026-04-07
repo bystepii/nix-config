@@ -124,31 +124,6 @@ window-rule {
   match is-active=false
   opacity 0.85
 }
-// ========== Workspace Assignments ==========
-window-rule {
-  match app-id="^[Oo]bsidian$"
-  open-on-workspace "8_l"
-}
-window-rule {
-  match app-id="signal"
-  match app-id="discord"
-  match app-id="brave-browser"
-  open-on-workspace "9_u"
-}
-window-rule {
-  match app-id="com.mitchellh.ghostty" title="btop"
-  open-on-workspace "0_r"
-}
-window-rule {
-  match app-id="steam"
-  open-on-workspace "5_gmz"
-}
-window-rule {
-  match app-id="com.yubico.yubioath"
-  match app-id=".protonvpn-app-wrapped"
-  match app-id="^[Ss]potify$"
-  open-on-workspace "Y_qrs"
-}
 // ========== Tile on launch ==========
 // FIXME: May want to make this proton vpn specific and specific starting geometry
 window-rule {
