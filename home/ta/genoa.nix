@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ inputs, lib, ... }:
 {
   imports = (
     map lib.custom.relativeToRoot (
@@ -43,6 +43,11 @@
   services.yubikey-touch-detector = {
     enable = true;
     notificationSound = true;
+  };
+
+  system.ssh-motd = {
+    enable = true;
+    banner = "${inputs.nix-assets}/images/banners/genoa.png";
   };
 
 }

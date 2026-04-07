@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ inputs, lib, ... }:
 {
   imports = (
     map lib.custom.relativeToRoot (
@@ -26,4 +26,9 @@
 
   services.yubikey-touch-detector.enable = true;
   services.yubikey-touch-detector.notificationSound = true;
+
+  system.ssh-motd = {
+    enable = true;
+    banner = "${inputs.nix-assets}/images/banners/gusto.png";
+  };
 }

@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ inputs, lib, ... }:
 {
   imports = (
     map lib.custom.relativeToRoot (
@@ -37,12 +37,16 @@
   );
 
   introdus.services.awww = {
-    enable = true;
+    enable = false;
     wallpaperDir = "/home/ta/sync/wallpaper/hostCollections/ghost/";
   };
 
   services.yubikey-touch-detector = {
     enable = true;
     notificationSound = true;
+  };
+  system.ssh-motd = {
+    enable = true;
+    banner = "${inputs.nix-assets}/images/banners/ghost.png";
   };
 }
