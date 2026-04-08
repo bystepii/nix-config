@@ -165,6 +165,10 @@ in
         ];
         description = "List of drives to add to mdadm raid array. Raid disabled if not set";
       };
+      # NOTE: currently this module only unlocks luks for extraDisks later in
+      # this file. fstab mount entries are handled outside of disko to avoid
+      # formatting and partitioning disks that have existing data (see:
+      # hosts/nixos/ghost/disks.nix)
       extraDisks = lib.mkOption {
         type = lib.types.nullOr (lib.types.listOf (lib.types.attrsOf lib.types.str));
         default = null;

@@ -24,11 +24,10 @@ in
       }
     ];
   };
-  # define mount points
-  # auto-unlocking handled via nix-config/modules/disks.nix module based on
-  # extraDisks entries above
-  # FIXME: some of these options may be redundant with crypttab options but it's
-  # working
+  #NOTE: The fstab entries are defined for extraDisks here instead of within the
+  # disko part of nix-config/modules/hosts/nixos/disks.nix so that they aren't
+  # formatted and partitioned by disko.
+  # auto-unlocking the luks encryption is handled via the disks module though.
   fileSystems."/mnt/extra" = {
     device = "/dev/mapper/${extraDisk1}";
     fsType = "btrfs";
