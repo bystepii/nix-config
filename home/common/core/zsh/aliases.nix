@@ -41,11 +41,13 @@ in
   cab = "cd ${devDirectory}/abbot-wiki";
   cuc = "cd ${devDirectory}/unmoved-centre";
   ## nix
+  cna = "cd ${devNix}/nix-assets";
   cnc = "cd ${devNix}/nix-config";
-  cns = "cd ${devNix}/nix-secrets";
   cnh = "cd ${devNix}/nixos-hardware";
-  cnp = "cd ${devNix}/nixpkgs";
   cni = "cd ${devNix}/introdus";
+  cnit = "cd ${devNix}/introdus/ta";
+  cnp = "cd ${devNix}/nixpkgs";
+  cns = "cd ${devNix}/nix-secrets";
   cnv = "cd ${devNix}/neovim";
 
   #-----------Nix commands----------------
