@@ -103,8 +103,8 @@
         "wrappers": "wrappers_2"
       },
       "locked": {
-        "lastModified": 1775603667,
-        "narHash": "sha256-Da+x9qW4NVFosrIyTjz3JEiLXvES+J/nws9CAjAZkI0=",
+        "lastModified": 1775664082,
+        "narHash": "sha256-1cb7rStYQzb3gaD3nrWFcSApegQUHO0gQe0BjU7FEz4=",
         "path": "/home/ta/src/nix/neovim",
         "type": "path"
       },
@@ -519,8 +519,8 @@
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1775597895,
-        "narHash": "sha256-ePsrvx6z2k7+weY5/R6MP6q28LbPMYhI2izzK+oUPAI=",
+        "lastModified": 1775612865,
+        "narHash": "sha256-/XXk8WiEUMz6RQscQSpIqwoq6r9Pwkgv44Jdq0ammBE=",
         "path": "/home/ta/src/nix/introdus/ta",
         "type": "path"
       },
@@ -547,8 +547,8 @@
         "wrappers": "wrappers_3"
       },
       "locked": {
-        "lastModified": 1775603612,
-        "narHash": "sha256-ePsrvx6z2k7+weY5/R6MP6q28LbPMYhI2izzK+oUPAI=",
+        "lastModified": 1775667806,
+        "narHash": "sha256-lZdRN/HCs4wIVIR0ENIBN7QwfhFIq+gdwKIIT6+o2HQ=",
         "path": "/home/ta/src/nix/introdus/ta",
         "type": "path"
       },
