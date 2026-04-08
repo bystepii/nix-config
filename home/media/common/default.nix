@@ -4,8 +4,7 @@
     map lib.custom.relativeToRoot (
       map (f: "home/common/optional/${f}") [
         "browsers/brave.nix"
-        # comes from module now
-        # "browsers/firefox.nix"
+        # firefox comes from module now
         "networking/protonvpn.nix"
 
         "media.nix"

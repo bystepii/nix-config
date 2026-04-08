@@ -14,7 +14,7 @@
         # ========== Optional modules==========
         (map (f: "home/common/optional/${f}") [
           "browsers/brave.nix" # for testing against 'media' user
-          "browsers/firefox.nix" # for testing against 'media' user
+          # firefox comes from module now
           "helper-scripts"
 
           "atuin.nix"
