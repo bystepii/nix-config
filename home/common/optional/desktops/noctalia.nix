@@ -47,8 +47,8 @@
       timer = {
         compactMode = false;
         defaultDuration = 0;
-        iconColor = "none";
-        textColor = "none";
+        iconColor = "secondary";
+        textColor = "secondary";
       };
     };
     settings = {
@@ -438,9 +438,9 @@ deepin-system-monitor || pantheon-system-monitor";
         linkLightAndDarkWallpapers = true;
         monitorDirectories = [
         ];
-        # overviewBlur = 0.31;
+        overviewBlur = 0.4;
         overviewEnabled = false;
-        # overviewTint = 0.21;
+        overviewTint = 0.6;
         panelPosition = "center";
         randomIntervalSec = 3600;
         setWallpaperOnAllMonitors = true;
@@ -504,7 +504,7 @@ deepin-system-monitor || pantheon-system-monitor";
         rightClickFollowMouse = true;
         screenOverrides = [
         ];
-        showCapsule = true;
+        showCapsule = false;
         showOnWorkspaceSwitch = true;
         showOutline = false;
         useSeparateOpacity = true;
@@ -531,7 +531,7 @@ deepin-system-monitor || pantheon-system-monitor";
               scrollingMode = "hover";
               showIcon = true;
               showText = true;
-              textColor = "none";
+              textColor = "secondary";
               useFixedWidth = false;
             }
             {
@@ -620,12 +620,12 @@ deepin-system-monitor || pantheon-system-monitor";
               showPowerProfiles = false;
             }
             {
-              clockColor = "none";
+              clockColor = "secondary";
               customFont = "";
-              formatHorizontal = "HH:mm | yy.MM.dd-ddd";
-              formatVertical = "HH:mm | yy.MM.dd";
+              formatHorizontal = "yy.MM.dd.ddd | HH:mm ";
+              formatVertical = "HH:mm yy.MM.dd";
               id = "Clock";
-              tooltipFormat = "HH:mm | ddd, dd MMM yyyy";
+              tooltipFormat = "yy.MM.dd.ddd | HH:mm ";
               useCustomFont = false;
             }
             {
@@ -634,7 +634,7 @@ deepin-system-monitor || pantheon-system-monitor";
             }
           ];
         };
-        backgroundOpacity = lib.mkForce 0.85;
+        backgroundOpacity = lib.mkForce 1;
       };
       dock = {
         animationSpeed = 1;
