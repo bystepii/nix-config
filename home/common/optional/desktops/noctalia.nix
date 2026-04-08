@@ -622,8 +622,8 @@ deepin-system-monitor || pantheon-system-monitor";
             {
               clockColor = "none";
               customFont = "";
-              formatHorizontal = "HH:mm | yy.mm.dd-ddd";
-              formatVertical = "HH:mm | yy.mm.dd";
+              formatHorizontal = "HH:mm | yy.MM.dd-ddd";
+              formatVertical = "HH:mm | yy.MM.dd";
               id = "Clock";
               tooltipFormat = "HH:mm | ddd, dd MMM yyyy";
               useCustomFont = false;
