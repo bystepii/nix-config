@@ -3,7 +3,7 @@
 //
 // Set the overview wallpaper on the backdrop.
 layer-rule {
-  match namespace="^noctalia-wallpaper"
+  match namespace="^noctalia-wallpaper*"
   place-within-backdrop true
 }
 // ========== Screen capture & screen share blackout ==========

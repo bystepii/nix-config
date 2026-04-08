@@ -297,6 +297,7 @@
         useFahrenheit = false;
         weatherEnabled = true;
         weatherShowEffects = true;
+        weatherTaliaMascotAlways = false;
       };
       network = {
         bluetoothAutoConnect = true;
@@ -437,9 +438,9 @@ deepin-system-monitor || pantheon-system-monitor";
         linkLightAndDarkWallpapers = true;
         monitorDirectories = [
         ];
-        overviewBlur = 0.31;
-        overviewEnabled = true;
-        overviewTint = 0.21;
+        # overviewBlur = 0.31;
+        overviewEnabled = false;
+        # overviewTint = 0.21;
         panelPosition = "center";
         randomIntervalSec = 3600;
         setWallpaperOnAllMonitors = true;
