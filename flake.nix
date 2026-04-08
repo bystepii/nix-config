@@ -279,7 +279,7 @@
       url = "github:emergentmind/nix-assets";
     };
     emergentvim = {
-      #url = "github:emergentmind/neovim?ref=master&shallow=1";
+      #url = "github:emergentmind/neovim";
       url = "path:///home/ta/src/nix/neovim";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.flake-parts.follows = "flake-parts";
