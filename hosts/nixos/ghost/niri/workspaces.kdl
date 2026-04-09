@@ -33,17 +33,17 @@ workspace "Y_qrs" {
 // ========== Workspace Assignments ==========
 window-rule {
   match app-id="^[Oo]bsidian$"
-  open-on-workspace "8_l"
+  open-on-workspace "8_per"
 }
 window-rule {
   match app-id="signal"
   match app-id="discord"
   match app-id="brave-browser"
-  open-on-workspace "9_u"
+  open-on-workspace "9_com"
 }
 window-rule {
   match app-id="com.mitchellh.ghostty" title="btop"
-  open-on-workspace "0_r"
+  open-on-workspace "0_ref"
 }
 window-rule {
   match app-id="steam"

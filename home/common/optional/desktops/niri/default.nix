@@ -25,6 +25,7 @@
             (map lib.custom.relativeToRoot [
               "${hostPath}/outputs.kdl"
               "${hostPath}/workspaces.kdl"
+              "${hostPath}/startup.kdl"
             ])
             ./binds.kdl
             ./rules.kdl

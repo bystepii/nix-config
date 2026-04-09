@@ -20,7 +20,6 @@ layer-rule {
   match namespace="Proton Pass$"
   block-out-from "screencast"
 }
-//
 // ========== Layout Rules ==========
 //
 layout {
@@ -202,7 +201,7 @@ window-rule {
     proportion 1.0
   }
 }
-// ========== Varirable Refresh Rate ==========
+// ========== Variable Refresh Rate ==========
 // requires output to have `variable-refresh-rate on-demand=true`
 window-rule {
   match app-id="^steam_app_.*$"

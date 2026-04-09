@@ -79,13 +79,13 @@ binds {
     focus-workspace 7
   }
   Super+8 {
-    focus-workspace "8_l"
+    focus-workspace "8_per"
   }
   Super+9 {
-    focus-workspace "9_u"
+    focus-workspace "9_com"
   }
   Super+0 {
-    focus-workspace "0_r"
+    focus-workspace "0_ref"
   }
   Super+Y {
     focus-workspace "Y_qrs"
