@@ -266,8 +266,8 @@
     # ========= Personal Repositories =========
     #
     introdus = {
-      #url = "git+ssh://git@codeberg.org/fidgetingbits/introdus?shallow=1&ref=ta";
-      url = "path:///home/ta/src/nix/introdus/ta";
+      url = "git+ssh://git@codeberg.org/fidgetingbits/introdus?shallow=1&ref=ta";
+      # url = "path:///home/ta/src/nix/introdus/ta";
     };
     # Private secrets repo.  See ./docs/secretsmgmt.md
     # Authenticate via ssh and use shallow clone
@@ -279,8 +279,8 @@
       url = "github:emergentmind/nix-assets";
     };
     emergentvim = {
-      #url = "github:emergentmind/neovim";
-      url = "path:///home/ta/src/nix/neovim";
+      url = "github:emergentmind/neovim";
+      # url = "path:///home/ta/src/nix/neovim";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.flake-parts.follows = "flake-parts";
     };

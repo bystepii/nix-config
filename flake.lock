@@ -97,20 +97,24 @@
         "nixpkgs": [
           "nixpkgs-unstable"
         ],
+        "plugins-modes": "plugins-modes",
         "plugins-nvim-atone": "plugins-nvim-atone",
         "plugins-screenkey": "plugins-screenkey",
         "plugins-telescope-toggleterm": "plugins-telescope-toggleterm",
         "wrappers": "wrappers_2"
       },
       "locked": {
-        "lastModified": 1775664082,
-        "narHash": "sha256-1cb7rStYQzb3gaD3nrWFcSApegQUHO0gQe0BjU7FEz4=",
-        "path": "/home/ta/src/nix/neovim",
-        "type": "path"
+        "lastModified": 1775766836,
+        "narHash": "sha256-MlfJ23odaXgchXDKFL8pvzJWbbbPp4youzEqjQ/NnZc=",
+        "owner": "emergentmind",
+        "repo": "neovim",
+        "rev": "b9c91ffcdf863dc6b836a55fa2a3b247dcb6eadd",
+        "type": "github"
       },
       "original": {
-        "path": "/home/ta/src/nix/neovim",
-        "type": "path"
+        "owner": "emergentmind",
+        "repo": "neovim",
+        "type": "github"
       }
     },
     "firefox-addons": {
@@ -519,14 +523,18 @@
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1775612865,
-        "narHash": "sha256-/XXk8WiEUMz6RQscQSpIqwoq6r9Pwkgv44Jdq0ammBE=",
-        "path": "/home/ta/src/nix/introdus/ta",
-        "type": "path"
+        "lastModified": 1775766637,
+        "narHash": "sha256-QZ1yG6sBkRmwsKkYP5ysdRv8CFs2QKlPoXdp1gfEiGI=",
+        "ref": "ta",
+        "rev": "7eaf9ee02da7f8203b176088d3314380ec4a9ebd",
+        "revCount": 86,
+        "type": "git",
+        "url": "ssh://git@codeberg.org/fidgetingbits/introdus"
       },
       "original": {
-        "path": "/home/ta/src/nix/introdus/ta",
-        "type": "path"
+        "ref": "ta",
+        "type": "git",
+        "url": "ssh://git@codeberg.org/fidgetingbits/introdus"
       }
     },
     "introdus_2": {
@@ -547,14 +555,19 @@
         "wrappers": "wrappers_3"
       },
       "locked": {
-        "lastModified": 1775667806,
-        "narHash": "sha256-lZdRN/HCs4wIVIR0ENIBN7QwfhFIq+gdwKIIT6+o2HQ=",
-        "path": "/home/ta/src/nix/introdus/ta",
-        "type": "path"
+        "lastModified": 1775766637,
+        "narHash": "sha256-QZ1yG6sBkRmwsKkYP5ysdRv8CFs2QKlPoXdp1gfEiGI=",
+        "ref": "ta",
+        "rev": "7eaf9ee02da7f8203b176088d3314380ec4a9ebd",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@codeberg.org/fidgetingbits/introdus"
       },
       "original": {
-        "path": "/home/ta/src/nix/introdus/ta",
-        "type": "path"
+        "ref": "ta",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@codeberg.org/fidgetingbits/introdus"
       }
     },
     "nix-assets": {
@@ -920,6 +933,22 @@
       "original": {
         "owner": "yutkat",
         "repo": "confirm-quit.nvim",
+        "type": "github"
+      }
+    },
+    "plugins-modes": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1773625517,
+        "narHash": "sha256-Oj6l0lJegIe3rhM4Y7co3JAzQCRC1ryOruhDR1k3giY=",
+        "owner": "mvllow",
+        "repo": "modes.nvim",
+        "rev": "2badf8771dbb2d1e1066fd6a5dddaad2fc836e72",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mvllow",
+        "repo": "modes.nvim",
         "type": "github"
       }
     },
