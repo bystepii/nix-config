@@ -77,7 +77,7 @@
         showCategories = true;
         showIconBackground = true;
         sortByMostUsed = true;
-        terminalCommand = "ghostty";
+        terminalCommand = "ghostty -e";
         viewMode = "list";
       };
       audio = {
