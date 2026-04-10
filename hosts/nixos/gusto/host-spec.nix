@@ -9,7 +9,7 @@
     primaryUsername = lib.mkForce "ta";
     primaryDesktopUsername = lib.mkForce "media";
 
-    isImpermanent = lib.mkForce false;
+    isImpermanent = lib.mkForce true;
     persistFolder = lib.mkForce "/persist";
 
     # System type flags
