@@ -3,13 +3,13 @@
 //
 // ========== Named Workspaces ==========
 //
-workspace "8_l" {
+workspace "8_per" {
   open-on-output "DP-2"
 }
-workspace "9_u" {
+workspace "9_com" {
   open-on-output "HDMI-A-1"
 }
-workspace "0_r" {
+workspace "0_ref" {
   open-on-output "DP-3"
 }
 workspace "1_dev" {
