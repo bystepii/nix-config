@@ -12,9 +12,6 @@
       # Set impure paths to allow hot reloading of `plugin/`, `snippets/`, etc
       unwrappedConfig = "/home/ta/src/nix/neovim";
       baseConfig = lib.mkForce "/home/ta/src/nix/introdus/ta/wrappers/neovim";
-      devMode = true;
-      neovide = true;
-      terminalMode = true;
     };
   };
 }
