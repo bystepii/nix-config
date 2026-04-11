@@ -3,7 +3,7 @@
   imports = (
     map lib.custom.relativeToRoot (
       map (f: "home/common/optional/${f}") [
-        "browsers/brave.nix"
+        "extrabrowsers/brave.nix"
         # firefox comes from module now
         "networking/protonvpn.nix"
 

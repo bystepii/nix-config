@@ -3,18 +3,14 @@
   imports = (
     map lib.custom.relativeToRoot (
       [
-        # ========== Required common modules ==========
-        # FIXME: after fixing user/home values in HM
+        # ========== Required modules ==========
         "home/common/core"
-        "home/common/core/nixos.nix"
-
-        "home/ta/common/nixos.nix"
+        "home/ta/common"
       ]
       ++
-        # ========== Optional modules==========
+        # ========== Optional modules ==========
         (map (f: "home/common/optional/${f}") [
-          "browsers/brave.nix" # for testing against 'media' user
-          # firefox comes from module now
+          "extrabrowsers/brave.nix" # for testing against 'media' user
           "helper-scripts"
 
           "atuin.nix"

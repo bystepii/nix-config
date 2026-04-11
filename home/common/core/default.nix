@@ -10,16 +10,8 @@
     (map lib.custom.relativeToRoot [
       "modules/home"
     ])
-    (lib.custom.scanPathsFilterPlatform ./.)
+    (lib.custom.scanPaths ./.)
   ];
-
-  # FIXME: better way of handling the glue for this ?
-  # inherit common modules passed through from hosts
-  # be sure to import the respective module above as well
-  # see hosts/common/users/default.nix
-
-  #FIXME: move to xdg module
-  home.preferXdgDirectories = true; # whether to make programs use XDG directories whenever supported
 
   home.packages = lib.attrValues {
     inherit (pkgs)
@@ -55,6 +47,10 @@
       jq5 # json5-capable jq
       ;
   };
+
+  # Sets whether to make programs use XDG directories whenever supported
+  # NOTE: considered moving to introdus.xdg module but not worth effort
+  home.preferXdgDirectories = true;
 
   programs.home-manager.enable = true;
 }

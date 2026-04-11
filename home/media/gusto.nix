@@ -2,15 +2,12 @@
 {
   imports = (
     map lib.custom.relativeToRoot (
-      # ========== Required common modules ==========
-      # FIXME: remove after fixing user/home values in HM
+      # ========== Required modules ==========
       [
         "home/common/core"
-        "home/common/core/nixos.nix"
-
         "home/media/common/"
       ]
-      # ========== Optional common modules ==========
+      # ========== Optional modules ==========
       ++ (map (f: "home/common/optional/${f}") [
         "desktops/gnome"
       ])
@@ -21,16 +18,12 @@
 
   };
 
-  # FIXME(firefox): Add extensions
+  # additional settings for media user
   programs.firefox = {
     policies = {
       DisableFirefoxAccounts = lib.mkForce true;
     };
     profiles.default = {
-      settings = {
-        "ui.systemUsesDarkTheme" = 1; # force dark theme
-      };
-      # Tweaks for Firefox ui/layout
       userChrome = "";
       bookmarks = {
         force = true;

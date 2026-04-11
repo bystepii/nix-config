@@ -3,24 +3,17 @@
   imports = (
     map lib.custom.relativeToRoot (
       [
-        #
-        # ========== Required Configs ==========
-        #
-        #FIXME: after fixing user/home values in HM
+        # ========== Required modules ==========
         "home/common/core"
-        "home/common/core/nixos.nix"
-
-        "home/ta/common/nixos.nix"
+        "home/ta/common"
       ]
       ++
-        #
-        # ========== Host-specific Optional Configs ==========
-        #
+        # ========== Optional modules ==========
         (map (f: "home/common/optional/${f}") [
-          "browsers"
           "comms"
           "desktops" # default is niri
           "development"
+          "extrabrowsers"
           "gaming"
           "helper-scripts"
           "tools"
@@ -36,10 +29,10 @@
     )
   );
 
-  introdus.services.awww = {
-    enable = false;
-    wallpaperDir = "/home/ta/sync/wallpaper/hostCollections/ghost/";
-  };
+  # introdus.services.awww = {
+  #   enable = false;
+  #   wallpaperDir = "/home/ta/sync/wallpaper/hostCollections/ghost/";
+  # };
 
   services.yubikey-touch-detector = {
     enable = true;
