@@ -6,7 +6,7 @@ in
   # mount nfs mediashare from ghost
   boot.supportedFilesystems = [ "nfs" ];
   fileSystems."/mnt/mediashare" = {
-    device = "${ghostIP}:/mnt/extra/mediashare/";
+    device = "${ghostIP}:/mnt/vms/mediashare/";
     fsType = "nfs";
     options = [
       "noauto"
