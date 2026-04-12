@@ -25,7 +25,7 @@ let
       # let chafa auto scale it, but haven't done that for now
       # Check the terminal is wide enough to not botch the image
       if [ "$(tput cols)" -ge "$D_WIDTH" ]; then
-        chafa --view-size "D_WIDTHxD_HEIGHT" ${cfg.banner};
+        chafa --view-size "''${D_WIDTH}x$D_HEIGHT" ${cfg.banner};
       fi
       fastfetch -c ${./config.jsonc}
     '';
