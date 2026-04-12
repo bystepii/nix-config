@@ -11,12 +11,14 @@
 
     # System type flags
     isAdmin = lib.mkForce true;
+    isDevelopment = lib.mkForce true;
     isProduction = lib.mkForce true;
     isRemote = lib.mkForce false;
     isRoaming = lib.mkForce true;
 
     # Functionality
     useYubikey = lib.mkForce true;
+    useNeovimTerminal = lib.mkForce true;
 
     # Graphical
     defaultDesktop = "niri";
