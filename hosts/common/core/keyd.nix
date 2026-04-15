@@ -8,7 +8,7 @@
       settings = {
         main = {
           capslock = "\\";
-          numlock = "noop"; # numlock state on by default via hyprland config
+          numlock = "noop";
         };
       };
     };
