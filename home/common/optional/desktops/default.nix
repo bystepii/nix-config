@@ -2,7 +2,7 @@
 {
   imports = [
     # Packages with custom configs go here
-    ./gnome
+    # ./gnome # do enable through default anymore
     ./niri
 
     ########## Shell ##########

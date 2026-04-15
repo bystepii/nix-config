@@ -11,7 +11,7 @@
         # ========== Optional modules ==========
         (map (f: "home/common/optional/${f}") [
           "comms"
-          "desktops" # default is niri
+          "desktops" # default.nix loads niri
           "development"
           "extrabrowsers"
           "gaming"

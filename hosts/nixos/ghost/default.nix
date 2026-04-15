@@ -32,7 +32,7 @@
         # ========== Optional common modules ==========
         (map (f: "hosts/common/optional/${f}") [
           # Desktop environment
-          "gnome.nix" # window manager
+          # "gnome.nix" # window manager
           "niri.nix"
 
           # Services
@@ -70,6 +70,7 @@
 
   introdus.services = {
     silent-sddm.enable = true;
+    silent-sddm.theme = "rei";
   };
 
   hardware = {
