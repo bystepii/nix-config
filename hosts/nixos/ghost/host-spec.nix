@@ -12,6 +12,7 @@
     # System type flags
     isAdmin = lib.mkForce true;
     isDevelopment = lib.mkForce true;
+    isIntrodusDev = lib.mkForce true;
     isProduction = lib.mkForce true;
     isRemote = lib.mkForce false;
     isWork = lib.mkForce false;

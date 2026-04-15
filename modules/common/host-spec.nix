@@ -122,6 +122,11 @@
           default = false;
           description = "Indicate a host used for development";
         };
+        isIntrodusDev = lib.mkOption {
+          type = lib.types.bool;
+          default = config.hostSpec.isDevelopment;
+          description = "Indicate a host used for introdus development";
+        };
         isRoaming = lib.mkOption {
           type = lib.types.bool;
           default = false;
