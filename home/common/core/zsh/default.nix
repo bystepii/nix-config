@@ -61,6 +61,9 @@
                 COMPLETION_WAITING_DOTS="true"
       '';
     };
+    sessionVariables = {
+      EDITOR = "nvim";
+    };
 
     shellAliases = import ./aliases.nix { inherit osConfig; };
   };

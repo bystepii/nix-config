@@ -15,33 +15,16 @@
       lib.attrValues {
         inherit (pkgs)
           e2fsprogs # lsattr, chattr
-          cntr # nixpkgs sandbox debugging
           strace
-          steam-run # run non-NixOS-packaged binaries on Nix
           copyq # clipboard manager
           trash-cli # tools for managing trash
           socat # General networking utility, ex: used for serial console forwarding over ssh
           ;
       }
     );
-    # Reload font cache on rebuild to avoid issues similar to
-    # https://www.reddit.com/r/NixOS/comments/1kwogzf/after_moving_to_2505_system_fonts_no_longer/
-    activation.reloadFontCache = lib.hm.dag.entryAfter [ "linkActivation" ] ''
-      if [ -x "${pkgs.fontconfig}/bin/fc-cache" ]; then
-        ${pkgs.fontconfig}/bin/fc-cache -f
-      fi
-    '';
 
-    sessionVariables = {
-      FLAKE = "$HOME/src/nix/nix-config";
-      SHELL = "zsh";
-      TERM = "ghostty";
-      TERMINAL = "ghostty";
-      VISUAL = "nvim";
-      EDITOR = "nvim";
-      #MANPAGER = "nvim +Man!";
-    }
-    // lib.optionalAttrs osConfig.hostSpec.useWayland {
+    # FIXME: Not sure if these are still needed with uwsm?
+    sessionVariables = lib.optionalAttrs osConfig.hostSpec.useWayland {
       QT_QPA_PLATFORM = "wayland";
       GDK_BACKEND = "wayland";
       CLUTTER_BACKEND = "wayland"; # for gnome-shell
@@ -61,4 +44,21 @@
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
+}
+// lib.optionalAttrs (!osConfig.hostSpec.isServer) {
+  home = {
+    packages = lib.attrValues {
+      inherit (pkgs)
+        steam-run # run non-NixOS-packaged binaries on Nix
+        cntr # nixpkgs sandbox debugging
+        ;
+    };
+    # Reload font cache on rebuild to avoid issues similar to
+    # https://www.reddit.com/r/NixOS/comments/1kwogzf/after_moving_to_2505_system_fonts_no_longer/
+    activation.reloadFontCache = lib.hm.dag.entryAfter [ "linkActivation" ] ''
+      if [ -x "${pkgs.fontconfig}/bin/fc-cache" ]; then
+        ${pkgs.fontconfig}/bin/fc-cache -f
+      fi
+    '';
+  };
 }
