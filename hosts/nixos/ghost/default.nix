@@ -56,7 +56,6 @@
           "scanning.nix" # SANE and simple-scan
           "thunar.nix" # gui file manager
           "vlc.nix" # media player
-          "wayland.nix" # wayland components and pkgs not available in home-manager
           "yubikey.nix" # yubikey related packages and configs
           "zsa-keeb.nix" # Moonlander keeb flashing stuff
         ])

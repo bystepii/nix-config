@@ -55,7 +55,6 @@
           "plymouth.nix" # boot graphics
           "protonvpn.nix" # vpn
           "thunar.nix" # gui file manager
-          "wayland.nix" # wayland components and pkgs not available in home-manager
           "vlc.nix" # media player
           "yubikey.nix" # yubikey related packages and configs
         ])

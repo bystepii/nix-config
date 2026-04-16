@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
   security.rtkit.enable = true;
   services.pipewire = {
@@ -9,16 +9,5 @@
     pulse.enable = true;
     wireplumber.enable = true;
     jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    # media-session.enable = true;
-  };
-
-  environment.systemPackages = lib.attrValues {
-    inherit (pkgs)
-      #playerctl # cli utility and lib for controlling media players
-      # pamixer # cli pulseaudio sound mixer
-      ;
   };
 }
