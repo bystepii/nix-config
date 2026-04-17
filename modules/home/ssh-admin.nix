@@ -11,6 +11,7 @@ in
 lib.mkIf cfg.isAdmin {
   sshAutoEntries = {
     enable = true;
+    defaultUser = "ta";
     ykDomainHosts = [
       "genoa"
       "ghost"

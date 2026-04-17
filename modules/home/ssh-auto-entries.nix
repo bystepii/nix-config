@@ -28,6 +28,12 @@ in
         default = [ (if cfg.useYubikey then "id_yubikey" else "id_ed25519") ];
         description = "Identity file name to use as default for hosts";
       };
+      defaultUser = lib.mkOption {
+        type = lib.types.str;
+        default = "aa";
+        description = "Default ssh user if the host being built doesn't have a hostSpec primaryUsername";
+        example = "wukong";
+      };
       domain = lib.mkOption {
         type = lib.types.str;
         default = osConfig.hostSpec.domain;
@@ -62,27 +68,17 @@ in
 
   config =
     let
+      isCoreHost = (n: ((n != "iso") && !(lib.hasSuffix "Minimal" n)));
       nixosHostNames =
-        # FIXME: Make this a set of optional suffixes to ignore
-        let
-          isMinimal =
-            host:
-            let
-              suffixLen = lib.stringLength "Minimal";
-              hostLen = lib.stringLength host;
-              prefixLen = hostLen - suffixLen;
-              suffix = lib.substring prefixLen suffixLen host;
-            in
-            if ((hostLen < suffixLen) || (suffix != "Minimal")) then false else true;
-        in
         inputs.self.nixosConfigurations
         |> lib.attrNames
-        |> lib.filter (name: (name != "iso") && (!(isMinimal name)));
+        # nixfmt hack
+        |> lib.filter isCoreHost;
 
       nixosHostsUnlockable =
         (
           inputs.self.nixosConfigurations
-          |> lib.filterAttrs (name: host: host.config.services.remoteLuksUnlock.enable or false)
+          |> lib.filterAttrs (name: host: (isCoreHost name) && host.config.services.remoteLuksUnlock.enable)
           |> lib.attrNames
         )
         ++ cfg.unlockableHosts;
@@ -144,8 +140,7 @@ in
             match = "host ${host},${host}.${osConfig.hostSpec.domain}";
             hostname = "${host}.${osConfig.hostSpec.domain}";
             port = osConfig.hostSpec.networking.ports.tcp.ssh;
-            # FIXME: Fix the default name later
-            user = inputs.self.nixosConfigurations.${host}.osConfig.hostSpec.primaryUsername or "ta";
+            user = inputs.self.nixosConfigurations.${host}.config.hostSpec.primaryUsername or cfg.defaultUser;
           };
         })
         |> lib.attrsets.mergeAttrsList;
