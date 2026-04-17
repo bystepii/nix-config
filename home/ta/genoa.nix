@@ -33,7 +33,7 @@
   # wallpaperDir = "/home/ta/sync/wallpaper/hostCollections/genoa/";
   # };
 
-  services.yubikey-touch-detector = {
+  introdus.services.yubikey-touch-detector = {
     enable = true;
     notificationSound = true;
   };

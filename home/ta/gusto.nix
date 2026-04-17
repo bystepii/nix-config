@@ -20,9 +20,10 @@
     )
   );
 
-  services.yubikey-touch-detector.enable = true;
-  services.yubikey-touch-detector.notificationSound = true;
-
+  introdus.services.yubikey-touch-detector = {
+    enable = true;
+    notificationSound = true;
+  };
   system.ssh-motd = {
     enable = true;
     banner = "${inputs.nix-assets}/images/banners/gusto.png";

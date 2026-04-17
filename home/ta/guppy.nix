@@ -14,5 +14,5 @@
     )
   );
 
-  services.yubikey-touch-detector.enable = true;
+  introdus.services.yubikey-touch-detector.enable = true;
 }

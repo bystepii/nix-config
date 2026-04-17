@@ -34,7 +34,7 @@
   #   wallpaperDir = "/home/ta/sync/wallpaper/hostCollections/ghost/";
   # };
 
-  services.yubikey-touch-detector = {
+  introdus.services.yubikey-touch-detector = {
     enable = true;
     notificationSound = true;
   };
