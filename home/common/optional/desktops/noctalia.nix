@@ -14,26 +14,30 @@
   };
   programs.noctalia-shell = {
     enable = true;
-    plugins = {
-      sources = [
-        {
-          enabled = true;
-          name = "Official Noctalia Plugins";
-          url = "https://github.com/noctalia-dev/noctalia-plugins";
-        }
-      ];
-      states = {
-        privacy-indicator = {
-          enabled = true;
-          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+    plugins =
+      let
+        url = "https://github.com/noctalia-dev/noctalia-plugins";
+      in
+      {
+        sources = [
+          {
+            enabled = true;
+            name = "Official Noctalia Plugins";
+            inherit url;
+          }
+        ];
+        states = {
+          privacy-indicator = {
+            enabled = true;
+            sourceUrl = url;
+          };
+          timer = {
+            enabled = true;
+            sourceUrl = url;
+          };
         };
-        timer = {
-          enabled = true;
-          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-        };
+        version = 2;
       };
-      version = 2;
-    };
     pluginSettings = {
       privacy-indicator = {
         activeColor = "error";
