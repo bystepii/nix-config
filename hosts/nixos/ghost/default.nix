@@ -48,7 +48,7 @@
           "gaming.nix" # window manager
           "fonts.nix" # fonts
           "libvirt.nix" # vm tools
-          "mail.nix" # for sending email notifications
+          "mail-delivery.nix" # for sending email notifications
           "nvtop.nix" # GPU monitor (not available in home-manager)
           "obsidian.nix" # wiki
           "plymouth.nix" # boot graphics

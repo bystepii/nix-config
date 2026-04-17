@@ -12,40 +12,38 @@ in
       type = lib.types.bool;
       description = "Whether or not to use postfix mail relay for mail delivery";
     };
-
     emailFrom = lib.mkOption {
       type = lib.types.str;
       description = "Email address from which to send notifications";
     };
-
     users = lib.mkOption {
       default = [ config.hostSpec.primaryUsername ];
       type = lib.types.listOf lib.types.str;
       description = "Users added to the group with mail delivery password access";
     };
-
+    extraUsers = lib.mkOption {
+      default = [ ];
+      type = lib.types.listOf lib.types.str;
+      description = "Extra users added to the group with mail delivery password access";
+    };
     group = lib.mkOption {
       default = "msmtp-secret-users";
       type = lib.types.str;
       description = "Name of group controlling access to mail delivery password";
     };
-
     smtpUser = lib.mkOption {
       type = lib.types.str;
       description = "Username of smtp user";
     };
-
     smtpPort = lib.mkOption {
       default = (if cfg.useRelay then 25 else 587);
       type = lib.types.int;
       description = "Port number for smtp server";
     };
-
     smtpHost = lib.mkOption {
       type = lib.types.str;
       description = "Domain of smtp server";
     };
-
   };
 
   config = lib.mkIf cfg.enable {
@@ -56,8 +54,6 @@ in
       group = cfg.group;
       mode = "0440";
     };
-
-    # FIXME: Likely need this on darwin: https://github.com/NixOS/nixpkgs/issues/195532
     programs.msmtp = {
       enable = true;
       setSendmail = true; # set the system sendmail to msmtp's
