@@ -22,8 +22,8 @@
     useNeovimTerminal = lib.mkForce true;
 
     # Graphical
-    defaultDesktop = "niri";
-    # defaultDesktop = "niri-uwsm";
+    defaultDesktop = "niri-uwsm";
+    useWayland = true;
     theme = lib.mkForce "darcula";
     wallpaper = "${inputs.nix-assets}/images/wallpapers/zen-02.jpg";
     isAutoStyled = lib.mkForce true;

@@ -22,7 +22,8 @@
     useNeovimTerminal = lib.mkForce true;
 
     # Graphical
-    defaultDesktop = "niri";
+    defaultDesktop = "niri-uwsm";
+    useWayland = true;
     hdr = lib.mkForce true;
     scaling = "2";
     isAutoStyled = lib.mkForce true;
