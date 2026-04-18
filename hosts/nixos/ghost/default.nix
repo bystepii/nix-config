@@ -33,7 +33,7 @@
         (map (f: "hosts/common/optional/${f}") [
           # Desktop environment
           # "gnome.nix" # window manager
-          "niri.nix"
+          # "niri.nix"
 
           # Services
           "services/logrotate.nix" # log rotation
@@ -65,6 +65,7 @@
     autoPersistHomes = true;
   };
 
+  niri.enable = true;
   introdus.services = {
     audio = {
       enable = true;
