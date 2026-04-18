@@ -47,7 +47,6 @@
           "nfs-ghost-mediashare.nix" # mount the ghost mediashare
 
           # Misc
-          "audio.nix" # pipewire and cli controls
           "gaming.nix" # window manager
           "fonts.nix" # fonts
           "nvtop.nix" # GPU monitor (not available in home-manager)
@@ -67,10 +66,8 @@
   };
 
   introdus.services = {
-    silent-sddm = {
-      enable = true;
-      theme = "rei";
-    };
+    audio.enable = true;
+    silent-sddm.enable = true;
   };
 
   boot.initrd = {

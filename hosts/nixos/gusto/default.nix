@@ -42,7 +42,6 @@
           "nfs-ghost-mediashare.nix" # mount the ghost mediashare
 
           # Misc
-          "audio.nix" # pipewire and cli controls
           "plymouth.nix" # boot graphics
           "fonts.nix" # fonts
           "vlc.nix" # media player
@@ -56,6 +55,7 @@
   };
 
   introdus.services = {
+    audio.enable = true;
     silent-sddm.enable = true;
   };
 

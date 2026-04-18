@@ -44,7 +44,6 @@
 
           # Misc
           "amdgpu_top.nix" # GPU monitor (not available in home-manager)
-          "audio.nix" # pipewire and cli controls
           "gaming.nix" # window manager
           "fonts.nix" # fonts
           "libvirt.nix" # vm tools
@@ -68,8 +67,11 @@
   };
 
   introdus.services = {
+    audio = {
+      enable = true;
+      enableJack = true;
+    };
     silent-sddm.enable = true;
-    silent-sddm.theme = "rei";
   };
 
   hardware = {
