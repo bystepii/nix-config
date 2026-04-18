@@ -39,7 +39,6 @@
           "niri.nix"
 
           # Services
-          "services/bluetooth.nix" # bluetooth, blueman and bluez via wireplumber
           "services/openssh.nix" # allow remote SSH access
           "services/printing.nix" # CUPS
 
@@ -69,6 +68,9 @@
     audio.enable = true;
     silent-sddm.enable = true;
   };
+
+  # Bluetooth
+  services.blueman.enable = true;
 
   boot.initrd = {
     systemd.enable = true;

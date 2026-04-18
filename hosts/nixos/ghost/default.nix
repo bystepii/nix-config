@@ -36,7 +36,6 @@
           "niri.nix"
 
           # Services
-          "services/bluetooth.nix" # bluetooth, blueman and bluez via wireplumber
           "services/logrotate.nix" # log rotation
           "services/openssh.nix" # allow remote SSH access
           "services/ollama.nix" # local llm
@@ -73,6 +72,9 @@
     };
     silent-sddm.enable = true;
   };
+
+  # Bluetooth
+  services.blueman.enable = true;
 
   hardware = {
     graphics.package = pkgs.unstable.mesa;
