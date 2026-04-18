@@ -1,9 +1,4 @@
-// NOTE: Includes are automatically added by default.nix to allow per-host
-// values
-// include "inputs.kdl"
-// include "outputs.kdl"
-// include "binds.kdl"
-// include "rules.kdl"
+// NOTE: Includes are automatically added by default.nix to allow per-host values
 //
 // ========== Animations ==========
 //
@@ -20,13 +15,22 @@ overview {
   }
 }
 //
+// ========== Startup ==========
+//
+spawn-at-startup "noctalia-shell"
+spawn-sh-at-startup "uwsm finalize NIRI_SOCKET"
+spawn-sh-at-startup "nvim-neovide -- -c 'lua require([[resession]]).load([[asc]])'"
+hotkey-overlay {
+  skip-at-startup
+}
+//
 // ========== Miscellaneous ==========
 //
-screenshot-path null
-//screenshot-path "~/downloads/screenshots/screenshot from %Y-%m-%d %H-%M-%S.png"
+screenshot-path "~/media/images/screenshots/%Y-%m-%d-%H-%M-%S.png"
 // Disable client-side decorations
-// FIXME(niri): test this on or off
+// Prevents focus/ring border to show up through transparent windows
 prefer-no-csd
+// FIXME: revisit this on laptops, remove on desktop
 switch-events {
   lid-close {
     spawn "notify-send" "The laptop lid is closed."
@@ -34,18 +38,4 @@ switch-events {
   lid-open {
     spawn "notify-send" "The laptop lid is open."
   }
-}
-environment {
-  // Set the current desktop name.
-  XDG_CURRENT_DESKTOP "niri"
-  GDK_BACKEND "wayland"
-  QT_QPA_PLATFORM "wayland"
-  // Qt: Enable automatic scaling based on the monitor's pixel density.
-  QT_AUTO_SCREEN_SCALE_FACTOR "1"
-  // Qt: Disable window decorations on QT applications.
-  QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
-  // Run SDL2 applications on Wayland.
-  SDL_VIDEODRIVER "wayland"
-  // Force Clutter applications to use the Wayland backend.
-  CLUTTER_BACKEND "wayland"
 }

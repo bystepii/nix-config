@@ -33,10 +33,6 @@
       XDG_SESSION_TYPE = "wayland";
       # Set by firefox wrapper in nixpkgs, but just in case it's used outside the wrapper?
       MOZ_ENABLE_WAYLAND = "1";
-
-      #FIXME: Confirm these are actually needed
-      WLR_NO_HARDWARE_CURSORS = "1"; # this forces software cursors and can solve disappearing curors
-      WLR_RENDERER_ALLOW_SOFTWARE = "1"; # typically required to fix an issue with nvidia drivers confirm
     };
   };
 
