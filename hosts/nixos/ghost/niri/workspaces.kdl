@@ -32,7 +32,7 @@ workspace "Y_qrs" {
 }
 // ========== Workspace Assignments ==========
 window-rule {
-  match app-id="^[Oo]bsidian$"
+  match title="^(.*obsidian-vault-01.*)$"
   open-on-workspace "8_per"
 }
 window-rule {
