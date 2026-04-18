@@ -9,6 +9,7 @@
   inputs,
   config,
   lib,
+  pkgs,
   ...
 }:
 {
@@ -42,7 +43,6 @@
           "nfs-ghost-mediashare.nix" # mount the ghost mediashare
 
           # Misc
-          "plymouth.nix" # boot graphics
           "fonts.nix" # fonts
           "vlc.nix" # media player
         ])
@@ -54,9 +54,18 @@
     autoPersistHomes = true;
   };
 
-  introdus.services = {
-    audio.enable = true;
-    silent-sddm.enable = true;
+  introdus = {
+    plymouth = {
+      enable = true; # boot graphics
+      theme = "pixels";
+      themePackages = [
+        (pkgs.adi1090x-plymouth-themes.override { selected_themes = [ "pixels" ]; })
+      ];
+    };
+    services = {
+      audio.enable = true;
+      silent-sddm.enable = true; # desktop display manager
+    };
   };
 
   boot.initrd.systemd.enable = true;

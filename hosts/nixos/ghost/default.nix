@@ -45,7 +45,6 @@
           "mail-delivery.nix" # for sending email notifications
           "nvtop.nix" # GPU monitor (not available in home-manager)
           "obsidian.nix" # wiki
-          "plymouth.nix" # boot graphics
           "protonvpn.nix" # vpn
           "scanning.nix" # SANE and simple-scan
           "thunar.nix" # gui file manager
@@ -63,6 +62,13 @@
 
   introdus = {
     niri.enable = true; # Wayland compositor
+    plymouth = {
+      enable = true; # boot graphics
+      theme = "loader";
+      themePackages = [
+        (pkgs.adi1090x-plymouth-themes.override { selected_themes = [ "loader" ]; })
+      ];
+    };
     services = {
       audio = {
         enable = true;

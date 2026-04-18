@@ -9,6 +9,7 @@
   config,
   inputs,
   lib,
+  pkgs,
   ...
 }:
 {
@@ -47,7 +48,6 @@
           "fonts.nix" # fonts
           "nvtop.nix" # GPU monitor (not available in home-manager)
           "obsidian.nix" # wiki
-          "plymouth.nix" # boot graphics
           "protonvpn.nix" # vpn
           "thunar.nix" # gui file manager
           "vlc.nix" # media player
@@ -63,6 +63,13 @@
 
   introdus = {
     niri.enable = true; # Wayland compositor
+    plymouth = {
+      enable = true; # boot graphics
+      theme = "square";
+      themePackages = [
+        (pkgs.adi1090x-plymouth-themes.override { selected_themes = [ "square" ]; })
+      ];
+    };
     services = {
       audio = {
         enable = true;
