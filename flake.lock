@@ -106,8 +106,8 @@
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1776454853,
-        "narHash": "sha256-AEXk6cvl9b+0S0pBg7HHW6I7hqwU5daFVO7amT9jL8I=",
+        "lastModified": 1776542772,
+        "narHash": "sha256-VEb+4KKILQyln0brfknMTtdUSO88bjUqDn4mML128BA=",
         "path": "/home/ta/src/nix/neovim",
         "type": "path"
       },
@@ -520,8 +520,8 @@
         "wrappers": "wrappers_2"
       },
       "locked": {
-        "lastModified": 1776454839,
-        "narHash": "sha256-TrJ+xFca0Ww0Jxa4OBHUOhzCLRsJlC+XQW7Y/009I0U=",
+        "lastModified": 1776543998,
+        "narHash": "sha256-85fRyAxbckjbs0PWi1aWLOpS09N/bIoHIPF1fG4zlg8=",
         "path": "/home/ta/src/nix/introdus/ta",
         "type": "path"
       },
