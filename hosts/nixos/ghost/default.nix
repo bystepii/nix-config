@@ -31,10 +31,6 @@
       ++
         # ========== Optional common modules ==========
         (map (f: "hosts/common/optional/${f}") [
-          # Desktop environment
-          # "gnome.nix" # window manager
-          # "niri.nix"
-
           # Services
           "services/logrotate.nix" # log rotation
           "services/openssh.nix" # allow remote SSH access
@@ -65,13 +61,15 @@
     autoPersistHomes = true;
   };
 
-  niri.enable = true;
-  introdus.services = {
-    audio = {
-      enable = true;
-      enableJack = true;
+  introdus = {
+    niri.enable = true; # Wayland compositor
+    services = {
+      audio = {
+        enable = true;
+        enableJack = true;
+      };
+      silent-sddm.enable = true; # desktop display manager
     };
-    silent-sddm.enable = true;
   };
 
   # Bluetooth

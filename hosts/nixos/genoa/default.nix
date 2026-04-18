@@ -35,9 +35,6 @@
       ++
         # ========== Optional common modules ==========
         (map (f: "hosts/common/optional/${f}") [
-          # Desktop environment
-          "niri.nix"
-
           # Services
           "services/openssh.nix" # allow remote SSH access
           "services/printing.nix" # CUPS
@@ -64,9 +61,15 @@
     autoPersistHomes = true;
   };
 
-  introdus.services = {
-    audio.enable = true;
-    silent-sddm.enable = true;
+  introdus = {
+    niri.enable = true; # Wayland compositor
+    services = {
+      audio = {
+        enable = true;
+        enableJack = true;
+      };
+      silent-sddm.enable = true; # desktop display manager
+    };
   };
 
   # Bluetooth
