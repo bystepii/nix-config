@@ -2,10 +2,10 @@
 {
   services.desktopManager.gnome.enable = true; # this will enable xserver
   services.gnome.gnome-keyring.enable = true;
-  services.gnome.gcr-ssh-agent.enable = false; # agent already handled by startagent in ssh.nix
 
   environment.gnome.excludePackages = lib.attrValues {
     inherit (pkgs)
+
       gnome-photos
       gnome-tour
       gnome-text-editor # important otherwise overrides mime-types
