@@ -74,6 +74,8 @@
 
   # Bluetooth
   services.blueman.enable = true;
+  # Battery services for noctalia
+  batteryPowerServices.enable = true;
 
   boot.initrd = {
     systemd.enable = true;
