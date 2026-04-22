@@ -9,7 +9,6 @@
   config,
   inputs,
   lib,
-  pkgs,
   ...
 }:
 {
@@ -66,15 +65,9 @@
     plymouth = {
       enable = true; # boot graphics
       theme = "square";
-      themePackages = [
-        (pkgs.adi1090x-plymouth-themes.override { selected_themes = [ "square" ]; })
-      ];
     };
     services = {
-      audio = {
-        enable = true;
-        enableJack = true;
-      };
+      audio.enable = true;
       silent-sddm.enable = true; # desktop display manager
     };
   };

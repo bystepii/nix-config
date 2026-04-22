@@ -9,7 +9,6 @@
   inputs,
   config,
   lib,
-  pkgs,
   ...
 }:
 {
@@ -58,9 +57,6 @@
     plymouth = {
       enable = true; # boot graphics
       theme = "pixels";
-      themePackages = [
-        (pkgs.adi1090x-plymouth-themes.override { selected_themes = [ "pixels" ]; })
-      ];
     };
     services = {
       audio.enable = true;

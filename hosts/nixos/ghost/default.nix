@@ -65,18 +65,14 @@
     plymouth = {
       enable = true; # boot graphics
       theme = "loader";
-      themePackages = [
-        (pkgs.adi1090x-plymouth-themes.override { selected_themes = [ "loader" ]; })
-      ];
     };
     services = {
-      audio = {
-        enable = true;
-        enableJack = true;
-      };
+      audio.enable = true;
       silent-sddm.enable = true; # desktop display manager
     };
   };
+  # Additional settings not in introdus
+  services.pipewire.jack.enable = true;
 
   # Bluetooth
   services.blueman.enable = true;

@@ -12,6 +12,7 @@
     ./services/kanshi.nix # Monitor profiles
   ];
   home.packages = [
+    # FIXME: is the pulse stuff redundant?
     pkgs.pulseaudio # add pulse audio to the user path
     pkgs.pavucontrol # gui for pulseaudio server and volume controls
     pkgs.wl-clipboard # wayland copy and paste
