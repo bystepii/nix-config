@@ -2,14 +2,13 @@
 {
   imports = [
     # Packages with custom configs go here
-    # ./gnome # do enable through default anymore
+    # ./gnome # don't enable through default anymore
     ./niri
 
     ########## Shell ##########
     ./noctalia.nix
 
     ########## Utilities ##########
-    ./services/dunst.nix # Notification daemon
     ./services/kanshi.nix # Monitor profiles
 
     #./playerctl.nix # cli util and lib for controlling media players that implement MPRIS
