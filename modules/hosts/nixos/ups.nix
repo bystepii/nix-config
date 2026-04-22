@@ -156,8 +156,7 @@ in
       };
     };
 
-    introdus.mail-delivery.users = [
-      config.hostSpec.primaryUsername
+    introdus.mail-delivery.extraUsers = [
       config.power.ups.upsmon.user
     ];
 
