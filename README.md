@@ -118,14 +118,15 @@ As of September 2025, we've been rethinking how to handle multiple users and the
     - `common` - User-specific configurations common across that user's hosts.
 - `lib` - Custom library used throughout the nix-config to make import paths more readable. Accessible via `lib.custom`.
 - `modules` - Custom modules to enable special functionality and options.
-    - `common` - Custom modules that will work on either nixos ~~or dariwn~~ but that aren't specific to home-manager
-    - `home-manager` - Custom modules to home-manager
-    - `nixos` - Custom modules specific to nixos-based hosts
+    - `home` - Custom modules for home-manager
+    - `hosts` - Custom modules for hosts
+      - `common` - Custom modules applicable to hosts on either platform
+      - `darwin` - Custom modules specific to darwin-based hosts
+      - `nixos` - Custom modules specific to nixos-based hosts
 - `overlays` - Custom modifications to upstream packages.
 - `pkgs` - Custom packages meant to be shared or upstreamed.
-    - `common` - Custom packages that will work on either nixos ~~or dariwn~~
+    - `common` - Custom packages that will work on either nixos or dariwn
     - `nixos` - Custom packages specific to nixos-based hosts
-- `scripts` - Custom scripts for automation, including remote installation and bootstrapping of NixOS and nix-config.
 
 ## Secrets Management
 

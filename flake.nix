@@ -94,7 +94,7 @@
               # not introdus
               (map customLib.custom.relativeToRoot [
                 # Minimal modules for quick setup
-                "modules/common/host-spec.nix"
+                "modules/hosts/common/host-spec.nix"
                 "modules/hosts/nixos/disks.nix"
                 "modules/hosts/nixos/impermanence"
 

@@ -22,7 +22,6 @@ in
     { programs.nix-index-database.comma.enable = true; } # NOTE: don't enable in hm as well because it will barf eventually
 
     (map lib.custom.relativeToRoot [
-      "modules/common"
       "modules/hosts/common"
       "modules/hosts/${platform}"
 

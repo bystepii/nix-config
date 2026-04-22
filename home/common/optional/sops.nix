@@ -17,7 +17,7 @@ let
     "manu"
   ];
   yubikeySecrets =
-    # extract to default pam-u2f authfile location for passwordless sudo. see modules/common/yubikey
+    # extract to default pam-u2f authfile location for passwordless sudo. see modules/hosts/common/yubikey
     lib.optionalAttrs osConfig.hostSpec.useYubikey (
       {
         "keys/u2f" = {
