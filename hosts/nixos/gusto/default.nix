@@ -7,7 +7,6 @@
 
 {
   inputs,
-  config,
   lib,
   ...
 }:
@@ -47,11 +46,6 @@
         ])
     ))
   ];
-
-  system.impermanence = {
-    enable = config.hostSpec.isImpermanent;
-    autoPersistHomes = true;
-  };
 
   introdus = {
     plymouth = {

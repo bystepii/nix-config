@@ -55,11 +55,6 @@
     ))
   ];
 
-  system.impermanence = {
-    enable = config.hostSpec.isImpermanent;
-    autoPersistHomes = true;
-  };
-
   introdus = {
     niri.enable = true; # Wayland compositor
     plymouth = {
