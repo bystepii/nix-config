@@ -37,7 +37,7 @@ in
   # ========== Core Host Specifications ==========
   #
   hostSpec = {
-    primaryUsername = "ta";
+    primaryUsername = lib.mkDefault "ta";
     users = [ "ta" ];
     handle = "emergentmind";
     inherit (secrets)

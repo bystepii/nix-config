@@ -6,6 +6,7 @@
 {
   imports = lib.map lib.custom.relativeToRoot [
     "modules/hosts/common"
+    "modules/hosts/nixos/auto/warnings.nix"
 
     "hosts/common/core/ssh.nix"
     "hosts/common/users"
