@@ -32,19 +32,13 @@
             ./config.kdl
           ]
           |> lib.concatMapStringsSep "\n" lib.readFile;
-
-        # Per-host values
-
-        # Generic
       in
       {
         ".config/niri/config.kdl".text = finalConfig;
-        #".config/niri/config.kdl".source = ./config.kdl;
-        #".config/niri/workspaces.kdl".source = ./workspaces.kdl;
-        #".config/niri/inputs.kdl".source = ./inputs.kdl;
-        #".config/niri/outputs.kdl".source = ./outputs.kdl;
-        #".config/niri/binds.kdl".source = ./binds.kdl;
-        #".config/niri/rules.kdl".source = ./rules.kdl;
+        ".config/niri/animations/" = {
+          source = ./animations;
+          recursive = true;
+        };
       };
   };
 }

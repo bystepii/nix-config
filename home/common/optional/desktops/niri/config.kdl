@@ -2,9 +2,12 @@
 //
 // ========== Animations ==========
 //
+// NOTE: Using .kdlx to avoid kdlfmt mangling the raw string
+//FIXME: switch these to be defined per host
+include "animations/honeycomb.kdlx"
+//include "animations/glitch_01.kdlx"
 animations {
-  // Slow down or speed up animations by this factor. Values below 1 speed animations up.
-  slowdown 0.7
+  slowdown 2.4
 }
 //
 // ========== Overview screen ==========
