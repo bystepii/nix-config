@@ -7,9 +7,9 @@ in
   system.disks = {
     # 1TB /dev/nvme0n1
     primary = "/dev/disk/by-id/nvme-WDS100T3XHC-00SJG0_201274802169";
-    primaryLabel = "cryptprimary";
+    primaryDiskoLabel = "cryptprimary";
     bootSize = "1G";
-    useLuks = true;
+    luks.label = "cryptprimary";
     extraDisks = [
       # NOTE: the luks partition (e.g. `-part1`) needs to be specified in path
       {
