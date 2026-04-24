@@ -122,6 +122,10 @@
       ;
   };
 
+  #Firmwareupdater
+  #  $ fwupdmgr update
+  services.fwupd.enable = true;
+
   services.backup = {
     enable = true;
     borgBackupStartTime = "02:00:00";
@@ -153,4 +157,5 @@
     ip = config.hostSpec.networking.subnets.grove.hosts.moth.ip;
     powerDownTimeOut = (60 * 30); # 30m. UPS reports ~45min
   };
+
 }

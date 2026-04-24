@@ -88,4 +88,8 @@
 
   # ========== autosshTunnel ==========
   tunnels.cakes.enable = true;
+
+  #Firmwareupdater
+  #  $ fwupdmgr update
+  services.fwupd.enable = true;
 }
