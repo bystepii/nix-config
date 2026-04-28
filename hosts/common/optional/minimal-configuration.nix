@@ -8,7 +8,6 @@
     "modules/hosts/common"
     "modules/hosts/nixos/auto/warnings.nix"
 
-    "hosts/common/core/ssh.nix"
     "hosts/common/users"
     "hosts/common/optional/minimal-user.nix"
   ];
