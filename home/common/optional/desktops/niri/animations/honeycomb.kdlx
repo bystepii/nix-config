@@ -1,4 +1,4 @@
-# from https://github.com/arch-disciple/niri-shader-collection
+// from https://github.com/arch-disciple/niri-shader-collection
 animations {
   window-open{
     duration-ms 500
