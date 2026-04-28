@@ -11,11 +11,16 @@ rec {
     "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
     "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
     inputs.home-manager.nixosModules.home-manager
+
+    #FIXME: These should just be added everywhere now?
+    inputs.sops-nix.nixosModules.sops
+    inputs.introdus.nixosModules.default
     (lib.custom.scanPaths ./.) # Load all extra host-specific *.nix files
     (map lib.custom.relativeToRoot [
       # FIXME: Switch this to just import hosts/common/core (though have to be careful to purposefully not add platform file..
       "hosts/common/optional/minimal-user.nix"
-      "modules/common/host-spec.nix"
+      "modules/hosts/common/host-spec.nix"
+      "modules/hosts/nixos/auto/warnings.nix"
     ])
     (
       let
