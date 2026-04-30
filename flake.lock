@@ -106,8 +106,8 @@
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1777514357,
-        "narHash": "sha256-iUmtxcBXs9XitZizo0rdD2OyqPdYbxnrLCKcrRKSYCM=",
+        "lastModified": 1777583936,
+        "narHash": "sha256-d+nGOVqB9wdrAL9Q/gppLeOVGSlGz1pSPSiKF7Nzbec=",
         "path": "/home/ta/src/nix/neovim",
         "type": "path"
       },
@@ -520,8 +520,8 @@
         "wrappers": "wrappers_2"
       },
       "locked": {
-        "lastModified": 1777514701,
-        "narHash": "sha256-qWmeD7IA8qkgh/Z6RIX9MGDxYR4RPvSmxgwNYU+5n1o=",
+        "lastModified": 1777515886,
+        "narHash": "sha256-26khJStEqLb3h+A6aLxDdQo8RaiMXwqR278KnTBILh0=",
         "path": "/home/ta/src/nix/introdus/ta",
         "type": "path"
       },
@@ -564,17 +564,17 @@
     },
     "nix-assets": {
       "locked": {
-        "lastModified": 1775956980,
-        "narHash": "sha256-pyBSwUTcYrPJjRxmYX5lUOpJ1ZkdNK+i2A8ItPRNYno=",
-        "owner": "emergentmind",
-        "repo": "nix-assets",
-        "rev": "3c8ec53b28d37306dc973163b7459788eef4b8ac",
-        "type": "github"
+        "lastModified": 1777583188,
+        "narHash": "sha256-mxKQw7tyx6H9QxXF4mXMo4Mcf4vBMR4Eiu5HNHCK/Qw=",
+        "ref": "refs/heads/master",
+        "rev": "b61281a6ada049a5dedfcc5425dde4432e38e193",
+        "revCount": 13,
+        "type": "git",
+        "url": "ssh://git@codeberg.org/emergentmind/nix-assets"
       },
       "original": {
-        "owner": "emergentmind",
-        "repo": "nix-assets",
-        "type": "github"
+        "type": "git",
+        "url": "ssh://git@codeberg.org/emergentmind/nix-assets"
       }
     },
     "nix-index-database": {
@@ -604,10 +604,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1775868144,
-        "narHash": "sha256-pnIjG0Kk7venMTVLQcSgd9FNeArGXD4tsd3duiysrCo=",
+        "lastModified": 1777581421,
+        "narHash": "sha256-4Ewa3YVlTzDxy4TeowpoLKYnTKKk9zqJMbrtWy0tK7A=",
         "ref": "main",
-        "rev": "a9e4c244c11b93c06233b28a53d8c74a42e9d98f",
+        "rev": "569a8fc32f9e2b5945a82792b6df9c8f3db0fbcf",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@gitlab.com/emergentmind/nix-secrets.git"
