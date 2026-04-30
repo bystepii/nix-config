@@ -24,7 +24,7 @@ rec {
     ])
     (
       let
-        path = lib.custom.relativeToRoot "hosts/common/users/ta/default.nix";
+        path = lib.custom.relativeToRoot "hosts/common/users/stepii/default.nix";
       in
       lib.optional (lib.pathExists path) path
     )

@@ -1,9 +1,0 @@
-// NOTE: see home/common/optional/niri/config.kdl for baseline startup calls
-//
-// ========== Startup ==========
-//
-spawn-at-startup "signal-desktop"
-spawn-at-startup "/run/current-system/sw/bin/protonvpn-app"
-spawn-at-startup "yubioath-flutter"
-spawn-at-startup "copyq"
-spawn-at-startup "firefox"

@@ -97,7 +97,7 @@ in
     };
   };
 
-  config = lib.mkIf ((builtins.length (lib.attrNames cfg.sessions)) > 0) {
+  config = lib.mkIf ((lib.length (lib.attrNames cfg.sessions)) > 0) {
     users = {
       users.autossh = {
         isSystemUser = true;

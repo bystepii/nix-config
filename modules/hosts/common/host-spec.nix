@@ -243,7 +243,8 @@
     assertions =
       let
         # We import these options to HM and NixOS, so need to not fail on HM
-        isImpermanent = config.introdus.impermanence.enable;
+        # isImpermanent = config.introdus.impermanence.enable;
+        isImpermanent = config.hostSpec.isImpermanent;
       in
       [
         {
@@ -253,7 +254,8 @@
         }
         {
           assertion = !isImpermanent || (isImpermanent && ("${config.hostSpec.persistFolder}" != ""));
-          message = "config.introdus.impermanence.enable is true but no persistFolder path is provided";
+          # message = "config.introdus.impermanence.enable is true but no persistFolder path is provided";
+          message = "hostSpec.isImpermanent is true but no persistFolder path is provided";
         }
         {
           assertion = !(config.hostSpec.voiceCoding && config.hostSpec.useWayland);

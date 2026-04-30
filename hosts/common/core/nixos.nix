@@ -16,7 +16,8 @@
   # Enable firmware with a license allowing redistribution
   hardware.enableRedistributableFirmware = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_6_18;
+  # boot.kernelPackages = pkgs.linuxPackages_6_18;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # This should be handled by config.security.pam.sshAgentAuth.enable
   security.sudo.extraConfig = ''

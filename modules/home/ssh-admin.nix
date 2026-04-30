@@ -11,7 +11,7 @@ in
 lib.mkIf cfg.isAdmin {
   sshAutoEntries = {
     enable = true;
-    defaultUser = "ta";
+    defaultUser = "stepii";
     ykDomainHosts = [
       "genoa"
       "ghost"
@@ -22,9 +22,9 @@ lib.mkIf cfg.isAdmin {
     ];
     ykNoDomainHosts = [
       "myth"
-      cfg.networking.subnets.glade.wildcard
-      cfg.networking.subnets.grove.wildcard
-      cfg.networking.subnets.vm-lan.wildcard
+      # cfg.networking.subnets.glade.wildcard
+      # cfg.networking.subnets.grove.wildcard
+      # cfg.networking.subnets.vm-lan.wildcard
     ]
     ++ lib.optional cfg.isWork secrets.work.git.servers;
   };
@@ -35,23 +35,23 @@ lib.mkIf cfg.isAdmin {
       # TODO:
       # gladeSubnetHosts= [
       # ];
-      groveSubnetHosts = [
-        "glass"
-        "gooey"
-        "guard"
-      ];
-      extraSubnetEntries =
-        hosts: subnet:
-        hosts
-        |> lib.lists.map (host: {
-          "${host}" = lib.hm.dag.entryAfter [ "yubikey-hosts" ] {
-            match = "host ${host},${host}.${cfg.domain}";
-            hostname = "${host}.${cfg.domain}";
-            user = cfg.networking.subnets.${subnet}.hosts.${host}.user;
-            port = cfg.networking.subnets.${subnet}.hosts.${host}.sshPort;
-          };
-        })
-        |> lib.attrsets.mergeAttrsList;
+      # groveSubnetHosts = [
+      #   "glass"
+      #   "gooey"
+      #   "guard"
+      # ];
+      # extraSubnetEntries =
+      #   hosts: subnet:
+      #   hosts
+      #   |> lib.lists.map (host: {
+      #     "${host}" = lib.hm.dag.entryAfter [ "yubikey-hosts" ] {
+      #       match = "host ${host},${host}.${cfg.domain}";
+      #       hostname = "${host}.${cfg.domain}";
+      #       user = cfg.networking.subnets.${subnet}.hosts.${host}.user;
+      #       port = cfg.networking.subnets.${subnet}.hosts.${host}.sshPort;
+      #     };
+      #   })
+      #   |> lib.attrsets.mergeAttrsList;
     in
     {
       # external hosts with
@@ -59,7 +59,7 @@ lib.mkIf cfg.isAdmin {
         host = "moth";
         hostname = "moth.${cfg.domain}";
         user = "${cfg.primaryUsername}";
-        port = cfg.networking.ports.tcp.moth;
+        # port = cfg.networking.ports.tcp.moth;
       };
       # "myth" = lib.hm.dag.entryAfter [ "yubikey-hosts" ] {
       #   host = "myth ${secrets.networking.domains.myth}";
@@ -67,7 +67,7 @@ lib.mkIf cfg.isAdmin {
       #   user = "admin";
       #   port = cfg.networking.ports.tcp.myth;
       # };
-    }
-    # // (extraSubnetEntries gladeSubnetHosts "glade")
-    // (extraSubnetEntries groveSubnetHosts "grove");
+    };
+  # // (extraSubnetEntries gladeSubnetHosts "glade")
+  # // (extraSubnetEntries groveSubnetHosts "grove");
 }

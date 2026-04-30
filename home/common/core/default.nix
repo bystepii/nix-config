@@ -7,6 +7,7 @@
 {
   imports = lib.flatten [
     inputs.introdus.homeManagerModules.default
+    inputs.stylix.homeManagerModules.stylix
     (map lib.custom.relativeToRoot [
       "modules/home"
     ])

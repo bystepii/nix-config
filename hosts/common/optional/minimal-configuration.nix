@@ -8,6 +8,7 @@
     "modules/hosts/common"
     "modules/hosts/nixos/auto/warnings.nix"
 
+    # "hosts/common/core/ssh.nix"
     "hosts/common/users"
     "hosts/common/optional/minimal-user.nix"
   ];
@@ -15,7 +16,7 @@
   # Note, users will already be set by flake.nix
   hostSpec = {
     hostName = "installer";
-    primaryUsername = "ta";
+    primaryUsername = "stepii";
     persistFolder = "/persist";
     isMinimal = lib.mkForce true;
     domain = "local"; # Temporary domain for the installer

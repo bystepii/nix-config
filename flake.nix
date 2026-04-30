@@ -30,7 +30,7 @@
         }
       );
 
-      secrets = nix-secrets.mkSecrets nixpkgs customLib;
+      secrets = nix-secrets;
 
       mkHost = host: isDarwin: {
         ${host} =
@@ -89,6 +89,7 @@
                 ];
               }
               inputs.home-manager.nixosModules.home-manager
+              inputs.impermanence.nixosModules.impermanence
             ]
             ++
               # FIXME: If this moves to introdus, the hosts path need to become relative to the caller
@@ -267,24 +268,26 @@
     #
     # this is a separate input for dev hosts that don't have a local copy of introdus
     introdus-git = {
-      url = "git+ssh://git@codeberg.org/fidgetingbits/introdus?ref=ta";
+      # url = "git+ssh://git@codeberg.org/fidgetingbits/introdus?ref=ta";
+      url = "git+https://codeberg.org/fidgetingbits/introdus?ref=ta";
     };
     introdus = {
       # url = "git+ssh://git@codeberg.org/fidgetingbits/introdus?shallow=1&ref=ta";
-      url = "path:///home/ta/src/nix/introdus/ta";
+      url = "git+https://codeberg.org/fidgetingbits/introdus?ref=main";
     };
     # Private secrets repo.  See ./docs/secretsmgmt.md
     # Authenticate via ssh and use shallow clone
     nix-secrets = {
-      url = "git+ssh://git@gitlab.com/emergentmind/nix-secrets.git?ref=main&shallow=1";
+      # url = "path:///home/stepii/nix-definitive/nix-secrets";
+      url = "git+ssh://git@github.com/bystepii/nix-secrets?shallow=1&ref=complex";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-assets = {
       url = "github:emergentmind/nix-assets";
     };
     emergentvim = {
-      # url = "github:emergentmind/neovim";
-      url = "path:///home/ta/src/nix/neovim";
+      url = "github:emergentmind/neovim";
+      # url = "path:///home/ta/src/nix/neovim";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.introdus.follows = "introdus";
       inputs.flake-parts.follows = "flake-parts";

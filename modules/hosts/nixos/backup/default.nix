@@ -7,7 +7,8 @@
 let
   cfg = config.services.backup;
 
-  hasImpermanence = config.introdus.impermanence.enable;
+  # hasImpermanence = config.introdus.impermanence.enable;
+  hasImpermanence = config.hostSpec.isImpermanent;
   hostName = config.networking.hostName;
   homeBase = if pkgs.stdenv.isLinux then "/home" else "/Users";
   homeDirectory = "${config.hostSpec.home}";

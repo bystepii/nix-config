@@ -153,7 +153,8 @@ in
             ];
           };
         }
-        // (lib.optionalAttrs config.introdus.impermanence.enable {
+        # // (lib.optionalAttrs config.introdus.impermanence.enable {
+        // (lib.optionalAttrs config.hostSpec.isImpermanent {
           "@persist" = {
             mountpoint = "${config.hostSpec.persistFolder}";
             mountOptions = [
@@ -301,7 +302,8 @@ in
               ) cfg.extraDisks
             );
       }
-      // lib.optionalAttrs config.introdus.impermanence.enable {
+      # // lib.optionalAttrs config.introdus.impermanence.enable {
+      // lib.optionalAttrs (config.hostSpec.isImpermanent) {
         persistence."${config.hostSpec.persistFolder}" = {
           files =
             [ ]

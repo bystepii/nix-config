@@ -12,10 +12,10 @@
     NIXPKGS_ALLOW_BROKEN = "1";
 
     # Bootstrap script settings
-    BOOTSTRAP_USER = "ta";
+    BOOTSTRAP_USER = "stepii";
     BOOTSTRAP_SSH_PORT = "22";
     BOOTSTRAP_SSH_KEY = "~/.ssh/id_yubikey";
-    NIX_SECRETS_DIR = "/home/ta/src/nix/nix-secrets";
+    NIX_SECRETS_DIR = "/home/stepii/nix-definitive/nix-secrets";
 
     buildInputs = checks.pre-commit-check.enabledPackages;
     nativeBuildInputs =

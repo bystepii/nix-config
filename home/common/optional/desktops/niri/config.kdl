@@ -7,15 +7,15 @@
 include "animations/honeycomb.kdlx"
 //include "animations/glitch_01.kdlx"
 animations {
-  slowdown 2.4
+    slowdown 2.4
 }
 //
 // ========== Overview screen ==========
 //
 overview {
-  workspace-shadow {
-    off
-  }
+    workspace-shadow {
+        off
+    }
 }
 //
 // ========== Startup ==========
@@ -24,7 +24,7 @@ spawn-at-startup "noctalia-shell"
 spawn-sh-at-startup "uwsm finalize NIRI_SOCKET"
 spawn-sh-at-startup "nvim-neovide -- -c 'lua require([[resession]]).load([[asc]])'"
 hotkey-overlay {
-  skip-at-startup
+    skip-at-startup
 }
 //
 // ========== Miscellaneous ==========
@@ -35,10 +35,10 @@ screenshot-path "~/media/images/screenshots/%Y-%m-%d-%H-%M-%S.png"
 prefer-no-csd
 // FIXME: revisit this on laptops, remove on desktop
 switch-events {
-  lid-close {
-    spawn "notify-send" "The laptop lid is closed."
-  }
-  lid-open {
-    spawn "notify-send" "The laptop lid is open."
-  }
+    lid-close {
+        spawn "notify-send" "The laptop lid is closed."
+    }
+    lid-open {
+        spawn "notify-send" "The laptop lid is open."
+    }
 }

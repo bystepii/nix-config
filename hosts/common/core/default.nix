@@ -26,7 +26,7 @@ in
       "modules/hosts/${platform}"
 
       "hosts/common/core/${platform}.nix"
-      "hosts/common/core/keyd.nix"
+      # "hosts/common/core/keyd.nix"
       "hosts/common/core/sops.nix" # Core because it's used for backups, mail
 
       "hosts/common/users/"
@@ -37,9 +37,10 @@ in
   # ========== Core Host Specifications ==========
   #
   hostSpec = {
-    primaryUsername = lib.mkDefault "ta";
-    users = [ "ta" ];
-    handle = "emergentmind";
+    # using mkDefault because it conflicts with the minimal configuration for the installer
+    primaryUsername = lib.mkDefault "stepii";
+    users = [ "stepii" ];
+    handle = "bystepii";
     inherit (secrets)
       domain
       email

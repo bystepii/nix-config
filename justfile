@@ -14,8 +14,8 @@ rebuild-pre HOST=`hostname`:
     just update {{ HOST }} emergentvim && \
     just update {{ HOST }} nix-index-database && \
     just update {{ HOST }} introdus && \
-    git add --intent-to-add . && \
-    just update-neovim-flake
+    git add --intent-to-add . # && \
+    # just update-neovim-flake
 
 # Run post-build checks, like if sops is running properly afterwards
 [private]
@@ -24,7 +24,7 @@ rebuild-post: check-sops
 # Run nix flake update on neovim flake to ensure latest introdus is input
 [private]
 update-neovim-flake:
-  cd /home/ta/src/nix/neovim && \
+  cd /home/stepii/src/nix/neovim && \
   nix flake update introdus
 
 # Run a flake check on the config and installer
@@ -35,12 +35,14 @@ check HOST=`hostname` ARGS="":
         --keep-going \
         --show-trace \
         {{ ARGS }}
-    cd nixos-installer && \
+    if [ -d nixos-installer ]; then \
+        cd nixos-installer && \
         NIXPKGS_ALLOW_UNFREE=1 REPO_PATH=$(pwd) nix flake check \
         --impure \
         --keep-going \
         --show-trace \
-        {{ ARGS }}
+        {{ ARGS }}; \
+    fi
 
 # Rebuild specified host
 [group("building")]
