@@ -584,6 +584,7 @@ deepin-system-monitor || pantheon-system-monitor";
               showUnreadBadge = true;
               unreadBadgeColor = "error";
             }
+            { id = "plugins:rss-feed"; }
             {
               blacklist = [
               ];
