@@ -31,6 +31,10 @@
             enabled = true;
             sourceUrl = url;
           };
+          rss-feed = {
+            enabled = true;
+            sourceUrl = url;
+          };
           timer = {
             enabled = true;
             sourceUrl = url;
@@ -514,6 +518,33 @@ deepin-system-monitor || pantheon-system-monitor";
         useSeparateOpacity = true;
         widgetSpacing = 6;
         widgets = {
+          left = [
+            {
+              id = "Spacer";
+              width = 30;
+            }
+            {
+              characterCount = 10;
+              colorizeIcons = false;
+              emptyColor = "tertiary";
+              enableScrollWheel = false;
+              focusedColor = "primary";
+              followFocusedScreen = false;
+              fontWeight = "semibold";
+              groupedBorderOpacity = 1;
+              hideUnoccupied = false;
+              iconScale = 0.8;
+              id = "Workspace";
+              labelMode = "name";
+              occupiedColor = "tertiary";
+              pillSize = lib.mkForce 0.85;
+              showApplications = false;
+              showApplicationsHover = false;
+              showBadge = true;
+              showLabelsOnlyWhenOccupied = false;
+              unfocusedIconsOpacity = 1;
+            }
+          ];
           center = [
             {
               defaultSettings = {
@@ -548,33 +579,6 @@ deepin-system-monitor || pantheon-system-monitor";
               id = "plugin:timer";
             }
           ];
-          left = [
-            {
-              id = "Spacer";
-              width = 30;
-            }
-            {
-              characterCount = 10;
-              colorizeIcons = false;
-              emptyColor = "tertiary";
-              enableScrollWheel = false;
-              focusedColor = "primary";
-              followFocusedScreen = false;
-              fontWeight = "semibold";
-              groupedBorderOpacity = 1;
-              hideUnoccupied = false;
-              iconScale = 0.8;
-              id = "Workspace";
-              labelMode = "name";
-              occupiedColor = "tertiary";
-              pillSize = lib.mkForce 0.85;
-              showApplications = false;
-              showApplicationsHover = false;
-              showBadge = true;
-              showLabelsOnlyWhenOccupied = false;
-              unfocusedIconsOpacity = 1;
-            }
-          ];
           right = [
             {
               hideWhenZero = false;
@@ -584,7 +588,9 @@ deepin-system-monitor || pantheon-system-monitor";
               showUnreadBadge = true;
               unreadBadgeColor = "error";
             }
-            { id = "plugins:rss-feed"; }
+            {
+              id = "plugin:rss-feed";
+            }
             {
               blacklist = [
               ];
