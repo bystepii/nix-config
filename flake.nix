@@ -273,12 +273,12 @@
     };
     introdus = {
       # url = "git+ssh://git@codeberg.org/fidgetingbits/introdus?shallow=1&ref=ta";
-      url = "git+https://codeberg.org/fidgetingbits/introdus?ref=ta";
+      url = "git+https://codeberg.org/fidgetingbits/introdus?ref=main";
     };
     # Private secrets repo.  See ./docs/secretsmgmt.md
     # Authenticate via ssh and use shallow clone
     nix-secrets = {
-      url = "path:///home/stepii/nix-definitive/nix-secrets";
+      url = "git+ssh://git@github.com/bystepii/nix-secrets?shallow=1&ref=complex";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-assets = {
