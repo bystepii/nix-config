@@ -43,6 +43,8 @@ let
         #   }
         # );
         neovim = final.unstable.neovim;
+        neovide = final.unstable.neovide;
+        vimPlugins = final.unstable.vimPlugins;
       });
 
     modifications = final: prev: {
