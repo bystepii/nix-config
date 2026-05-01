@@ -148,10 +148,6 @@ in
           root = {
             home.stateVersion = "23.05"; # Avoid error
             programs.zsh.enable = true;
-            programs.starship = {
-              enable = true;
-              package = pkgs.unstable.starship;
-            };
           };
         };
     };

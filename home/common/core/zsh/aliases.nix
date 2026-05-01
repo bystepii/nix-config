@@ -13,9 +13,9 @@ in
   whichreal = ''function _whichreal(){ (alias "$1" >/dev/null 2>&1 && (alias "$1" | sed "s/.*=.\(.*\).../\1/" | xargs which)) || which "$1"; }; _whichreal'';
 
   #-------------Bat related------------
-  cat = "bat --paging=never";
-  diff = "batdiff";
-  less = "bat --style=plain";
+  # cat = "bat --paging=never";        # using user's alias
+  # diff = "batdiff";                   # conflicts with user's setup
+  # less = "bat --style=plain";         # using user's alias
   rg = "rg -M300";
 
   #------------Navigation------------
@@ -23,13 +23,13 @@ in
   doc = "cd $HOME/doc";
   edu = "cd $HOME/edu";
   wiki = "cd $HOME/sync/obsidian-vault-01/wiki";
-  l = "eza -lah";
-  la = "eza -lah";
+  # l = "eza -lah";                     # conflicts with lsd
+  # la = "eza -lah";                    # conflicts with lsd
   ldt = "eza -TD"; # list directory tree
-  ll = "eza -lh";
-  ls = "eza";
-  lsa = "eza -lah";
-  tree = "eza -T";
+  # ll = "eza -lh";                     # conflicts with lsd
+  # ls = "eza";                         # conflicts with lsd
+  # lsa = "eza -lah";                   # conflicts with lsd
+  # tree = "eza -T";                    # conflicts with lsd
   ".h" = "cd ~"; # Because I find pressing ~ tedious"
   cdr = "cd-gitroot";
   ".r" = "cd-gitroot";
@@ -95,9 +95,66 @@ in
   # Path to real rm and rmdir in coreutils. This is so we can not use rmtrash for big files
   rrm = "/run/current-system/sw/bin/rm";
   rrmdir = "/run/current-system/sw/bin/rmdir";
-  rm = "rmtrash";
-  rmdir = "rmdirtrash";
+  # rm = "rmtrash";                     # conflicts with trash
+  # rmdir = "rmdirtrash";               # conflicts with trash
 
   #-------------Git Goodness-------------
   # git aliases moved to introdus
+
+  # ========= User's Ubuntu aliases =========
+  # Navigation with lsd
+  l = "lsd --group-dirs=first";
+  la = "lsd -a --group-dirs=first";
+  ll = "lsd -lh --group-dirs=first";
+  lla = "lsd -lha --group-dirs=first";
+  ls = "lsd --group-dirs=first";
+
+  # Bat aliases
+  cat = "bat --paging=never";
+
+  # Trash
+  rm = "trash ";
+
+  # Sudo with trailing space for alias expansion
+  sudo = "sudo ";
+
+  # Git aliases
+  gs = "git status ";
+  ga = "git add ";
+  gb = "git branch ";
+  gc = "git commit";
+  gd = "git diff";
+  gt = "git checkout ";
+  gk = "gitk --all&";
+  gx = "gitx --all";
+  got = "git ";
+  get = "git ";
+
+  # GitHub Copilot aliases
+  copilot = "gh copilot";
+  gcs = "gh copilot suggest";
+  gce = "gh copilot explain";
+
+  # Kitty icat
+  icat = "kitty +kitten icat";
+
+  # RustScan
+  rustscan = "docker run -it --rm --name rustscan rustscan/rustscan";
+
+  # Commented-out PATH exports for future nix migration
+  # export PATH="$HOME/go/bin:$PATH"                # golang - TODO: use nixpkgs#go
+  # export PATH="$HOME/.cargo/bin:$PATH"            # rust/cargo - TODO: use nixpkgs#cargo
+  # export PATH="$HOME/.local/bin:$PATH"            # local bins
+  # export PATH="$HOME/bin:$PATH"                   # personal bins
+  # export PATH="$PATH:/home/stepii/.local/share/JetBrains/Toolbox/scripts"  # JetBrains
+  # export PATH="$HOME/.pixi/bin:$PATH"             # pixi - using nixpkgs#pixi instead
+  # export PATH="$HOME/perl5/bin:$PATH"             # perl local::lib
+  # export PATH="/usr/local/cuda/bin:$PATH"         # CUDA - TODO: use nixpkgs#cuda
+  # export PATH="/home/stepii/texlive/2024/bin/x86_64-linux/:$PATH"  # TeX Live - TODO: use nixpkgs#texlive
+  # export ANDROID_HOME=$HOME/Android/Sdk           # Android SDK - TODO: use nixpkgs#androidsdk
+  # export PATH=$PATH:$ANDROID_HOME/emulator        # Android emulator
+  # export PATH=$PATH:$ANDROID_HOME/platform-tools  # Android platform-tools
+  # export NVM_DIR="$HOME/.nvm"                     # Node Version Manager - TODO: use nixpkgs#nodePackages
+  # export SDKMAN_DIR="$HOME/.sdkman"               # SDKMAN - TODO: use nixpkgs alternatives
+  # eval "$(pixi completion --shell zsh)"           # handled by installing pixi package
 }
