@@ -15,6 +15,15 @@ rec {
     #FIXME: These should just be added everywhere now?
     inputs.sops-nix.nixosModules.sops
     inputs.introdus.nixosModules.default
+    # Shim: nixpkgs 25.11 renamed services.ups -> power.ups, but introdus still
+    # references the old option name in a default value. Define it here so the
+    # ISO evaluates without pulling in the full local ups wrapper.
+    {
+      options.services.ups.server.enable = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+      };
+    }
     (lib.custom.scanPaths ./.) # Load all extra host-specific *.nix files
     (map lib.custom.relativeToRoot [
       # FIXME: Switch this to just import hosts/common/core (though have to be careful to purposefully not add platform file..

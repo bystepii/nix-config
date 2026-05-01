@@ -273,7 +273,7 @@
     };
     introdus = {
       # url = "git+ssh://git@codeberg.org/fidgetingbits/introdus?shallow=1&ref=ta";
-      url = "git+https://codeberg.org/fidgetingbits/introdus?ref=main";
+      url = "git+https://codeberg.org/fidgetingbits/introdus?ref=ta";
     };
     # Private secrets repo.  See ./docs/secretsmgmt.md
     # Authenticate via ssh and use shallow clone
