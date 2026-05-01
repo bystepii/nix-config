@@ -46,6 +46,8 @@ The way out, is through.
 Watch NixOS related videos on my [YouTube channel](https://www.youtube.com/@Emergent_Mind).
 Chat with me directly on our [Discord server](https://discord.gg/XTFg57xGxC).
 
+**April 30, 2026:** This and other nix related repos by EmergentMind on GitHub are now mirrored from repos of the same name at [https://codeberg.org/EmergentMind/](https:bd://codeberg.org/EmergentMind/). Depending on which domain you are visitng the commit signing before and after this change may show as unverified. Also, many of the reference URLs throughout may still point back to github until I get around to correcting them.
+
 ## Feature Highlights
 
 - Flake-based multi-host, multi-user configurations for NixOS and Home-Manager

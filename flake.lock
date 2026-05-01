@@ -108,15 +108,15 @@
       "locked": {
         "lastModified": 1777583914,
         "narHash": "sha256-Y2PqveypdxcppvSL0mK/w9CHNKbvA0MQ5qgpW9gOFsQ=",
-        "owner": "emergentmind",
-        "repo": "neovim",
+        "ref": "refs/heads/master",
         "rev": "6f440f6a50cae7d853d957a64f51ff1ea87e7064",
-        "type": "github"
+        "revCount": 83,
+        "type": "git",
+        "url": "https://codeberg.org/emergentmind/neovim"
       },
       "original": {
-        "owner": "emergentmind",
-        "repo": "neovim",
-        "type": "github"
+        "type": "git",
+        "url": "https://codeberg.org/emergentmind/neovim"
       }
     },
     "firefox-addons": {
@@ -573,15 +573,15 @@
       "locked": {
         "lastModified": 1777583188,
         "narHash": "sha256-mxKQw7tyx6H9QxXF4mXMo4Mcf4vBMR4Eiu5HNHCK/Qw=",
-        "owner": "emergentmind",
-        "repo": "nix-assets",
+        "ref": "refs/heads/master",
         "rev": "b61281a6ada049a5dedfcc5425dde4432e38e193",
-        "type": "github"
+        "revCount": 13,
+        "type": "git",
+        "url": "https://codeberg.org/emergentmind/nix-assets"
       },
       "original": {
-        "owner": "emergentmind",
-        "repo": "nix-assets",
-        "type": "github"
+        "type": "git",
+        "url": "https://codeberg.org/emergentmind/nix-assets"
       }
     },
     "nix-index-database": {

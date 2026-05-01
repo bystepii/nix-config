@@ -282,11 +282,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-assets = {
-      url = "github:emergentmind/nix-assets";
+      # url = "git+ssh://git@codeberg.org/emergentmind/nix-assets";
+      url = "git+https://codeberg.org/emergentmind/nix-assets";
     };
     emergentvim = {
-      url = "github:emergentmind/neovim";
+      # url = "git+ssh://git@codeberg.org/emergentmind/neovim";
       # url = "path:///home/ta/src/nix/neovim";
+      url = "git+https://codeberg.org/emergentmind/neovim";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.introdus.follows = "introdus";
       inputs.flake-parts.follows = "flake-parts";
