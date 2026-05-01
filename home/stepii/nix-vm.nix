@@ -10,6 +10,7 @@
       ++
         # ========== Optional modules ==========
         (map (f: "home/common/optional/${f}") [
+          "development"
         ])
     )
   );

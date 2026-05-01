@@ -2,12 +2,18 @@
 {
   pkgs,
   osConfig,
+  secrets,
+  lib,
   ...
 }:
+let
+  ghCredential = "!${lib.getExe pkgs.gh} auth git-credential";
+in
 {
   # All users get git no matterwhat but additional settings may be added by eg: development.nix
   home.packages = [
     pkgs.delta # git diff tool
+    pkgs.git-lfs
   ];
 
   introdus.color-conventional-commits = {
@@ -19,7 +25,22 @@
     package = pkgs.gitFull;
 
     settings = {
-      core.pager = "delta";
+      user = {
+        name = osConfig.hostSpec.userFullName;
+        email = secrets.email.user;
+        signingkey = secrets.git.signingKey;
+      };
+
+      core = {
+        pager = "delta";
+        safecrlf = true;
+        eol = "lf";
+        whitespace = "trailing-space,indent-with-non-tab,-tab-in-indent";
+        fileMode = false;
+        symlinks = true;
+        autocrlf = "input";
+      };
+
       delta = {
         enable = true;
         features = [
@@ -30,7 +51,52 @@
           "commit-decoration"
         ];
       };
-      alias.edit = "!$EDITOR $(git status --porcelain | awk '{print $2}')";
+
+      alias = {
+        edit = "!$EDITOR $(git status --porcelain | awk '{print $2}')";
+        co = "checkout";
+        ci = "commit";
+        st = "status";
+        br = "branch";
+        hist = "log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short";
+        type = "cat-file -t";
+        dump = "cat-file -p";
+      };
+
+      color = {
+        ui = "auto";
+        branch = true;
+        diff = true;
+        interactive = true;
+        status = true;
+      };
+
+      pull.rebase = true;
+      help.autocorrect = 1;
+      gc.autoDetach = false;
+      apply.whitespace = "nowarn";
+      tag.forceSignAnnotated = true;
+      gpg.program = "gpg2";
+      commit.gpgsign = true;
+
+      filter.lfs = {
+        clean = "git-lfs clean -- %f";
+        smudge = "git-lfs smudge -- %f";
+        process = "git-lfs filter-process";
+        required = true;
+      };
+
+      credential = {
+        helper = "";
+        "https://github.com".helper = [
+          ""
+          ghCredential
+        ];
+        "https://gist.github.com".helper = [
+          ""
+          ghCredential
+        ];
+      };
     };
   };
 

@@ -1,40 +1,39 @@
 {
   config,
-  osConfig,
-  lib,
-  secrets,
   ...
 }:
 let
   home = config.home.homeDirectory;
 in
 {
-  introdus.gitDev = {
-    enable = true;
-    keysPath = "hosts/common/users/super/keys/";
-    # personal
-    devFolders = [
-      "${home}/src/"
-      "${home}/pub/"
-    ];
-    devKeys = [
-      "id_maya.pub"
-      "id_mara.pub"
-      "id_manu.pub"
-    ];
-    devRepos = secrets.git.repos;
-
-  }
-  // lib.optionalAttrs osConfig.hostSpec.isWork {
-    # work
-    workKeys = [
-    ];
-    workFolders = [
-      "${home}/work/"
-    ];
-    workServers = secrets.work.git.servers;
-    workRepos = secrets.git.work.repos;
-  };
+  # introdus.gitDev is disabled because it hardcodes SSH signing.
+  # We use GPG signing via YubiKey instead (configured in home/common/core/git.nix).
+  # introdus.gitDev = {
+  #   enable = true;
+  #   keysPath = "hosts/common/users/super/keys/";
+  #   # personal
+  #   devFolders = [
+  #     "${home}/src/"
+  #     "${home}/pub/"
+  #   ];
+  #   devKeys = [
+  #     "id_maya.pub"
+  #     "id_mara.pub"
+  #     "id_manu.pub"
+  #   ];
+  #   devRepos = secrets.git.repos;
+  #
+  # }
+  # // lib.optionalAttrs osConfig.hostSpec.isWork {
+  #   # work
+  #   workKeys = [
+  #   ];
+  #   workFolders = [
+  #     "${home}/work/"
+  #   ];
+  #   workServers = secrets.work.git.servers;
+  #   workRepos = secrets.git.work.repos;
+  # };
 
   programs.git = {
     enable = true;
