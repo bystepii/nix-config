@@ -92,5 +92,8 @@
   i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
   time.timeZone = lib.mkDefault config.hostSpec.timeZone;
 
+  # Keyboard layout (global default — override per-host if needed)
+  services.xserver.xkb.layout = lib.mkDefault "es";
+
   system.stateVersion = "23.05";
 }

@@ -23,6 +23,15 @@
       #       }
       #     );
       # }
+      {
+        profile.name = "default";
+        profile.outputs = [
+          {
+            criteria = "Virtual-1";
+            status = "enable";
+          }
+        ];
+      }
     ];
   };
 }

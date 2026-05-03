@@ -27,6 +27,9 @@
         # Services
         "services/openssh.nix" # allow remote SSH access
         "yubikey.nix" # yubikey related packages and configs
+
+        # Desktop
+        "fonts.nix"
       ])
     ))
   ];
@@ -36,6 +39,14 @@
   programs.gnupg.agent.enable = true;
   programs.gnupg.agent.enableSSHSupport = true;
   programs.gnupg.agent.enableExtraSocket = true;
+
+  introdus.niri.enable = true;
+  introdus.services.silent-sddm.enable = true;
+  introdus.services.audio.enable = true;
+
+  # Required for graphical session in VM
+  hardware.graphics.enable = true;
+  services.qemuGuest.enable = true;
 
   boot.loader = {
     systemd-boot = {

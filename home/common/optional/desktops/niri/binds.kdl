@@ -8,7 +8,7 @@ gestures {
 }
 binds {
     // Show a list of important bindings.
-    Super+Shift+Slash {
+    Super+F12 {
         show-hotkey-overlay
     }
     // Shutting up hotkey-overlay defaults. I don't have/use mod5
@@ -377,12 +377,10 @@ binds {
     // Open neovide
     Super+V hotkey-overlay-title="Neovide" {
         // From fidgetingvim flake
-        spawn "nvim-neovide"
+        spawn "kitty" "-e" "nvim"
     }
-    Super+Return hotkey-overlay-title="New neovide shell" {
-        // From fidgetingvim flake
-        // spawn "nvim-neovide" "--" "-c" "ToggleTerm"
-        spawn "nvim-neovide" "--" "-c" "term"
+    Super+Return hotkey-overlay-title="New shell" {
+        spawn "kitty"
     }
     // Spawn file explorer
     Super+Ctrl+O hotkey-overlay-title="Spawn file explorer" {

@@ -17,11 +17,11 @@
     useYubikey = lib.mkForce true;
     useNeovimTerminal = lib.mkForce false;
 
-    defaultDesktop = "none";
-    useWayland = false;
+    defaultDesktop = "niri-uwsm";
+    useWayland = true;
     hdr = lib.mkForce false;
     scaling = "1";
-    # isAutoStyled = lib.mkForce false;
+    isAutoStyled = true;
     # useWindowManager = lib.mkForce false;
   };
 }

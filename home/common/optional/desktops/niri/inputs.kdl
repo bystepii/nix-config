@@ -2,6 +2,9 @@
 input {
     // Keyboard configuration.
     keyboard {
+        xkb {
+            layout "es"
+        }
         // Delay in milliseconds before a key is held down.
         repeat-delay 250
         // Rate in characters per second to repeat when a held-down key is held down.
