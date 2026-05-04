@@ -34,6 +34,10 @@
 
         # Desktop
         "fonts.nix"
+
+        # GPU / Gaming
+        "nvidia.nix"
+        "gaming-nvidia.nix"
       ])
     ))
   ];

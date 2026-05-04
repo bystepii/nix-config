@@ -4,7 +4,7 @@
     inherit (pkgs.nvtopPackages)
       amd
       intel
-      #nvidia
+      nvidia
       ;
   };
 }
