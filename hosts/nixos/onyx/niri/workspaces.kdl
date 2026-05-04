@@ -1,0 +1,4 @@
+// upstream defaults - no custom workspaces
+workspace "1" {
+
+}

@@ -1,6 +1,6 @@
 # Define path to helpers
 
-export HELPERS_PATH := justfile_directory() + "../introdus/pkgs/introdus-helpers/helpers.sh"
+export HELPERS_PATH := justfile_directory() + "/../introdus/pkgs/introdus-helpers/helpers.sh"
 
 [private]
 default:

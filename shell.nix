@@ -15,7 +15,7 @@
     BOOTSTRAP_USER = "stepii";
     BOOTSTRAP_SSH_PORT = "22";
     BOOTSTRAP_SSH_KEY = "~/.ssh/id_yubikey";
-    NIX_SECRETS_DIR = "/home/stepii/nix-definitive/nix-secrets";
+    NIX_SECRETS_DIR = "/home/stepii/src/nix/nix-secrets";
 
     buildInputs = checks.pre-commit-check.enabledPackages;
     nativeBuildInputs =
@@ -29,6 +29,7 @@
           statix
           git-crypt # encrypt secrets in git not suited for sops
           attic-client # for attic backup
+          yq-go
 
           json-diff # noctalia settings diffing
 
