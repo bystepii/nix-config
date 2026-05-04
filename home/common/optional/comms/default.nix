@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 {
-  introdus.signal.enable = true;
+  # introdus.signal.enable = true;
 
   home.packages = lib.attrValues {
     inherit (pkgs)
