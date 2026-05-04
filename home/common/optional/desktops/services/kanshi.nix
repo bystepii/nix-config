@@ -1,36 +1,39 @@
 {
-  # osConfig,
-  # lib,
+  osConfig,
+  lib,
   ...
 }:
 {
   services.kanshi = {
     enable = true;
-    settings = [
-      # # FIXME: Come up with a way to define profiles via config.monitors?
-      # {
-      #   profile.name = "default";
-      #   profile.outputs =
-      #     osConfig.monitors
-      #     |> lib.mapAttrsToList (
-      #       name: value: {
-      #         criteria = name;
-      #         status = if value.enabled then "enable" else "disabled";
-      #         mode = "${toString value.width}x${toString value.height}@${toString value.refreshRate}Hz";
-      #         scale = value.scale;
-      #         adaptiveSync = value.vrr != 0;
-      #         position = "${toString value.x},${toString value.y}";
-      #       }
-      #     );
-      # }
+    # settings = [
+    # # FIXME: Come up with a way to define profiles via config.monitors?
+    # {
+    #   profile.name = "default";
+    #   profile.outputs =
+    #     osConfig.monitors
+    #     |> lib.mapAttrsToList (
+    #       name: value: {
+    #         criteria = name;
+    #         status = if value.enabled then "enable" else "disabled";
+    #         mode = "${toString value.width}x${toString value.height}@${toString value.refreshRate}Hz";
+    #         scale = value.scale;
+    #         adaptiveSync = value.vrr != 0;
+    #         position = "${toString value.x},${toString value.y}";
+    #       }
+    #     );
+    # }
+    settings = lib.optionals ((lib.length osConfig.monitors) > 0) [
       {
         profile.name = "default";
-        profile.outputs = [
-          {
-            criteria = "Virtual-1";
-            status = "enable";
-          }
-        ];
+        profile.outputs = map (m: {
+          criteria = m.name;
+          status = if m.enabled then "enable" else "disable";
+          mode = "${toString m.width}x${toString m.height}@${toString m.refreshRate}Hz";
+          scale = m.scale;
+          adaptiveSync = m.vrr != 0;
+          position = "${toString m.x},${toString m.y}";
+        }) osConfig.monitors;
       }
     ];
   };

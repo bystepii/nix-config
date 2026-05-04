@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   lib,
   pkgs,
@@ -49,6 +50,11 @@
 
   # Required for graphical session
   hardware.graphics.enable = true;
+
+  # Set early framebuffer resolution for all monitors
+  boot.kernelParams = lib.map (
+    m: "video=${m.name}:${toString m.width}x${toString m.height}@${toString m.refreshRate}"
+  ) config.monitors;
 
   # Secure Boot with lanzaboote (replaces systemd-boot)
   boot.loader.systemd-boot.enable = lib.mkForce false;

@@ -1,4 +1,4 @@
-// upstream defaults - no custom workspaces
+// onyx workspaces - defaults
 workspace "1" {
 
 }

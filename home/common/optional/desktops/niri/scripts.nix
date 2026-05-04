@@ -6,9 +6,13 @@
 
 {
   pkgs,
+  osConfig,
+  lib,
   ...
 }:
 let
+  nonPrimaryMonitors = lib.filter (m: !m.primary) osConfig.monitors;
+  primaryMonitor = lib.findFirst (m: m.primary) null osConfig.monitors;
 
   #
   # ========== Toggle All Monitors ==========
@@ -30,20 +34,16 @@ let
   # Toggle workspaces on all non-primary monitors between default and empty
   toggleMonitorZen = pkgs.writeShellApplication {
     name = "toggleMonitorZen";
-    text = ''
+    text = lib.optionalString (primaryMonitor != null) ''
       #!/bin/bash
-      niri msg action focus-monitor "DP-2" &&
-      niri msg action focus-workspace 2 &&
-      niri msg action focus-monitor "DP-3" &&
-      niri msg action focus-workspace 2 &&
-      niri msg action focus-monitor "HDMI-A-1" &&
-      niri msg action focus-workspace 2 &&
-      niri msg action focus-monitor "DP-1"
+      ${lib.concatMapStrings (m: ''
+        niri msg action focus-monitor "${m.name}" &&
+        niri msg action focus-workspace 2 &&
+      '') nonPrimaryMonitors}
+      niri msg action focus-monitor "${primaryMonitor.name}"
     '';
   };
 in
 {
-  home.packages = [
-    toggleMonitorZen
-  ];
+  home.packages = lib.optional (primaryMonitor != null) toggleMonitorZen;
 }

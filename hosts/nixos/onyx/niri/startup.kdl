@@ -1,2 +1,2 @@
-// VM-specific input config (included in niri config concatenation)
-spawn-at-startup "true"
+// onyx startup apps
+spawn-at-startup "discord"
