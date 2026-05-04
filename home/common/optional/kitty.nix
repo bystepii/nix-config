@@ -24,7 +24,7 @@
       repaint_delay = 10;
       input_delay = 3;
       sync_to_monitor = true;
-      background_opacity = lib.mkForce "0.9";
+      # background_opacity = lib.mkForce "0.9";
       tab_bar_style = "powerline";
       inactive_tab_background = "#e06c75";
       active_tab_background = "#98c379";
