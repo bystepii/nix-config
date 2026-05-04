@@ -17,7 +17,6 @@
     pkgs.trash-cli # trash command for rm alias
     pkgs.zsh-powerlevel10k # prompt theme
     pkgs.pixi # package manager
-    pkgs.awscli2 # AWS CLI
     pkgs.xclip # clipboard for X11
     pkgs.wl-clipboard # clipboard for Wayland
     pkgs.kitty # terminal emulator (for icat alias)
