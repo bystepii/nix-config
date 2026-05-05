@@ -36,7 +36,10 @@
     };
   };
 
-  services.ssh-agent.enable = true;
+  # Disabled: gpg-agent (enabled system-wide via programs.gnupg.agent.enableSSHSupport)
+  # already provides SSH agent functionality. Running both causes SSH_AUTH_SOCK
+  # conflicts and prevents gpg-agent from handling YubiKey keys properly.
+  # services.ssh-agent.enable = true;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

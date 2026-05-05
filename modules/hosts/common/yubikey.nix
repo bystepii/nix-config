@@ -81,6 +81,11 @@ in
             echo "Creating links to ${homeDirectory}/id_$key_name"
             ln -sf "${homeDirectory}/.ssh/id_$key_name" ${homeDirectory}/.ssh/id_yubikey
             ln -sf "${homeDirectory}/.ssh/yubikeys/id_$key_name.pub" ${homeDirectory}/.ssh/id_yubikey.pub
+
+            # Force gpg-agent/scdaemon to notice the re-inserted smartcard
+            # so SSH keys are available immediately instead of after a long timeout.
+            ${lib.getBin pkgs.gnupg}/bin/gpg-connect-agent "scd serialno" /bye >/dev/null 2>&1 || true
+            ${lib.getBin pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye >/dev/null 2>&1 || true
           '';
         };
       yubikey-down = pkgs.writeShellApplication {
