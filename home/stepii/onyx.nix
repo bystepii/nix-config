@@ -18,6 +18,7 @@
           "yazi.nix"
           "development"
           "sops.nix"
+          "keepassxc"
         ])
     )
   );
