@@ -154,7 +154,7 @@ in
           enable = true;
           settings = {
             cue = true; # Tells user they need to press the button
-            authFile = "${homeDirectory}/.config/Yubico/u2f_keys";
+            authfile = "${homeDirectory}/.config/Yubico/u2f_keys";
           };
         };
         services = {
