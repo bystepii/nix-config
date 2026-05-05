@@ -50,6 +50,7 @@
 
   introdus.niri.enable = true;
   introdus.services.silent-sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = lib.mkForce true;
   introdus.services.audio.enable = true;
 
   # Required for graphical session
