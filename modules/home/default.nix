@@ -3,5 +3,5 @@
 
 { lib, ... }:
 {
-  imports = lib.custom.scanPaths ./.;
+  imports = lib.custom.scanPaths ./. ++ [ ./auto/firefox ];
 }
