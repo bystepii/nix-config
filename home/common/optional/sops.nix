@@ -12,9 +12,9 @@ let
   # FIXME(yubikey): move this, u2f sops extraction, and other yubi stuff to be set as yubikey module options
   # so it doesn't doesn't interfere with bootstrapping
   yubikeys = [
-    "maya"
-    "mara"
-    "manu"
+    # "maya"
+    # "mara"
+    # "manu"
   ];
   yubikeySecrets =
     # extract to default pam-u2f authfile location for passwordless sudo. see modules/hosts/common/yubikey
