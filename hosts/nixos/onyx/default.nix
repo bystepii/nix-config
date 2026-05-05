@@ -31,6 +31,7 @@
         # Services
         "services/openssh.nix" # allow remote SSH access
         "yubikey.nix" # yubikey related packages and configs
+        "luks-fido2.nix" # unlock LUKS with FIDO2 token (YubiKey)
 
         # Desktop
         "fonts.nix"
@@ -47,6 +48,9 @@
   programs.gnupg.agent.enable = true;
   programs.gnupg.agent.enableSSHSupport = true;
   programs.gnupg.agent.enableExtraSocket = true;
+
+  # Enable FIDO2 unlock for the primary LUKS volume using YubiKey (PIN required)
+  luksFido2.enable = true;
 
   introdus.niri.enable = true;
   introdus.services.silent-sddm.enable = true;
