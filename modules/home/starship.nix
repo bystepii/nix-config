@@ -81,7 +81,7 @@ in
           # 
           # 
           format = ''
-            [╭─](brown)[](base01)$os${left_divider}$username$hostname${left_divider}$directory${left_divider}$git_branch$git_commit$git_state$git_metrics$git_status[▓▒░](base01)$fill[░▒▓](base01)$status$cmd_duration${right_divider}$nix_shell[](base01)[─╮](brown)
+            [╭─](brown)[](base01)$os${left_divider}$username$hostname${left_divider}$directory${left_divider}$git_branch$git_commit$git_state$git_metrics$git_status[░▒▓](base01)$fill[▓▒░](base01)$status$cmd_duration${right_divider}$nix_shell[](base01)[─╮](brown)
 
           '';
           character = {
