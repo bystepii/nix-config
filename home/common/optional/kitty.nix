@@ -5,7 +5,7 @@
     enable = true;
     package = pkgs.kitty;
 
-    themeFile = "tokyo_night_storm";
+    # themeFile = "tokyo_night_storm";
 
     font = {
       name = lib.mkForce "HackNerdFont-Regular";

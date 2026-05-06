@@ -22,6 +22,7 @@
     hdr = lib.mkForce false;
     scaling = "1";
     isAutoStyled = true;
+    theme = "dracula";
     # useWindowManager = lib.mkForce false;
   };
 }
