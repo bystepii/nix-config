@@ -12,7 +12,7 @@
   nixpkgs.config.cudaSupport = true;
 
   environment.systemPackages = with pkgs; [
-    cudaPackages.cudatoolkit
+    cudaPackages_13.cudatoolkit
     nvtopPackages.nvidia
   ];
 }

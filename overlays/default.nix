@@ -51,6 +51,12 @@ let
       # example = prev.example.overrideAttrs (previousAttrs: let ... in {
       # ...
       # });
+      # System-wide default to CUDA 13 to match the NVIDIA driver
+      cudaPackages = final.cudaPackages_13;
+
+      # Firefox doesn't need CUDA in onnxruntime; building it with CUDA
+      # is slow, uncached, and often broken.
+      onnxruntime = prev.onnxruntime.override { cudaSupport = false; };
     };
 
     unstable-packages = final: prev: {

@@ -35,12 +35,14 @@
       substituters = [
         "https://cache.nixos.org" # Official global cache
         "https://nix-community.cachix.org" # Community packages
+        "https://cache.nixos-cuda.org" # CUDA binary cache
       ];
       #extra-substituters = [
       #  "https://nix-community.cachix.org" # Nix community Cachix server
       #];
       extra-trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
       ];
     };
 
