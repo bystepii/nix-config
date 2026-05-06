@@ -38,6 +38,12 @@
       "ctrl+right" = "neighboring_window right";
       "ctrl+up" = "neighboring_window up";
       "ctrl+down" = "neighboring_window down";
+      "ctrl+h" = "neighboring_window left";
+      "ctrl+j" = "neighboring_window down";
+      "ctrl+k" = "neighboring_window up";
+      "ctrl+l" = "neighboring_window right";
+      "ctrl+shift+h" = "previous_tab";
+      "ctrl+shift+l" = "next_tab";
       "ctrl+shift+z" = "toggle_layout stack";
       "ctrl+shift+enter" = "new_window_with_cwd";
       "ctrl+shift+t" = "new_tab_with_cwd";
