@@ -485,8 +485,9 @@ deepin-system-monitor || pantheon-system-monitor";
       bar = {
         autoHideDelay = 500;
         autoShowDelay = 150;
-        barType = "simple";
+        barType = "floating";
         capsuleColorKey = "none";
+        capsuleOpacity = lib.mkForce 1;
         contentPadding = 2;
         density = "comfortable";
         displayMode = "always_visible";
@@ -520,6 +521,16 @@ deepin-system-monitor || pantheon-system-monitor";
         widgets = {
           left = [
             {
+              colorizeSystemIcon = "none";
+              colorizeSystemText = "none";
+              customIconPath = "";
+              enableColorization = true;
+              icon = "rocket";
+              iconColor = "none";
+              id = "Launcher";
+              useDistroLogo = false;
+            }
+            {
               id = "Spacer";
               width = 30;
             }
@@ -537,12 +548,34 @@ deepin-system-monitor || pantheon-system-monitor";
               id = "Workspace";
               labelMode = "name";
               occupiedColor = "tertiary";
-              pillSize = lib.mkForce 0.85;
+              pillSize = lib.mkForce 1;
               showApplications = false;
               showApplicationsHover = false;
               showBadge = true;
               showLabelsOnlyWhenOccupied = false;
               unfocusedIconsOpacity = 1;
+            }
+            {
+              compactMode = false;
+              diskPath = "/";
+              iconColor = "none";
+              id = "SystemMonitor";
+              showCpuCores = false;
+              showCpuFreq = false;
+              showCpuTemp = true;
+              showCpuUsage = true;
+              showDiskAvailable = false;
+              showDiskUsage = false;
+              showDiskUsageAsPercent = false;
+              showGpuTemp = false;
+              showLoadAverage = true;
+              showMemoryAsPercent = false;
+              showMemoryUsage = true;
+              showNetworkStats = true;
+              showSwapUsage = false;
+              textColor = "secondary";
+              useMonospaceFont = true;
+              usePadding = false;
             }
           ];
           center = [
@@ -589,9 +622,6 @@ deepin-system-monitor || pantheon-system-monitor";
               unreadBadgeColor = "error";
             }
             {
-              id = "plugin:rss-feed";
-            }
-            {
               blacklist = [
               ];
               chevronColor = "none";
@@ -618,6 +648,12 @@ deepin-system-monitor || pantheon-system-monitor";
             {
               displayMode = "onhover";
               iconColor = "none";
+              id = "VPN";
+              textColor = "none";
+            }
+            {
+              displayMode = "onhover";
+              iconColor = "none";
               id = "Bluetooth";
               textColor = "none";
             }
@@ -631,6 +667,13 @@ deepin-system-monitor || pantheon-system-monitor";
               showPowerProfiles = false;
             }
             {
+              applyToAllMonitors = false;
+              displayMode = "onhover";
+              iconColor = "none";
+              id = "Brightness";
+              textColor = "none";
+            }
+            {
               clockColor = "secondary";
               customFont = "";
               formatHorizontal = "HH:mm  yy.MM.dd.ddd";
@@ -642,6 +685,16 @@ deepin-system-monitor || pantheon-system-monitor";
             {
               id = "Spacer";
               width = 30;
+            }
+            {
+              colorizeDistroLogo = false;
+              colorizeSystemIcon = "secondary";
+              colorizeSystemText = "none";
+              customIconPath = "";
+              enableColorization = false;
+              icon = "noctalia";
+              id = "ControlCenter";
+              useDistroLogo = true;
             }
           ];
         };
