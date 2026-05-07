@@ -256,38 +256,26 @@ To add a custom animation, create a `.kdlx` file in the `animations/` directory 
 
 ---
 
-## 6. Noctalia-Shell Customization
+## 6. Noctalia-Shell Deep Dive
 
 Noctalia is your desktop shell: top bar, app launcher, control center, notifications, OSD, wallpaper manager, and session menu.
 
-### Module Location
-- **Home module:** `home/common/optional/desktops/noctalia.nix`
-- **System timer:** `introdus/modules/home/auto/noctalia.nix` (snapshots settings hourly)
+### Module Import & Waybar Conflict
 
-### Settings Structure
+The module is imported from the flake input:
+```nix
+imports = [ inputs.noctalia.homeModules.default ];
+```
 
-The Noctalia home module is a large attribute set under `programs.noctalia-shell.settings`. The main sections are:
-
-| Section | What it controls |
-|---------|------------------|
-| `general` | Avatar, clock, lock screen, animations, keybinds, blur, shadows. |
-| `appLauncher` | Launcher position, icon mode, clipboard, pinned apps, search options. |
-| `bar` | Bar type, position, widgets (left/center/right), auto-hide, margins. |
-| `dock` | Dock position, pinned apps, indicators, auto-hide. |
-| `controlCenter` | Cards (audio, brightness, weather, shortcuts), position. |
-| `notifications` | Location, duration, sounds, history. |
-| `osd` | On-screen display for volume/brightness. |
-| `wallpaper` | Directory, automation, transitions, solid color. |
-| `audio` | MPRIS, volume feedback, visualizer. |
-| `calendar` | Calendar cards, weather. |
-| `sessionMenu` | Power options (lock, suspend, reboot, etc.), keybinds. |
-| `colorSchemes` | Dark mode, generation method, wallpaper-based colors. |
-| `ui` | Font scales, panel opacity, scrollbar, tooltip behavior. |
-| `colors` | Manual color overrides (mapped from Stylix in this config). |
+Noctalia explicitly disables Waybar because it replaces it entirely:
+```nix
+programs.waybar.enable = lib.mkForce false;
+```
+Do not try to run both simultaneously.
 
 ### Plugin System
 
-Noctalia supports plugins from external sources:
+Noctalia supports external plugins from remote repositories.
 
 ```nix
 programs.noctalia-shell.plugins = {
@@ -300,102 +288,443 @@ programs.noctalia-shell.plugins = {
   ];
   states = {
     privacy-indicator = { enabled = true; sourceUrl = url; };
-    rss-feed = { enabled = true; sourceUrl = url; };
-    timer = { enabled = true; sourceUrl = url; };
+    rss-feed        = { enabled = true; sourceUrl = url; };
+    timer           = { enabled = true; sourceUrl = url; };
   };
   version = 2;
 };
 ```
 
+| Field | Description |
+|-------|-------------|
+| `sources` | Array of plugin repositories. |
+| `states.<name>.enabled` | Whether to load a plugin. |
+| `states.<name>.sourceUrl` | Where to fetch the plugin from. |
+| `version` | Plugin manifest version. Keep at `2`. |
+
 Plugin-specific settings go under `pluginSettings`:
 ```nix
 programs.noctalia-shell.pluginSettings = {
   privacy-indicator = {
-    activeColor = "error";
-    hideInactive = true;
+    activeColor = "error";   # Color when a privacy device is active
+    hideInactive = true;     # Hide the widget when nothing is recording
+  };
+  timer = {
+    compactMode = false;     # Smaller timer widget
+    defaultDuration = 0;     # Default countdown in seconds (0 = none)
   };
 };
 ```
 
-### Common Tweaks
+---
 
-#### Bar Widgets
-The bar is split into `left`, `center`, and `right` widget arrays:
+### Core Settings Reference (~50 Most Important Fields)
 
+Fields are grouped by functional area. All sit under `programs.noctalia-shell.settings`.
+
+#### A. General Appearance & Behavior
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `animationSpeed` | float | `1` | Multiplier for all shell animations (`0` = instant, `2` = slow). |
+| `animationDisabled` | bool | `false` | Globally disable all animations. |
+| `avatarImage` | path | nix-assets | User avatar shown in lock screen and control center. |
+| `clockFormat` | str | `"HH:mm "` | Format string for bar clock. |
+| `clockStyle` | str | `"custom"` | Clock rendering style. `"custom"` uses `clockFormat`. |
+| `compactLockScreen` | bool | `true` | Use a smaller, centered lock screen layout. |
+| `dimmerOpacity` | float | `0.25` | Opacity of the background dimmer when a panel is open. |
+| `enableBlurBehind` | bool | `true` | Blur the wallpaper behind panels and popups. |
+| `enableShadows` | bool | `true` | Drop shadows for panels and floating widgets. |
+| `forceBlackScreenCorners` | bool | `false` | Force black corners instead of rounded screen corners. |
+| `lockOnSuspend` | bool | `true` | Automatically lock the session on suspend. |
+| `lockScreenBlur` | float | `0.25` | Blur strength on the lock screen background. |
+| `lockScreenTint` | float | `0.6` | Dark tint overlay on the lock screen background. |
+| `radiusRatio` | float | `1` | Corner roundness multiplier for UI elements. |
+| `scaleRatio` | float | `1` | Global UI scale multiplier. |
+| `showScreenCorners` | bool | `false` | Show visual indicators at screen corners. |
+| `smoothScrollEnabled` | bool | `true` | Enable smooth scrolling in lists. |
+| `telemetryEnabled` | bool | `false` | Send anonymous usage data. |
+
+#### B. App Launcher
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `position` | str | `"center"` | Launcher position: `"center"`, `"top"`, `"bottom"`. |
+| `viewMode` | str | `"list"` | Layout: `"list"` or `"grid"`. |
+| `iconMode` | str | `"tabler"` | Icon set: `"tabler"`, `"font-awesome"`, etc. |
+| `density` | str | `"default"` | Item density: `"compact"`, `"default"`, `"comfortable"`. |
+| `pinnedApps` | [str] | `[]` | Apps always shown at the top of the launcher. |
+| `terminalCommand` | str | `"ghostty -e"` | Command used when launching terminal apps. |
+| `enableClipboardHistory` | bool | `true` | Show clipboard history in launcher. |
+| `enableWindowsSearch` | bool | `true` | Include open windows in search results. |
+| `enableSessionSearch` | bool | `true` | Include session actions in search results. |
+| `enableSettingsSearch` | bool | `true` | Include settings pages in search results. |
+| `sortByMostUsed` | bool | `true` | Sort apps by usage frequency. |
+| `showCategories` | bool | `true` | Show app category sidebar. |
+| `ignoreMouseInput` | bool | `false` | Ignore mouse when navigating with keyboard. |
+
+#### C. Bar Layout & Style
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `position` | str | `"top"` | Bar edge: `"top"`, `"bottom"`, `"left"`, `"right"`. |
+| `displayMode` | str | `"always_visible"` | Visibility: `"always_visible"`, `"auto_hide"`, `"overlay"`. |
+| `barType` | str | `"simple"` | Visual style: `"simple"`, `"floating"`, etc. |
+| `density` | str | `"comfortable"` | Widget density inside the bar. |
+| `autoHideDelay` | int | `500` | Milliseconds before hiding in auto-hide mode. |
+| `autoShowDelay` | int | `150` | Milliseconds before showing when hovering the edge. |
+| `marginHorizontal` | int | `4` | Left/right margin in pixels. |
+| `marginVertical` | int | `4` | Top/bottom margin in pixels. |
+| `frameRadius` | int | `12` | Corner radius of the bar frame. |
+| `frameThickness` | int | `8` | Thickness of the bar frame border. |
+| `fontScale` | float | `1.25` | Font size multiplier for bar text. |
+| `backgroundOpacity` | float | `1` | Opacity of the bar background (`0` = invisible, `1` = solid). |
+| `useSeparateOpacity` | bool | `true` | Allow different opacity for widgets vs background. |
+
+#### D. Bar Widgets
+
+The bar is split into three arrays: `bar.widgets.left`, `bar.widgets.center`, `bar.widgets.right`. Each element is an attribute set with at minimum an `id` field.
+
+**Common properties** (available on most widgets):
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `id` | str | **Required.** Widget identifier. |
+| `iconColor` | str | Color key for the icon: `"none"`, `"primary"`, `"secondary"`, `"tertiary"`, `"error"`. |
+| `textColor` | str | Color key for text labels. |
+| `colorizeIcons` | bool | Whether to tint icons with the chosen `iconColor`. |
+| `enableScrollWheel` | bool | Allow mouse-wheel interaction on this widget. |
+
+**Widget-specific properties:**
+
+| Widget ID | Unique Properties | Description |
+|-----------|-------------------|-------------|
+| `Spacer` | `width` (int) | Empty gap of N pixels. |
+| `Workspace` | `labelMode` (`"name"` / `"icon"` / `"number"`), `showBadge` (bool), `hideUnoccupied` (bool), `pillSize` (float), `focusedColor` (str), `occupiedColor` (str), `emptyColor` (str), `iconScale` (float), `fontWeight` (str), `characterCount` (int), `groupedBorderOpacity` (float) | Workspace switcher. `pillSize` controls the active indicator height. |
+| `plugin:privacy-indicator` | `activeColor` (str), `hideInactive` (bool), `micFilterRegex` (str) | Shows microphone/camera usage. |
+| `ActiveWindow` | `showIcon` (bool), `showText` (bool), `textColor` (str), `hideMode` (`"hidden"` / `"active"`), `maxWidth` (int), `scrollingMode` (`"hover"` / `"always"`), `useFixedWidth` (bool) | Displays the focused window title. |
+| `plugin:timer` | `compactMode` (bool), `defaultDuration` (int), `iconColor` (str), `textColor` (str) | Countdown timer widget. |
+| `NotificationHistory` | `showUnreadBadge` (bool), `unreadBadgeColor` (str), `hideWhenZero` (bool), `hideWhenZeroUnread` (bool) | Recent notification list. |
+| `plugin:rss-feed` | *(none)* | RSS ticker from configured feeds. |
+| `Tray` | `drawerEnabled` (bool), `hidePassive` (bool), `pinned` ([str]), `blacklist` ([str]), `chevronColor` (str) | System tray icons. `pinned` keeps specific icons always visible. |
+| `Volume` | `displayMode` (`"alwaysShow"` / `"onhover"`), `middleClickCommand` (str) | Audio volume control. |
+| `Network` / `Bluetooth` | `displayMode` (`"alwaysShow"` / `"onhover"`) | Network/Bluetooth status. |
+| `Battery` | `displayMode` (`"graphic-clean"` / `"text"`), `hideIfNotDetected` (bool), `hideIfIdle` (bool), `showNoctaliaPerformance` (bool), `showPowerProfiles` (bool) | Battery percentage and status. |
+| `Clock` | `formatHorizontal` (str), `formatVertical` (str), `clockColor` (str), `tooltipFormat` (str), `useCustomFont` (bool), `customFont` (str) | Date/time display. Formats use `strftime` syntax. |
+
+Example bar layout:
 ```nix
 programs.noctalia-shell.settings.bar.widgets = {
   left = [
     { id = "Spacer"; width = 30; }
-    { id = "Workspace"; labelMode = "name"; showBadge = true; }
+    { id = "Workspace"; labelMode = "name"; showBadge = true; pillSize = 0.85; }
   ];
   center = [
-    { id = "plugin:privacy-indicator"; }
-    { id = "ActiveWindow"; showIcon = true; showText = true; }
+    { id = "plugin:privacy-indicator"; activeColor = "error"; hideInactive = true; }
+    { id = "ActiveWindow"; showIcon = true; showText = true; textColor = "secondary"; }
+    { id = "plugin:timer"; compactMode = false; }
   ];
   right = [
-    { id = "NotificationHistory"; }
-    { id = "Volume"; displayMode = "alwaysShow"; }
+    { id = "NotificationHistory"; showUnreadBadge = true; unreadBadgeColor = "error"; }
+    { id = "plugin:rss-feed"; }
+    { id = "Tray"; drawerEnabled = true; }
+    { id = "Volume"; displayMode = "alwaysShow"; middleClickCommand = "pwvucontrol || pavucontrol"; }
     { id = "Network"; displayMode = "onhover"; }
-    { id = "Clock"; formatHorizontal = "HH:mm  yy.MM.dd.ddd"; }
+    { id = "Bluetooth"; displayMode = "onhover"; }
+    { id = "Battery"; displayMode = "graphic-clean"; hideIfNotDetected = true; }
+    { id = "Clock"; formatHorizontal = "HH:mm  yy.MM.dd.ddd"; clockColor = "secondary"; }
+    { id = "Spacer"; width = 30; }
   ];
 };
 ```
 
-Available widget IDs include: `Workspace`, `ActiveWindow`, `Clock`, `Volume`, `Network`, `Bluetooth`, `Battery`, `Tray`, `NotificationHistory`, `Spacer`, and `plugin:*` entries.
+#### E. Notifications
 
-#### Launcher Pinned Apps
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `enabled` | bool | `true` | Enable the notification daemon. |
+| `location` | str | `"top_right"` | Popup corner: `"top_left"`, `"top_right"`, `"bottom_left"`, `"bottom_right"`. |
+| `density` | str | `"default"` | Notification card density. |
+| `normalUrgencyDuration` | int | `8` | Seconds normal notifications stay visible. |
+| `criticalUrgencyDuration` | int | `15` | Seconds critical notifications stay visible. |
+| `lowUrgencyDuration` | int | `3` | Seconds low-priority notifications stay visible. |
+| `saveToHistory` | attrs | all `true` | Whether to persist normal/critical/low notifications to history. |
+| `clearDismissed` | bool | `true` | Auto-remove dismissed notifications from history. |
+| `overlayLayer` | bool | `true` | Render notifications above fullscreen windows. |
+| `sounds.enabled` | bool | `false` | Play notification sounds. |
+
+#### F. Wallpaper
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `enabled` | bool | `true` | Enable wallpaper management. |
+| `directory` | str | `...` | Path to a folder containing wallpaper images. |
+| `automationEnabled` | bool | `true` | Auto-cycle wallpapers. |
+| `wallpaperChangeMode` | str | `"random"` | Cycle mode: `"random"`, `"sequential"`. |
+| `randomIntervalSec` | int | `3600` | Seconds between auto-changes. |
+| `transitionType` | [str] | `["fade" "disc" ...]` | Animation types used when switching. |
+| `transitionDuration` | int | `1500` | Transition length in milliseconds. |
+| `fillMode` | str | `"crop"` | How images fit the screen: `"crop"`, `"fit"`, `"stretch"`, `"tile"`. |
+| `setWallpaperOnAllMonitors` | bool | `true` | Use the same wallpaper on every monitor. |
+| `useSolidColor` | bool | `false` | Use a flat color instead of an image. |
+| `solidColor` | str | `"#1a1a2e"` | Hex color when `useSolidColor = true`. |
+| `useWallhaven` | bool | `false` | Fetch wallpapers from wallhaven.cc. |
+| `wallhavenApiKey` | str | `""` | API key for Wallhaven (optional). |
+| `wallhavenQuery` | str | `""` | Search query for Wallhaven. |
+| `favorites` | [str] | `[]` | Filenames marked as favorites. |
+| `linkLightAndDarkWallpapers` | bool | `true` | Pair light and dark variants. |
+
+#### G. Session Menu
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `position` | str | `"center"` | Menu position: `"center"`, `"top"`, `"bottom"`. |
+| `largeButtonsStyle` | bool | `true` | Use large, icon-only power buttons. |
+| `largeButtonsLayout` | str | `"single-row"` | Layout of buttons: `"single-row"`, `"multi-row"`. |
+| `enableCountdown` | bool | `false` | Show a countdown before executing a power action. |
+| `countdownDuration` | int | `1000` | Countdown length in milliseconds. |
+| `showKeybinds` | bool | `true` | Show keyboard shortcuts next to each action. |
+| `showHeader` | bool | `true` | Show the user avatar/name header. |
+
+The `powerOptions` array defines which actions appear and in what order:
+
+| Property | Description |
+|----------|-------------|
+| `action` | Built-in action: `"lock"`, `"suspend"`, `"hibernate"`, `"reboot"`, `"logout"`, `"shutdown"`, `"rebootToUefi"`, `"userspaceReboot"`. |
+| `enabled` | Whether the button is shown. |
+| `keybind` | Single-character keyboard shortcut. |
+| `countdownEnabled` | Whether this specific action uses the countdown. |
+| `command` | Custom shell command to run instead of the built-in action (leave empty for default). |
+
+Example:
 ```nix
-programs.noctalia-shell.settings.appLauncher.pinnedApps = [
-  "firefox"
-  "ghostty"
-  "thunar"
+programs.noctalia-shell.settings.sessionMenu.powerOptions = [
+  { action = "lock";        enabled = true; keybind = "1"; countdownEnabled = true; }
+  { action = "suspend";     enabled = true; keybind = "2"; countdownEnabled = true; }
+  { action = "reboot";      enabled = true; keybind = "3"; countdownEnabled = true; }
+  { action = "shutdown";    enabled = true; keybind = "4"; countdownEnabled = true; }
+  { action = "rebootToUefi"; enabled = true; keybind = "5"; countdownEnabled = true; }
 ];
 ```
 
-#### Wallpaper Automation
+#### H. Control Center
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `position` | str | `"center"` | Panel position: `"center"`, `"left"`, `"right"`. |
+| `cards` | [attrs] | `...` | Ordered list of cards to display. Each card has `id` and `enabled`. |
+| `diskPath` | str | `"/"` | Filesystem path monitored by the storage card. |
+
+Available card IDs: `profile-card`, `shortcuts-card`, `audio-card`, `brightness-card`, `weather-card`, `media-sysmon-card`.
+
+Shortcuts are quick-toggle buttons shown above or below cards:
 ```nix
-programs.noctalia-shell.settings.wallpaper = {
-  enabled = true;
-  automationEnabled = true;
-  directory = "/home/<user>/wallpapers";
-  randomIntervalSec = 3600;
-  transitionType = [ "fade" "disc" "stripes" ];
+shortcuts = {
+  left = [ { id = "Network"; } { id = "Bluetooth"; } { id = "WallpaperSelector"; } ];
+  right = [ { id = "Notifications"; } { id = "PowerProfile"; } ];
 };
 ```
 
-#### Session Menu Power Options
-```nix
-programs.noctalia-shell.settings.sessionMenu.powerOptions = [
-  { action = "lock"; enabled = true; keybind = "1"; }
-  { action = "suspend"; enabled = true; keybind = "2"; }
-  { action = "reboot"; enabled = true; keybind = "3"; }
-];
-```
+#### I. Audio & Media
 
-#### Colors (Stylix Integration)
-Your config manually maps Stylix base16 colors into Noctalia:
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `preferredPlayer` | str | `"spotify"` | MPRIS player name for media controls. |
+| `volumeStep` | int | `5` | Percentage change per volume keypress. |
+| `volumeFeedback` | bool | `false` | Play a sound on volume change. |
+| `volumeOverdrive` | bool | `false` | Allow volume above 100%. |
+| `spectrumFrameRate` | int | `30` | FPS of the audio visualizer bar. |
+| `visualizerType` | str | `"linear"` | Visualizer style: `"linear"`, `"circular"`. |
+| `spectrumMirrored` | bool | `true` | Mirror the visualizer horizontally. |
 
+#### J. System Monitor Thresholds
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `cpuWarningThreshold` | int | `80` | CPU % that triggers a warning color. |
+| `cpuCriticalThreshold` | int | `90` | CPU % that triggers a critical color. |
+| `memWarningThreshold` | int | `80` | RAM % warning threshold. |
+| `memCriticalThreshold` | int | `90` | RAM % critical threshold. |
+| `batteryWarningThreshold` | int | `20` | Battery % warning. |
+| `batteryCriticalThreshold` | int | `5` | Battery % critical. |
+| `enableDgpuMonitoring` | bool | `false` | Monitor discrete GPU metrics. |
+
+#### K. Idle & Power
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `enabled` | bool | `false` | Enable idle management (dim, lock, suspend). |
+| `lockTimeout` | int | `660` | Seconds of inactivity before locking. |
+| `screenOffTimeout` | int | `600` | Seconds before turning off the screen. |
+| `suspendTimeout` | int | `1800` | Seconds before suspending. |
+| `fadeDuration` | int | `5` | Seconds to fade the screen to black before lock. |
+| `lockCommand` | str | `""` | Custom command to run for locking. |
+| `screenOffCommand` | str | `""` | Custom command to turn off the screen. |
+
+#### L. Color Schemes
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `darkMode` | bool | `true` | Use dark colors. |
+| `generationMethod` | str | `"tonal-spot"` | Algorithm for generating palette: `"tonal-spot"`, `"neutral"`, `"vibrant"`. |
+| `schedulingMode` | str | `"off"` | Auto-toggle dark mode: `"off"`, `"sunrise-sunset"`, `"manual"`. |
+| `manualSunrise` | str | `"06:30"` | Sunrise time when scheduling is manual. |
+| `manualSunset` | str | `"18:30"` | Sunset time when scheduling is manual. |
+| `useWallpaperColors` | bool | `false` | Generate palette from the current wallpaper. |
+| `predefinedScheme` | str | `"default"` | Use a built-in scheme instead of generating one. |
+
+#### M. Location & Weather
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `name` | str | `"Calgary"` | City name for weather lookup. |
+| `weatherEnabled` | bool | `true` | Show weather in calendar and control center. |
+| `showCalendarWeather` | bool | `true` | Show weather widget in the calendar popup. |
+| `useFahrenheit` | bool | `false` | Use Fahrenheit instead of Celsius. |
+| `autoLocate` | bool | `false` | Detect location automatically via IP. |
+
+#### N. Night Light
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `enabled` | bool | `false` | Reduce blue light in the evening. |
+| `autoSchedule` | bool | `true` | Enable/disable based on sunrise/sunset. |
+| `dayTemp` | str | `"6500"` | Color temperature during the day (Kelvin). |
+| `nightTemp` | str | `"4000"` | Color temperature at night (Kelvin). |
+
+#### O. Performance Mode
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `disableDesktopWidgets` | bool | `true` | Hide floating desktop widgets in performance mode. |
+| `disableWallpaper` | bool | `true` | Hide wallpaper in performance mode (solid color fallback). |
+
+#### P. UI Global
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `fontDefaultScale` | float | `1` | Scale factor for default fonts. |
+| `fontFixedScale` | float | `1` | Scale factor for monospace fonts. |
+| `translucentWidgets` | bool | `true` | Allow widgets to be semi-transparent. |
+| `panelBackgroundOpacity` | float | `0.75` | Default opacity for popup panels. |
+| `panelsAttachedToBar` | bool | `true` | Attach popups to the bar edge rather than floating freely. |
+| `tooltipsEnabled` | bool | `true` | Show tooltips on hover. |
+| `settingsPanelMode` | str | `"window"` | Settings UI mode: `"window"`, `"popup"`. |
+
+#### Q. Hooks
+
+Hooks let you run external commands when Noctalia events occur.
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `enabled` | bool | `false` | Master switch for hooks. |
+| `startup` | str | `""` | Command run once after Noctalia starts. |
+| `screenLock` | str | `""` | Command run when the screen locks. |
+| `screenUnlock` | str | `""` | Command run when the screen unlocks. |
+| `wallpaperChange` | str | `""` | Command run after wallpaper changes. |
+| `darkModeChange` | str | `""` | Command run when dark mode toggles. |
+| `colorGeneration` | str | `""` | Command run after color palette is regenerated. |
+| `performanceModeEnabled` | str | `""` | Command run when performance mode turns on. |
+| `performanceModeDisabled` | str | `""` | Command run when performance mode turns off. |
+
+#### R. Dock
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `enabled` | bool | `false` | Show a dock at the screen edge. |
+| `position` | str | `"bottom"` | Dock edge: `"bottom"`, `"left"`, `"right"`, `"top"`. |
+| `dockType` | str | `"floating"` | `"floating"` or `"panel"`. |
+| `displayMode` | str | `"auto_hide"` | Visibility: `"always_visible"`, `"auto_hide"`, `"overlay"`. |
+| `pinnedApps` | [str] | `[]` | Apps permanently shown in the dock. |
+| `size` | float | `1` | Dock scale multiplier. |
+| `indicatorColor` | str | `"primary"` | Color of the active-app indicator dot/line. |
+| `indicatorThickness` | int | `3` | Thickness of the indicator in pixels. |
+| `groupApps` | bool | `false` | Group multiple windows of the same app. |
+| `groupClickAction` | str | `"cycle"` | Behavior when clicking a group: `"cycle"`, `"menu"`. |
+
+#### S. OSD
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `enabled` | bool | `true` | Show on-screen display popups (volume, brightness). |
+| `location` | str | `"top_right"` | OSD corner. |
+| `autoHideMs` | int | `2000` | Milliseconds before the OSD fades out. |
+| `enabledTypes` | [int] | `[0 1 2]` | Which OSD types are enabled: `0`=volume, `1`=brightness, `2`=misc. |
+
+---
+
+### Colors Deep Dive
+
+Noctalia uses Material-You-style color roles. Your config maps them from Stylix base16 colors.
+
+| Color Key | Stylix Base | UI Elements It Controls |
+|-----------|-------------|------------------------|
+| `Surface` | `base00` | **Backgrounds**: bar background, popup backdrops, card fills, panel surfaces. |
+| `mOnSurface` | `base03` | **Primary text** on panels and popups: clock text, labels, titles. |
+| `mSurfaceVariant` | `base01` | **Secondary backgrounds**: input fields, inactive list items, subtle card variants. |
+| `mOnSurfaceVariant` | `base04` | **Secondary text**: placeholders, disabled labels, hints, inactive workspace names. |
+| `mPrimary` | `base02` | **Accent**: active workspace pill, toggle switches ON, selected buttons, focused highlights. |
+| `mOnPrimary` | `base0E` | **Text on accent**: labels sitting on Primary-colored backgrounds. |
+| `mSecondary` | `base0F` | **Secondary accent**: secondary buttons, inactive tabs, less prominent interactive elements. |
+| `mOnSecondary` | `base01` | **Text on secondary accent**. |
+| `mTertiary` | `base01` | **Subtle accent**: hover highlights, dividers, inactive indicators, unimportant toggles. |
+| `mOnTertiary` | `base0F` | **Text on subtle accent**. |
+| `mHover` | `base01` | **Hover state**: background color when mouse hovers over buttons, list items, or widgets. |
+| `mOnHover` | `base0A` | **Text during hover**: label color when an element is hovered. |
+| `mError` | `base08` | **Error / danger**: error states, destructive actions, critical notification badges, low battery. |
+| `mOnError` | `base00` | **Text on error backgrounds**. |
+| `mOutline` | `base01` | **Borders**: outlines around focused elements, separators between widgets, card borders. |
+| `mShadow` | hardcoded `#000000` | **Drop shadows** behind panels, popups, floating widgets, and the bar. |
+
+If Stylix is disabled (`isAutoStyled = false`), replace the `config.lib.stylix.colors` references with raw hex strings:
 ```nix
 programs.noctalia-shell.colors = {
-  Surface = lib.mkForce "#${config.lib.stylix.colors.base00}";
-  mOnSurface = lib.mkForce "#${config.lib.stylix.colors.base03}";
-  mPrimary = lib.mkForce "#${config.lib.stylix.colors.base02}";
-  mSecondary = lib.mkForce "#${config.lib.stylix.colors.base0F}";
-  mError = lib.mkForce "#${config.lib.stylix.colors.base08}";
+  Surface = "#282828";
+  mOnSurface = "#928374";
+  mPrimary = "#504945";
   # ... etc
 };
 ```
 
-If Stylix is disabled (`isAutoStyled = false`), these `config.lib.stylix.colors` references will fail. Either enable Stylix or replace them with hex strings.
+---
 
 ### Settings Snapshot Timer
-Because Noctalia stores runtime settings in `~/.config/noctalia/settings.json`, a systemd timer runs hourly to snapshot changes:
+
+Because Noctalia stores runtime settings in `~/.config/noctalia/settings.json`, a systemd timer snapshots changes hourly:
 
 - **Timer:** `systemd.user.timers.noctalia-snapshot-settings`
 - **Service:** `systemd.user.services.noctalia-snapshot-settings`
-- **Backups:** `~/.cache/noctalia/backup/settings_YYYYMMDD_HHMMSS.json` (max 5 retained)
+- **Backups:** `~/.cache/noctalia/backup/settings_YYYYMMDD_HHMMSS.json`
+- **Retention:** Max 5 backups
 
-This lets you port runtime changes back into Nix later.
+This lets you port runtime GUI tweaks back into your Nix expression later.
+
+---
+
+### Quick Reference: "I want to change X"
+
+| I want to... | Edit this field |
+|--------------|-----------------|
+| Change bar position | `settings.bar.position` |
+| Hide the bar | `settings.bar.displayMode = "auto_hide"` |
+| Add apps to launcher favorites | `settings.appLauncher.pinnedApps` |
+| Change launcher icon style | `settings.appLauncher.iconMode` |
+| Change clock format | `settings.general.clockFormat` |
+| Change weather city | `settings.location.name` |
+| Enable night light | `settings.nightLight.enabled = true` |
+| Change wallpaper folder | `settings.wallpaper.directory` |
+| Disable wallpaper auto-change | `settings.wallpaper.automationEnabled = false` |
+| Add/remove session menu buttons | `settings.sessionMenu.powerOptions` |
+| Change volume step size | `settings.audio.volumeStep` |
+| Show dock | `settings.dock.enabled = true` |
+| Pin apps to dock | `settings.dock.pinnedApps` |
+| Change notification position | `settings.notifications.location` |
+| Disable blur | `settings.general.enableBlurBehind = false` |
+| Slow down animations | `settings.general.animationSpeed = 2` |
+| Change UI scale | `settings.general.scaleRatio` |
+| Change accent color | `settings.colors.mPrimary` (or Stylix theme) |
+| Run script on startup | `settings.hooks.startup` |
+| Enable auto-lock | `settings.idle.enabled = true` |
 
 ---
 
