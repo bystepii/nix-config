@@ -68,6 +68,16 @@
         export ZSH_CUSTOM="${config.home.homeDirectory}/.oh-my-zsh/custom"
       '')
       (lib.mkAfter (lib.readFile ./zsh-init.zsh))
+      (lib.mkAfter ''
+        # Initialize fzf after zsh-vi-mode to prevent key binding overrides
+        if [[ $options[zle] = on ]]; then
+          function fzf_init() {
+            source ${pkgs.fzf}/share/fzf/completion.zsh
+            source ${pkgs.fzf}/share/fzf/key-bindings.zsh
+          }
+          zvm_after_init_commands+=(fzf_init)
+        fi
+      '')
     ];
 
     oh-my-zsh = {
@@ -114,7 +124,9 @@
   # Enable fzf zsh integration (replaces manual ~/.fzf.zsh source)
   programs.fzf = {
     enable = true;
-    enableZshIntegration = true;
+    # Disabled because zsh-vi-mode overrides key bindings after fzf init.
+    # We manually initialize fzf via zvm_after_init_commands instead.
+    # enableZshIntegration = true;
   };
 
   # Enable dircolors (replaces eval "$(dircolors -b)")
