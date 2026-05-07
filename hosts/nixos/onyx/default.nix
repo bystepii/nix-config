@@ -90,6 +90,11 @@
 
   environment.systemPackages = [ pkgs.sbctl ];
 
+  # Persist Secure Boot keys across reboots (required with impermanence)
+  environment.persistence."${config.hostSpec.persistFolder}".directories = [
+    "/var/lib/sbctl"
+  ];
+
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 5;
 
