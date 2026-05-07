@@ -55,6 +55,9 @@
   # Enable FIDO2 unlock for the primary LUKS volume using YubiKey (PIN required)
   luksFido2.enable = true;
 
+  # Enable boltclt
+  services.hardware.bolt.enable = true;
+
   introdus.niri.enable = true;
   introdus.services.silent-sddm.enable = true;
   services.displayManager.sddm.wayland.enable = lib.mkForce true;
