@@ -90,9 +90,9 @@
 
   environment.systemPackages = [ pkgs.sbctl ];
 
-  # Persist Secure Boot keys across reboots (required with impermanence)
   environment.persistence."${config.hostSpec.persistFolder}".directories = [
-    "/var/lib/sbctl"
+    "/var/lib/sbctl" # Secure Boot keys (required with impermanence)
+    "/var/lib/boltd" # Thunderbolt device authorization database
   ];
 
   boot.loader.efi.canTouchEfiVariables = true;
