@@ -18,6 +18,7 @@
 
   # boot.kernelPackages = pkgs.linuxPackages_6_18;
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.supportedFilesystems.ntfs = true;
 
   # This should be handled by config.security.pam.sshAgentAuth.enable
   security.sudo.extraConfig = ''
@@ -59,6 +60,7 @@
 
   environment = {
     localBinInPath = true;
+    systemPackages = [ pkgs.ntfs3g ];
 
     # From https://github.com/matklad/config/blob/master/hosts/default.nix
     etc."xdg/user-dirs.defaults".text = ''
