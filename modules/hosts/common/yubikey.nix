@@ -154,6 +154,7 @@ in
           enable = true;
           settings = {
             cue = true; # Tells user they need to press the button
+            pinverification = 1; # Require FIDO2 PIN before touch
             authfile = "${homeDirectory}/.config/Yubico/u2f_keys";
           };
         };

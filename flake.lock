@@ -688,10 +688,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1777878624,
-        "narHash": "sha256-xQxT2J9HrAv2EnTrLDctWmrmM1imhKj+iUqWfssDs9s=",
+        "lastModified": 1778160088,
+        "narHash": "sha256-m+gl2e1aWk1xCdz3YSdox8yuarXPZnhH7dzK0BaWklY=",
         "ref": "complex",
-        "rev": "41d50c145427fd31fd48913e465aa9a199d80a65",
+        "rev": "86da7f6dfd3148b518db05d00a952df39335b03f",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/bystepii/nix-secrets"
