@@ -485,6 +485,7 @@ deepin-system-monitor || pantheon-system-monitor";
       bar = {
         autoHideDelay = 500;
         autoShowDelay = 150;
+        backgroundOpacity = lib.mkForce 0.2;
         barType = "floating";
         capsuleColorKey = "none";
         capsuleOpacity = lib.mkForce 1;
@@ -513,7 +514,7 @@ deepin-system-monitor || pantheon-system-monitor";
         rightClickFollowMouse = true;
         screenOverrides = [
         ];
-        showCapsule = false;
+        showCapsule = true;
         showOnWorkspaceSwitch = true;
         showOutline = false;
         useSeparateOpacity = true;
@@ -698,7 +699,6 @@ deepin-system-monitor || pantheon-system-monitor";
             }
           ];
         };
-        backgroundOpacity = lib.mkForce 1;
       };
       dock = {
         animationSpeed = 1;
