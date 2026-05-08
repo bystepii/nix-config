@@ -33,6 +33,7 @@
       pre-commit # git hooks
       p7zip # compression & encryption
       ripgrep # better grep
+      sops # secrets editor
       usbutils
       tree # cli dir tree viewer
       unzip # zip extraction

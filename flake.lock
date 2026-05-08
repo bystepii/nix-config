@@ -668,11 +668,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1777787189,
-        "narHash": "sha256-2KUbS/HhzWW3kkkY1+RiWj9mJ76VEXw8lBJzcCFKzfY=",
+        "lastModified": 1778240325,
+        "narHash": "sha256-d2HIS7LpfI0lgxiXCXLjxrHl3eIdNvAVexOu0xiM488=",
         "owner": "nix-community",
         "repo": "nix-index-database",
-        "rev": "2dea2b920e7127b3afa8506713f23536651de312",
+        "rev": "dd2d0e3f6ba00af01b9498f5697173bdc2524bee",
         "type": "github"
       },
       "original": {
@@ -688,10 +688,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1778160088,
-        "narHash": "sha256-m+gl2e1aWk1xCdz3YSdox8yuarXPZnhH7dzK0BaWklY=",
+        "lastModified": 1778246561,
+        "narHash": "sha256-86v+i6hhMt75T13FgJneB4Y0QK+0wBvLJhtQN8QU2Y0=",
         "ref": "complex",
-        "rev": "86da7f6dfd3148b518db05d00a952df39335b03f",
+        "rev": "cd5a2f5397c0684b66771fa04fbd2667f9d6e7be",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/bystepii/nix-secrets"

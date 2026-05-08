@@ -2,15 +2,15 @@
 {
   # mount nfs shares from stepan-laptop
   boot.supportedFilesystems = [ "nfs" ];
-
   fileSystems."/home/stepii/laptop" = {
     device = "stepan-laptop.home:/home/stepii";
     fsType = "nfs";
     options = [
-      "_netdev"
-      "nofail"
+      "noauto"
       "x-systemd.automount"
-      "x-systemd.mount-timeout=1"
+      "nofail"
+      "x-systemd.device-timeout=15s"
+      "x-systemd.idle-timeout=600"
     ];
   };
 
