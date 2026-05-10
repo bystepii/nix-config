@@ -33,11 +33,14 @@
         "yubikey.nix" # yubikey related packages and configs
         "luks-fido2.nix" # unlock LUKS with FIDO2 token (YubiKey)
 
+        # VPN
+        "wireguard-client.nix"
+
         # Desktop
         "fonts.nix"
 
         # NFS mounts
-        "nfs-laptop-mounts.nix"
+        # "nfs-laptop-mounts.nix"
 
         # GPU / Gaming
         "nvidia.nix"

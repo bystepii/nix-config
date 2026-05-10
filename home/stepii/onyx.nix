@@ -13,6 +13,7 @@
           "desktops/niri"
           "desktops/services/kanshi.nix"
           "desktops/noctalia.nix"
+          "extrabrowsers"
           "comms/"
           "kitty.nix"
           "yazi.nix"
