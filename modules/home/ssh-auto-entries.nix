@@ -195,7 +195,7 @@ in
             serverAliveCountMax = 3;
             serverAliveInterval = 5; # 3 * 5s
             hashKnownHosts = true;
-            addKeysToAgent = "yes";
+            addKeysToAgent = "ask";
 
             extraOptions = {
               SetEnv = "TERM=xterm-256color";
@@ -208,6 +208,9 @@ in
             host = ykHosts;
             identitiesOnly = true;
             identityFile = identityFiles;
+          };
+          "gpg-agent-tty" = lib.hm.dag.entryAfter [ "*" ] {
+            match = ''host * exec "gpg-connect-agent UPDATESTARTUPTTY /bye"'';
           };
         }
         // cfg.secretMatchBlocks

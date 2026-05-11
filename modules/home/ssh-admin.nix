@@ -13,15 +13,15 @@ lib.mkIf cfg.isAdmin {
     enable = true;
     defaultUser = "stepii";
     ykDomainHosts = [
-      "genoa"
-      "ghost"
-      "gooey" # confirm
-      "grief"
-      "guppy"
-      "gusto"
+      # "genoa"
+      # "ghost"
+      # "gooey" # confirm
+      # "grief"
+      # "guppy"
+      # "gusto"
     ];
     ykNoDomainHosts = [
-      "myth"
+      # "myth"
       # cfg.networking.subnets.glade.wildcard
       # cfg.networking.subnets.grove.wildcard
       # cfg.networking.subnets.vm-lan.wildcard
@@ -55,12 +55,12 @@ lib.mkIf cfg.isAdmin {
     in
     {
       # external hosts with
-      "moth" = lib.hm.dag.entryAfter [ "yubikey-hosts" ] {
-        host = "moth";
-        hostname = "moth.${cfg.domain}";
-        user = "${cfg.primaryUsername}";
-        # port = cfg.networking.ports.tcp.moth;
-      };
+      # "moth" = lib.hm.dag.entryAfter [ "yubikey-hosts" ] {
+      #   host = "moth";
+      #   hostname = "moth.${cfg.domain}";
+      #   user = "${cfg.primaryUsername}";
+      #   port = cfg.networking.ports.tcp.moth;
+      # };
       # "myth" = lib.hm.dag.entryAfter [ "yubikey-hosts" ] {
       #   host = "myth ${secrets.networking.domains.myth}";
       #   hostname = "${secrets.networking.domains.myth}";

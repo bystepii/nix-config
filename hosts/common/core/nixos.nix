@@ -52,6 +52,7 @@
       "pinned-stable.conf" = lib.readFile pinned;
     };
 
+  networking.hosts = config.hostSpec.networking.work.hosts or { };
   # don't wait for dhcpd on boot
   networking.dhcpcd.wait = "background";
   # Stop blocking on network interfaces not needed for boot
