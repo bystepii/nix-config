@@ -962,11 +962,11 @@
         "wrappers": "wrappers_3"
       },
       "locked": {
-        "lastModified": 1778687433,
-        "narHash": "sha256-jTIEY4hxcHwPqvv0qUWgzGTuZGrySzQqrOVDHVB59qs=",
+        "lastModified": 1778704611,
+        "narHash": "sha256-lOf/IpHjYFO8tccbEwM999KgmE60QtEwcY3BYodGp5U=",
         "owner": "bystepii",
         "repo": "neovim",
-        "rev": "5ba33b33f6e476f9c49a9b39cebb925227b7d044",
+        "rev": "f151dbdc9f46301ad8ecf72efc9feeed1bbb9bd0",
         "type": "github"
       },
       "original": {
