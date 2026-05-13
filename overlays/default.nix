@@ -43,6 +43,7 @@ let
         #   }
         # );
         neovim = final.unstable.neovim;
+        neovim-unwrapped = final.unstable.neovim-unwrapped;
         neovide = final.unstable.neovide;
         vimPlugins = final.unstable.vimPlugins;
       });

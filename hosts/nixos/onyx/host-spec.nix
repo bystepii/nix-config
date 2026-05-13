@@ -8,7 +8,7 @@
     persistFolder = "/persist";
 
     isAdmin = lib.mkForce true;
-    isDevelopment = lib.mkForce false;
+    isDevelopment = lib.mkForce true;
     isIntrodusDev = lib.mkForce false;
     isProduction = lib.mkForce false;
     isRemote = lib.mkForce false;
