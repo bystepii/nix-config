@@ -40,7 +40,7 @@
         "fonts.nix"
 
         # NFS mounts
-        "nfs-laptop-mounts.nix"
+        # "nfs-laptop-mounts.nix"
 
         # GPU / Gaming
         "nvidia.nix"

@@ -4,7 +4,7 @@
     enable = true;
     settings = {
       #TODO(rice): set via stylix
-      color_theme = lib.mkForce "gruvbox_dark";
+      color_theme = lib.mkForce "dracula";
       round_corners = true;
       theme_background = true;
       vim_keys = true;
