@@ -21,6 +21,7 @@
           "development"
           "sops.nix"
           "keepassxc"
+          "docker.nix"
         ])
     )
   );

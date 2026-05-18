@@ -45,6 +45,9 @@
         # GPU / Gaming
         "nvidia.nix"
         "gaming-nvidia.nix"
+
+        # Containerization
+        "docker.nix"
       ])
     ))
   ];
