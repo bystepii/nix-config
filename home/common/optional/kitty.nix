@@ -34,16 +34,19 @@
     };
 
     keybindings = {
-      "ctrl+left" = "neighboring_window left";
-      "ctrl+right" = "neighboring_window right";
-      "ctrl+up" = "neighboring_window up";
-      "ctrl+down" = "neighboring_window down";
-      "ctrl+h" = "neighboring_window left";
-      "ctrl+j" = "neighboring_window down";
-      "ctrl+k" = "neighboring_window up";
-      "ctrl+l" = "neighboring_window right";
-      "ctrl+shift+h" = "previous_tab";
-      "ctrl+shift+l" = "next_tab";
+      "ctrl+shift+h" = "neighboring_window left";
+      "ctrl+shift+j" = "neighboring_window down";
+      "ctrl+shift+k" = "neighboring_window up";
+      "ctrl+shift+l" = "neighboring_window right";
+      "ctrl+shift+left" = "neighboring_window left";
+      "ctrl+shift+right" = "neighboring_window right";
+      "ctrl+shift+up" = "neighboring_window up";
+      "ctrl+shift+down" = "neighboring_window down";
+      "ctrl+shift+s" = "show_scrollback";
+      "ctrl+alt+shift+h" = "previous_tab";
+      "ctrl+alt+shift+l" = "next_tab";
+      "ctrl+alt+shift+left" = "previous_tab";
+      "ctrl+alt+shift+right" = "next_tab";
       "ctrl+shift+z" = "toggle_layout stack";
       "ctrl+shift+enter" = "new_window_with_cwd";
       "ctrl+shift+t" = "new_tab_with_cwd";
@@ -61,6 +64,7 @@
     extraConfig = ''
       remote_dir /tmp/kitty-ssh-kitten
       window_padding_width 20
+      scrollback_pager nvim --cmd 'set eventignore=FileType' +'nnoremap q ZQ' +'call nvim_open_term(0, {})' +'set nomodified nolist' +'$'
     '';
   };
 }
