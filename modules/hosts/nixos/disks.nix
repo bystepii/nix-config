@@ -70,11 +70,37 @@ in
           default = "encrypted-nixos";
         };
       };
+      lvm = {
+        enable = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Use LVM on the primary disk";
+        };
+        vgName = lib.mkOption {
+          type = lib.types.str;
+          default = "vg0";
+          description = "Name of the LVM volume group";
+        };
+      };
       swapSize = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
         example = "2G";
         description = "Size of swap drive or null for no swap";
         default = null;
+      };
+      swapLocation = lib.mkOption {
+        type = lib.types.enum [
+          "btrfs"
+          "lvm"
+          "partition"
+        ];
+        default = "btrfs";
+        description = ''
+          Where to place swap:
+          - "btrfs": btrfs swapfile in a @swap subvolume
+          - "lvm": dedicated swap logical volume
+          - "partition": dedicated GPT swap partition
+        '';
       };
       bootSize = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
@@ -121,15 +147,21 @@ in
     let
       hasRaid = cfg.raidDisks != null;
 
-      # Base luks volume that will contains btrfs sub-content
+      # LVM physical volume content
+      lvmPvContent = {
+        type = "lvm_pv";
+        vg = cfg.lvm.vgName;
+      };
+
+      # Base luks volume that will contains btrfs sub-content (or lvm_pv)
       luksContent = {
         type = "luks";
-        name = config.system.disks.luks.label;
+        name = cfg.luks.label;
         passwordFile = "/tmp/disko-password"; # populated by bootstrap-nixos
         settings = {
           allowDiscards = true;
         };
-        content = btrfsContent;
+        content = if cfg.lvm.enable then lvmPvContent else btrfsContent;
       };
 
       # Root level btrfs volumes for non-luks, or sub-content volumes for luks
@@ -163,10 +195,10 @@ in
             ];
           };
         })
-        // (lib.optionalAttrs (config.system.disks.swapSize != null) {
+        // (lib.optionalAttrs (cfg.swapSize != null && cfg.swapLocation == "btrfs") {
           "@swap" = {
             mountpoint = "/.swapvol";
-            swap.swapfile.size = config.system.disks.swapSize;
+            swap.swapfile.size = cfg.swapSize;
           };
         });
       };
@@ -199,6 +231,21 @@ in
 
     in
     lib.mkIf cfg.enable {
+      assertions = [
+        {
+          assertion = cfg.swapLocation == "lvm" -> cfg.lvm.enable;
+          message = "system.disks.swapLocation = \"lvm\" requires system.disks.lvm.enable = true";
+        }
+        {
+          assertion = cfg.swapLocation != "partition" || cfg.swapSize != null;
+          message = "system.disks.swapLocation = \"partition\" requires system.disks.swapSize to be set";
+        }
+        {
+          assertion = cfg.swapLocation != "partition" || !cfg.luks.enable;
+          message = "system.disks.swapLocation = \"partition\" is not allowed when LUKS is enabled because the swap partition would be unencrypted";
+        }
+      ];
+
       # Describe our primary and raid array disks, as well as relevant mdadm settings if needed
       disko.devices = {
         disk = {
@@ -221,6 +268,16 @@ in
                   };
                 };
               }
+              // (lib.optionalAttrs (cfg.swapLocation == "partition" && cfg.swapSize != null) {
+                swap = {
+                  size = cfg.swapSize;
+                  type = "8200";
+                  content = {
+                    type = "swap";
+                    discardPolicy = "both";
+                  };
+                };
+              })
               // (
                 let
                   # FIXME: Make make these configurable
@@ -229,7 +286,9 @@ in
                 {
                   ${name} = {
                     size = "100%";
-                    content = (if cfg.luks.enable then luksContent else btrfsContent);
+                    content = (
+                      if cfg.luks.enable then luksContent else (if cfg.lvm.enable then lvmPvContent else btrfsContent)
+                    );
                   };
                 }
               );
@@ -271,6 +330,28 @@ in
                 };
               };
             };
+          };
+        };
+      }
+      // lib.optionalAttrs cfg.lvm.enable {
+        lvm_vg = {
+          ${cfg.lvm.vgName} = {
+            type = "lvm_vg";
+            lvs = {
+              root = {
+                size = "100%FREE";
+                content = btrfsContent;
+              };
+            }
+            // (lib.optionalAttrs (cfg.swapSize != null && cfg.swapLocation == "lvm") {
+              swap = {
+                size = cfg.swapSize;
+                content = {
+                  type = "swap";
+                  discardPolicy = "both";
+                };
+              };
+            });
           };
         };
       };
