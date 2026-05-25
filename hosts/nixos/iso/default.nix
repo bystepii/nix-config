@@ -56,7 +56,7 @@ rec {
     export PS1="\\[\\033[01;32m\\]\\u@\\h-$(cat /etc/isoBuildTime)\\[\\033[00m\\]:\\[\\033[01;34m\\]\\w\\[\\033[00m\\]\\$ "
   '';
 
-  # The default compression-level (6) takes way too long on onyx (>30m). 3 takes <2m
+  # The default compression-level (6) takes way too long on kalypso (>30m). 3 takes <2m
   isoImage.squashfsCompression = "zstd -Xcompression-level 3";
 
   nixpkgs = {

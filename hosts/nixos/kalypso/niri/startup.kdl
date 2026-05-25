@@ -1,2 +1,2 @@
-// onyx startup apps
+// kalypso startup apps
 spawn-at-startup "discord"

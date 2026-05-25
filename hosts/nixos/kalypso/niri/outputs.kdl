@@ -1,4 +1,4 @@
-// onyx dual monitors
+// kalypso dual monitors
 output "DP-5" {
   mode "2560x1440@164.802"
   scale 1.0

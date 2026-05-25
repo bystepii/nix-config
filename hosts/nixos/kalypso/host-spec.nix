@@ -1,7 +1,7 @@
 { lib, ... }:
 {
   hostSpec = {
-    hostName = lib.mkDefault "onyx";
+    hostName = lib.mkDefault "kalypso";
     users = lib.mkForce [ "stepii" ];
 
     isImpermanent = lib.mkForce true;

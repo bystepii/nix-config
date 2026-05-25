@@ -196,7 +196,7 @@ hosts/nixos/<host>/niri/
 
 These files are **automatically included** if they exist. You do not need to edit `home/common/optional/desktops/niri/default.nix`.
 
-#### Example: `hosts/nixos/onyx/niri/outputs.kdl`
+#### Example: `hosts/nixos/kalypso/niri/outputs.kdl`
 ```kdl
 output "DP-5" {
     mode "2560x1440@165.000"
@@ -208,14 +208,14 @@ output "DP-6" {
 }
 ```
 
-#### Example: `hosts/nixos/onyx/niri/workspaces.kdl`
+#### Example: `hosts/nixos/kalypso/niri/workspaces.kdl`
 ```kdl
 workspace "1_dev" { output "DP-5" }
 workspace "2_uci" { output "DP-5" }
 workspace "9_com" { output "DP-6" }
 ```
 
-#### Example: `hosts/nixos/onyx/niri/startup.kdl`
+#### Example: `hosts/nixos/kalypso/niri/startup.kdl`
 ```kdl
 spawn-at-startup "special-host-app"
 ```
