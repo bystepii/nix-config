@@ -34,7 +34,7 @@
         "luks-fido2.nix" # unlock LUKS with FIDO2 token (YubiKey)
 
         # VPN
-        "wireguard-client.nix"
+        # "wireguard-client.nix"
 
         # Desktop
         "fonts.nix"
