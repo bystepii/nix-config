@@ -967,11 +967,11 @@
         "wrappers": "wrappers_3"
       },
       "locked": {
-        "lastModified": 1779790804,
-        "narHash": "sha256-I46L2qdOlXir7+JOBcmB/4YH1T5MBGhP6xRBTDqxk+0=",
+        "lastModified": 1779890993,
+        "narHash": "sha256-iNf/t9C4pFNk5FmHm2kalTsheF+inYDhldBwWvuxaWI=",
         "owner": "bystepii",
         "repo": "neovim",
-        "rev": "52808e1665eba95d25ff11285350dd02d15bb6e6",
+        "rev": "59551df72e03c3acbe773927124bf70ed90f86ee",
         "type": "github"
       },
       "original": {

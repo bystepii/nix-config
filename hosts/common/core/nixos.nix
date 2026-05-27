@@ -11,6 +11,9 @@
     inputs.introdus.nixosModules.default
   ];
 
+  # Disable upstream broken impermanence module (LVM bug); we use local copy instead
+  introdus.impermanence.enable = lib.mkForce false;
+
   # Database for aiding terminal-based programs
   environment.enableAllTerminfo = true;
   # Enable firmware with a license allowing redistribution
