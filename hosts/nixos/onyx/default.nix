@@ -125,7 +125,7 @@
   # Remote LUKS unlock via SSH in initrd
   services.remoteLuksUnlock = {
     enable = true;
-    ssh.key = "${inputs.nix-secrets}/hosts/nixos/onyx/initrd_ed25519_key";
+    ssh.key = toString inputs.nix-secrets + "/hosts/nixos/onyx/initrd_ed25519_key";
     notify.enable = false;
   };
 
