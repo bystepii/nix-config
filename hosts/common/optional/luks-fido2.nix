@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -28,5 +29,8 @@ in
     boot.initrd.luks.devices = lib.genAttrs cfg.devices (_: {
       crypttabExtraOpts = [ "fido2-device=auto" ];
     });
+
+    # Ensure libfido2 is available in stage-1 initrd for systemd-cryptsetup
+    boot.initrd.systemd.packages = [ pkgs.libfido2 ];
   };
 }
