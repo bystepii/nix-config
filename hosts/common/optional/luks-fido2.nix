@@ -27,7 +27,10 @@ in
     # This adds the `fido2-device=auto` crypttab option, causing systemd-cryptsetup
     # to prompt for a FIDO2 token instead of (or in addition to) a passphrase.
     boot.initrd.luks.devices = lib.genAttrs cfg.devices (_: {
-      crypttabExtraOpts = [ "fido2-device=auto" ];
+      crypttabExtraOpts = [
+        "fido2-device=auto"
+        "token-timeout=10s"
+      ];
     });
 
     # Ensure libfido2 is available in stage-1 initrd for systemd-cryptsetup

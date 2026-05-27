@@ -3,6 +3,7 @@
   inputs,
   lib,
   pkgs,
+  secrets,
   ...
 }:
 {
@@ -115,6 +116,17 @@
       "sr_mod"
     ];
     # luks.forceLuksSupportInInitrd = true;
+  };
+
+  # Wake-on-LAN: interface name stored in nix-secrets
+  networking.interfaces.${secrets.networking.hosts.onyx.primaryEthernetInterface}.wakeOnLan.enable =
+    true;
+
+  # Remote LUKS unlock via SSH in initrd
+  services.remoteLuksUnlock = {
+    enable = true;
+    ssh.key = "${inputs.nix-secrets}/hosts/nixos/onyx/initrd_ed25519_key";
+    notify.enable = false;
   };
 
   # boot.kernelParams = [
