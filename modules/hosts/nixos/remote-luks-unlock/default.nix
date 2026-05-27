@@ -28,7 +28,7 @@ in
             };
             users = lib.mkOption {
               type = lib.types.listOf lib.types.str;
-              default = [ config.hostSpec.username ];
+              default = [ config.hostSpec.primaryUsername ];
               example = [
                 "alice"
                 "bob"
