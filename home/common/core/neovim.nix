@@ -20,9 +20,8 @@
 
   # FIXME: emergentvim wrapper disabled globally — configure plain neovim or re-enable later
   introdus.neovim = {
-    # enable = true;
     enable = true;
-    # fontSize = 14;
+    fontSize = 13;
     wrapper = "omnivium"; # Override default to avoid "emergentvim" lookup error
   };
   # My custom neovim wrapper, built on top of the introdus neovim base, is enabled by the above
