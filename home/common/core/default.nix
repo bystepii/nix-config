@@ -23,6 +23,7 @@
       eza # ls replacement
       dust # disk usage
       fd # tree style ls
+      file # file type detection
       findutils # find
       jq # json pretty printer and manipulator
       nix-tree # nix package tree viewer
@@ -35,6 +36,7 @@
       ripgrep # better grep
       sops # secrets editor
       usbutils
+      tdf # terminal pdf viewer
       tree # cli dir tree viewer
       unzip # zip extraction
       unrar # rar extraction
