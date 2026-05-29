@@ -195,7 +195,7 @@ in
             serverAliveCountMax = 3;
             serverAliveInterval = 5; # 3 * 5s
             hashKnownHosts = true;
-            addKeysToAgent = "ask";
+            addKeysToAgent = "no";
 
             extraOptions = {
               SetEnv = "TERM=xterm-256color";
