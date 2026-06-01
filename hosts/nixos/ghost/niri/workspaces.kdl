@@ -21,10 +21,7 @@ workspace "2_uci" {
 workspace "3_edu" {
   open-on-output "DP-1"
 }
-workspace "4_gig" {
-  open-on-output "DP-1"
-}
-workspace "5_gmz" {
+workspace "4_gmz" {
   open-on-output "DP-1"
 }
 workspace "Y_qrs" {
@@ -47,7 +44,7 @@ window-rule {
 }
 window-rule {
   match app-id="steam"
-  open-on-workspace "5_gmz"
+  open-on-workspace "4_gmz"
 }
 window-rule {
   match app-id="com.yubico.yubioath"

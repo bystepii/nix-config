@@ -69,10 +69,10 @@ binds {
     focus-workspace "3_edu"
   }
   Super+4 {
-    focus-workspace "4_gig"
+    focus-workspace "4_gmz"
   }
   Super+5 {
-    focus-workspace "5_gmz"
+    focus-workspace 5
   }
   Super+6 {
     focus-workspace 6
@@ -154,10 +154,10 @@ binds {
     move-window-to-workspace "3_edu"
   }
   Super+Shift+4 {
-    move-window-to-workspace "4_gig"
+    move-window-to-workspace "4_gmz"
   }
   Super+Shift+5 {
-    move-window-to-workspace "5_gmz"
+    move-window-to-workspace "5"
   }
   Super+Shift+6 {
     move-window-to-workspace 6

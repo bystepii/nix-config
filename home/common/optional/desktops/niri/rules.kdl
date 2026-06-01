@@ -214,7 +214,7 @@ window-rule {
   match title="^()$" app-id="^([Ss]team)$"
   match app-id="^([S]team_app_*)$"
   open-on-output "DP-1"
-  open-on-workspace "5_gmz"
+  open-on-workspace "4_gmz"
 }
 // ========== Signal ==========
 // Resize certain windows to specific sizes.
