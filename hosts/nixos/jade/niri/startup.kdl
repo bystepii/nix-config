@@ -1,0 +1,2 @@
+// jade startup apps
+spawn-at-startup "discord"
