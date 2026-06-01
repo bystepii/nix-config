@@ -16,6 +16,7 @@
           "kitty.nix"
           "yazi.nix"
           "development"
+          "sops.nix"
         ])
     )
   );
