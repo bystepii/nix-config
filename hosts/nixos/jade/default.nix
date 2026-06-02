@@ -69,6 +69,9 @@
   services.displayManager.sddm.wayland.enable = lib.mkForce true;
   introdus.services.audio.enable = true;
 
+  # Battery services for noctalia
+  batteryPowerServices.enable = true;
+
   # Required for graphical session
   hardware.graphics.enable = true;
 
