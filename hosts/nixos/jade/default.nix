@@ -13,6 +13,13 @@
     inputs.nixos-facter-modules.nixosModules.facter
     { config.facter.reportPath = ./facter.json; }
 
+    (import "${inputs.nixos-hardware}/common/cpu/intel/default.nix")
+    (import "${inputs.nixos-hardware}/common/cpu/intel/coffee-lake/default.nix")
+    (import "${inputs.nixos-hardware}/common/gpu/nvidia/pascal/default.nix")
+    (import "${inputs.nixos-hardware}/common/pc/laptop/default.nix")
+    (import "${inputs.nixos-hardware}/common/pc/ssd/default.nix")
+    (import "${inputs.nixos-hardware}/common/pc/laptop/hdd/default.nix")
+
     # Secure Boot via lanzaboote
     inputs.lanzaboote.nixosModules.lanzaboote
 
