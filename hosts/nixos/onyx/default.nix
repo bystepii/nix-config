@@ -14,6 +14,11 @@
     inputs.nixos-facter-modules.nixosModules.facter
     { config.facter.reportPath = ./facter.json; }
 
+    (import "${inputs.nixos-hardware}/common/cpu/amd/default.nix")
+    (import "${inputs.nixos-hardware}/common/pc/ssd/default.nix")
+    (import "${inputs.nixos-hardware}/common/pc/default.nix")
+    (import "${inputs.nixos-hardware}/common/gpu/nvidia/ampere/default.nix")
+
     # Secure Boot via lanzaboote
     inputs.lanzaboote.nixosModules.lanzaboote
 
@@ -41,7 +46,7 @@
         "fonts.nix"
 
         # NFS mounts
-        # "nfs-laptop-mounts.nix"
+        "nfs-laptop-mounts.nix"
 
         # GPU / Gaming
         "nvidia.nix"
@@ -126,7 +131,7 @@
   services.remoteLuksUnlock = {
     enable = true;
     ssh.key =
-      builtins.unsafeDiscardStringContext (toString inputs.nix-secrets)
+      lib.strings.unsafeDiscardStringContext (toString inputs.nix-secrets)
       + "/hosts/nixos/onyx/initrd_ed25519_key";
     notify.enable = false;
   };
