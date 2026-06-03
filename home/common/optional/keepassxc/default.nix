@@ -7,6 +7,7 @@
     enable = true;
     settings = {
       Security.LockDatabaseIdle = false;
+      Browser.Enabled = true;
     };
   };
 
