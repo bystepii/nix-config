@@ -206,7 +206,7 @@ in
         settings =
           "${pkgs.starship}/share/starship/presets/nerd-font-symbols.toml"
           |> lib.readFile
-          |> lib.fromTOML
+          |> builtins.fromTOML
           |> lib.recursiveUpdate settings';
       };
     # enable transient prompt for Zsh
