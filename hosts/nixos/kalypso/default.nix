@@ -48,6 +48,9 @@
 
         # Containerization
         "docker.nix"
+
+        # Desktop tools
+        "polkit-agent.nix" # graphical polkit authentication agent
       ])
     ))
   ];

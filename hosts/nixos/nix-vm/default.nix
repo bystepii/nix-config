@@ -30,6 +30,9 @@
 
         # Desktop
         "fonts.nix"
+
+        # Desktop tools
+        "polkit-agent.nix" # graphical polkit authentication agent
       ])
     ))
   ];

@@ -54,6 +54,12 @@
 
         # Containerization
         "docker.nix"
+
+        # Desktop tools
+        "polkit-agent.nix" # graphical polkit authentication agent
+
+        # Disk tools
+        "gparted.nix" # graphical disk partition editor
       ])
     ))
   ];
