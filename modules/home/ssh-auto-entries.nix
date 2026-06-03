@@ -124,7 +124,7 @@ in
           (
             "${yubikeyPath}/"
             |> lib.custom.relativeToRoot
-            |> builtins.readDir
+            |> lib.readDir
             # nixfmt hack
             |> lib.attrNames
           )

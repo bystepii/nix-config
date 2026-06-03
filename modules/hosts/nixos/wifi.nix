@@ -38,7 +38,7 @@ let
   isWLANUsed = f: lib.elem (getWLAN f) cfg.wlans;
 
   allWLANFiles =
-    builtins.readDir sopsFolder
+    lib.readDir sopsFolder
     |> lib.attrNames
     |> lib.filter (name: lib.match "wifi\..*\.yaml" name != null);
 
