@@ -16,7 +16,7 @@
       height = 1080;
       refreshRate = 60;
       x = 0;
-      y = 0;
+      y = 360;
       scale = 1.0;
     }
     {
@@ -35,7 +35,7 @@
       height = 1080;
       refreshRate = 144;
       x = 4480;
-      y = 0;
+      y = 360;
       scale = 1.0;
     }
   ];
