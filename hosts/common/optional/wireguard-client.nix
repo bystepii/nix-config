@@ -5,9 +5,11 @@
   ...
 }:
 let
-  wg = config.hostSpec.networking.wireguard or { };
+  wgCommon = config.hostSpec.networking.wireguard or { };
+  wgHost = wgCommon.hosts.${config.hostSpec.hostName} or { };
+  wg = lib.removeAttrs wgCommon [ "hosts" ] // wgHost;
 in
-lib.mkIf (wg != { }) {
+lib.mkIf (wgHost != { }) {
   environment.systemPackages = [ pkgs.wireguard-tools ];
 
   sops.secrets."wireguard/privateKey" = { };
