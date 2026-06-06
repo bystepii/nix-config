@@ -7,7 +7,7 @@
   ...
 }:
 let
-  sopsFolder = toString inputs.nix-secrets + "/sops";
+  sopsFolder = lib.toString inputs.nix-secrets + "/sops";
 in
 {
   #the import for inputs.sops-nix.nixosModules.sops is handled in hosts/common/core/default.nix so that it can be dynamically input according to the platform

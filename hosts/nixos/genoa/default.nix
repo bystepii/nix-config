@@ -70,7 +70,7 @@
   # Bluetooth
   services.blueman.enable = true;
   # Battery services for noctalia
-  batteryPowerServices.enable = true;
+  #  batteryPowerServices.enable = true;
 
   boot.initrd = {
     systemd.enable = true;
@@ -94,7 +94,7 @@
 
     borgServer = "${config.hostSpec.networking.subnets.grove.hosts.moth.ip}";
     borgUser = "${config.hostSpec.primaryUsername}";
-    borgPort = "${toString config.hostSpec.networking.ports.tcp.moth}";
+    borgPort = "${lib.toString config.hostSpec.networking.ports.tcp.moth}";
 
     borgRemotePath = "/run/current-system/sw/bin/borg";
 

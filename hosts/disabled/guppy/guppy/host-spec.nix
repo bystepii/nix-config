@@ -13,5 +13,6 @@
     useYubikey = lib.mkForce true;
 
     # Graphical
+    isAutoStyled = lib.mkForce true;
   };
 }

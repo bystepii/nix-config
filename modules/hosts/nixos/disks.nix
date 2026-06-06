@@ -176,7 +176,7 @@ in
         disks
         |> lib.imap0 (
           i: disk: {
-            "raidDrive${(toString (i + 1))}" = {
+            "raidDrive${(lib.toString (i + 1))}" = {
               type = "disk";
               device = disk;
               content = {
@@ -186,7 +186,7 @@ in
                     size = "100%";
                     content = {
                       type = "mdraid";
-                      name = "raid${toString level}";
+                      name = "raid${lib.toString level}";
                     };
                   };
                 };
@@ -240,7 +240,7 @@ in
       // lib.optionalAttrs hasRaid {
         # FIXME: This could use a raidLuks and primaryLuks
         mdadm = {
-          "raid${toString cfg.raidLevel}" = {
+          "raid${lib.toString cfg.raidLevel}" = {
             type = "mdadm";
             level = cfg.raidLevel;
             content = {

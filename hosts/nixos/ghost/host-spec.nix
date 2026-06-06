@@ -29,6 +29,6 @@
     isAutoStyled = lib.mkForce true;
     #FIXME: not in stylix yet
     #theme = lib.mkForce "ascendancy";
-    #wallpaper = ""; # use default since it's overridden by wallpaperDir option for swww settings in home/ta/ghost.nix
+    #wallpaper = ""; # use default since it's overridden by wallpaperDir option for awww settings in home/ta/ghost.nix
   };
 }

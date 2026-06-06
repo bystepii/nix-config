@@ -68,7 +68,7 @@ in
       safe.directory = "${home}/sync/obsidian-vault-01/wiki";
       # log.showSignature = "true";
 
-      core.excludeFiles = builtins.toFile "global-gitignore" ''
+      core.excludeFiles = lib.toFile "global-gitignore" ''
         .DS_Store
         .DS_Store?
         ._*
@@ -78,7 +78,7 @@ in
         Thumbs.db
         node_modules
       '';
-      core.attributesfile = builtins.toFile "global-gitattributes" ''
+      core.attributesfile = lib.toFile "global-gitattributes" ''
         Cargo.lock -diff
         flake.lock -diff
         *.drawio -diff

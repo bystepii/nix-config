@@ -20,7 +20,7 @@
   ...
 }:
 let
-  sopsFolder = (toString inputs.nix-secrets) + "/sops";
+  sopsFolder = (lib.toString inputs.nix-secrets) + "/sops";
   cfg = config.wifi;
 
   # Return a list of all Access Point (AP) names from the given WLAN secret file
@@ -38,7 +38,7 @@ let
   isWLANUsed = f: lib.elem (getWLAN f) cfg.wlans;
 
   allWLANFiles =
-    builtins.readDir sopsFolder
+    lib.readDir sopsFolder
     |> lib.attrNames
     |> lib.filter (name: lib.match "wifi\..*\.yaml" name != null);
 
@@ -74,7 +74,7 @@ in
 {
   options = {
     wifi = {
-      enable = lib.mkEnableOption (lib.mdDoc ''Wireless LAN Management'');
+      enable = lib.mkEnableOption (lib.mdDoc "Wireless LAN Management");
       roaming = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -150,7 +150,7 @@ in
     assertions = [
       {
         assertion = (cfg.roaming || lib.length cfg.wlans != 0);
-        message = "config.wifi.roaming must be true or config.wifi.wlans should be set to one of:\n  ${toString allWLANs}";
+        message = "config.wifi.roaming must be true or config.wifi.wlans should be set to one of:\n  ${lib.toString allWLANs}";
       }
     ];
   };

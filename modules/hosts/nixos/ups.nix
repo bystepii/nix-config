@@ -176,7 +176,7 @@ in
       # timers and dispatch emails
       upsmon = {
         monitor.${cfg.name} = {
-          system = "${cfg.name}@${cfg.ip}:${toString cfg.port}";
+          system = "${cfg.name}@${cfg.ip}:${lib.toString cfg.port}";
           user = cfg.username;
           passwordFile = config.sops.secrets."passwords/nut".path;
           type = if cfg.server.enable then "primary" else "slave";
@@ -209,7 +209,7 @@ in
       # rules or each event.
       schedulerRules =
         let
-          systemGraceTime = toString cfg.powerDownTimeOut;
+          systemGraceTime = lib.toString cfg.powerDownTimeOut;
         in
         ''
           CMDSCRIPT ${lib.getExe upssched-cmd}
@@ -258,7 +258,7 @@ in
           AT SUSPEND_FINISHED * EXECUTE SUSPEND_FINISHED
         ''
         |> (pkgs.writeText "upssched.conf")
-        |> toString;
+        |> lib.toString;
     }
     # NUT Server additions
     // lib.optionalAttrs cfg.server.enable {

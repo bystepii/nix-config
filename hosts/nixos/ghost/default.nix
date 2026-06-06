@@ -104,7 +104,7 @@
       "amdgpu.modeset=1" # explicitly have driver perform KMS (Kernel Mode Setting) during initialization to get higher resolution console output during boot
     ]
     ++ (lib.map (
-      m: "video=${m.name}:${toString m.width}x${toString m.height}@${toString m.refreshRate}"
+      m: "video=${m.name}:${lib.toString m.width}x${lib.toString m.height}@${lib.toString m.refreshRate}"
     ) config.monitors);
 
     # Fix for XBox controller disconnects
@@ -127,7 +127,7 @@
 
     borgServer = "${config.hostSpec.networking.subnets.grove.hosts.moth.ip}";
     borgUser = "${config.hostSpec.primaryUsername}";
-    borgPort = "${toString config.hostSpec.networking.ports.tcp.moth}";
+    borgPort = "${lib.toString config.hostSpec.networking.ports.tcp.moth}";
 
     borgRemotePath = "/run/current-system/sw/bin/borg";
 

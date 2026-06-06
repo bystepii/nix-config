@@ -16,10 +16,10 @@
       #       name: value: {
       #         criteria = name;
       #         status = if value.enabled then "enable" else "disabled";
-      #         mode = "${toString value.width}x${toString value.height}@${toString value.refreshRate}Hz";
+      #         mode = "${lib.toString value.width}x${lib.toString value.height}@${lib.toString value.refreshRate}Hz";
       #         scale = value.scale;
       #         adaptiveSync = value.vrr != 0;
-      #         position = "${toString value.x},${toString value.y}";
+      #         position = "${lib.toString value.x},${lib.toString value.y}";
       #       }
       #     );
       # }

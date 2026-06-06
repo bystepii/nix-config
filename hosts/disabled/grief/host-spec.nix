@@ -11,5 +11,7 @@
 
     # Functionality
     useYubikey = lib.mkForce true;
+
+    isAutoStyled = lib.mkForce true;
   };
 }

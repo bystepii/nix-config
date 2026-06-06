@@ -190,7 +190,7 @@ Rice
   - [/] centralize custom color palette: waiting for stylix to catchup to tinted-themes
 - [ ] eww as a potential replacement to waybar
 - [ ] ssh-motd
-- [x] swww background service and random cycling
+- [x] awww background service and random cycling
 - [ ] plymouth
 - [ ] grub - https://www.gnome-look.org/browse?cat=109&ord=latest
 - [ ] rEFInd - Maybe?

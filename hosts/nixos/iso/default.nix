@@ -5,7 +5,7 @@
   config,
   ...
 }:
-rec {
+{
   imports = lib.flatten [
     #"${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
     "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
