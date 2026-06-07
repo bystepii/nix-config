@@ -1,0 +1,2 @@
+hosts/nixos/onyx/initrd_ed25519_key filter=git-crypt diff=git-crypt
+hosts/nixos/onyx/initrd_ed25519_key.pub !filter !diff
