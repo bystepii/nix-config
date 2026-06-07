@@ -85,6 +85,9 @@
   # Required for graphical session
   hardware.graphics.enable = true;
 
+  # GTX 1060 (Pascal) is not supported by 595; pin to 580
+  hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.legacy_580;
+
   # Set early framebuffer resolution for all monitors
   boot.kernelParams = lib.map (
     m: "video=${m.name}:${lib.toString m.width}x${lib.toString m.height}@${lib.toString m.refreshRate}"
