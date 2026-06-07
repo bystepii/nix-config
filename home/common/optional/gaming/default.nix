@@ -14,9 +14,9 @@
 #     let
 #       gamescope = lib.concatStringsSep " " [
 #         (lib.getExe pkgs.unstable.gamescope)
-#         "--output-width ${toString monitor.width}"
-#         "--output-height ${toString monitor.height}"
-#         "--framerate-limit ${toString monitor.refreshRate}"
+#         "--output-width ${lib.toString monitor.width}"
+#         "--output-height ${lib.toString monitor.height}"
+#         "--framerate-limit ${lib.toString monitor.refreshRate}"
 #         "--prefer-output ${monitor.name}"
 #         "--adaptive-sync"
 #         "--expose-wayland"

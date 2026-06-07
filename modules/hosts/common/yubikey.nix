@@ -47,7 +47,7 @@ in
       yubikey-up =
         let
           yubikeyIds = lib.concatStringsSep " " (
-            lib.mapAttrsToList (name: id: "[${name}]=\"${toString id}\"") config.yubikey.identifiers
+            lib.mapAttrsToList (name: id: "[${name}]=\"${lib.toString id}\"") config.yubikey.identifiers
           );
         in
         pkgs.writeShellApplication {

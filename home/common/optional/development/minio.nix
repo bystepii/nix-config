@@ -1,4 +1,5 @@
 {
+  lib,
   config,
   pkgs,
   inputs,
@@ -23,7 +24,7 @@ in
   home.file.".mc/.keep".text = "";
 
   sops.templates."mc-config.json" = {
-    content = builtins.toJSON {
+    content = lib.toJSON {
       version = "10";
       aliases = {
         rack = {

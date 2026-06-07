@@ -86,7 +86,7 @@
 
   # Set early framebuffer resolution for all monitors
   boot.kernelParams = lib.map (
-    m: "video=${m.name}:${toString m.width}x${toString m.height}@${toString m.refreshRate}"
+    m: "video=${m.name}:${lib.toString m.width}x${lib.toString m.height}@${lib.toString m.refreshRate}"
   ) config.monitors;
 
   # Secure Boot with lanzaboote (replaces systemd-boot)

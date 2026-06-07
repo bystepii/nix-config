@@ -13,10 +13,10 @@ let
     tunnel:
     "-L "
     + (if tunnel.localAddress != null then "${tunnel.localAddress}:" else "")
-    + "${toString tunnel.localPort}"
+    + "${lib.toString tunnel.localPort}"
     + ":"
     + (if tunnel.remoteAddress != null then "${tunnel.remoteAddress}:" else "127.0.0.1:")
-    + "${toString tunnel.remotePort}";
+    + "${lib.toString tunnel.remotePort}";
 in
 {
   imports = lib.custom.scanPaths ./.;
@@ -119,7 +119,7 @@ in
         extraArguments = lib.concatStringsSep " " (
           [
             "-N"
-            "-o Port=${toString session.port}"
+            "-o Port=${lib.toString session.port}"
             "-o ControlMaster=no"
             "-o Compression=no"
             "-o ExitOnForwardFailure=yes"

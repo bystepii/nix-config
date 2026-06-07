@@ -4,7 +4,7 @@
     thunar = {
       enable = true;
       plugins = lib.attrValues {
-        inherit (pkgs.xfce)
+        inherit (pkgs)
           thunar-archive-plugin
           thunar-media-tags-plugin
           thunar-volman

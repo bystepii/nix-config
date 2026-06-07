@@ -95,7 +95,7 @@ in
     };
     borgPort = lib.mkOption {
       type = lib.types.str; # FIXME(borg): int?
-      default = "${toString config.hostSpec.networking.ports.tcp.ssh}";
+      default = "${lib.toString config.hostSpec.networking.ports.tcp.ssh}";
       description = "The ssh port to use for the borg server";
     };
     borgBackupPath = lib.mkOption {
@@ -212,10 +212,10 @@ in
         export BORG_BTRFS_SUBVOLUME="''${BORG_BTRFS_SUBVOLUME:-${cfg.borgBtrfsSubvolume}}"
         export BORG_PASSPHRASE="''${BORG_PASSPHRASE:-$(cat /etc/borg/passphrase)}"
         export BORG_RSH="ssh -i $BORG_SSH_KEY -l$BORG_USER -oport=$BORG_PORT"
-        export BORG_EXPIRY="--keep-daily=${toString cfg.borgBackupExpiryDaily} \
-          --keep-weekly=${toString cfg.borgBackupExpiryWeekly} \
-          --keep-monthly=${toString cfg.borgBackupExpiryMonthly} \
-          --keep-yearly=${toString cfg.borgBackupExpiryYearly}"
+        export BORG_EXPIRY="--keep-daily=${lib.toString cfg.borgBackupExpiryDaily} \
+          --keep-weekly=${lib.toString cfg.borgBackupExpiryWeekly} \
+          --keep-monthly=${lib.toString cfg.borgBackupExpiryMonthly} \
+          --keep-yearly=${lib.toString cfg.borgBackupExpiryYearly}"
         export BORG_CACHE_DIR="''${BORG_CACHE_DIR:-${cfg.borgCacheDir}}"
         if [ ! -d "$BORG_CACHE_DIR" ]; then
           mkdir -p "$BORG_CACHE_DIR"

@@ -120,7 +120,8 @@
           (lib.map (host: mkHost host isDarwin) hosts)
           ++ (lib.map (host: mkMinimalHost host) (lib.filter (h: h != "iso") hosts))
         );
-      readHosts = folder: lib.attrNames (builtins.readDir ./hosts/${folder});
+      readHosts = folder: lib.attrNames (lib.readDir ./hosts/${folder});
+
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
       flake = {
@@ -183,13 +184,13 @@
     #
     # ========= Official NixOS, Darwin, and HM Package Sources =========
     #
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     # The next two are for pinning to stable vs unstable regardless of what the above is set to
     # This is particularly useful when an upcoming stable release is in beta because you can effectively
     # keep 'nixpkgs-stable' set to stable for critical packages while setting 'nixpkgs' to the beta branch to
     # get a jump start on deprecation changes.
     # See also 'stable-packages' and 'unstable-packages' overlays at 'overlays/default.nix"
-    # nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
+    # nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
@@ -197,7 +198,7 @@
     nixos-facter-modules.url = "github:nix-community/nixos-facter-modules";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

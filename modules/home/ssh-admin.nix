@@ -28,7 +28,7 @@ lib.mkIf cfg.isAdmin {
     ]
     ++ lib.optional cfg.isWork secrets.work.git.servers;
   };
-  programs.ssh.matchBlocks =
+  programs.ssh.settings =
     let
       # ===== non-nixos hosts on internal subnets =====
 
@@ -45,27 +45,27 @@ lib.mkIf cfg.isAdmin {
       #   hosts
       #   |> lib.lists.map (host: {
       #     "${host}" = lib.hm.dag.entryAfter [ "yubikey-hosts" ] {
-      #       match = "host ${host},${host}.${cfg.domain}";
-      #       hostname = "${host}.${cfg.domain}";
-      #       user = cfg.networking.subnets.${subnet}.hosts.${host}.user;
-      #       port = cfg.networking.subnets.${subnet}.hosts.${host}.sshPort;
+      #       Match = "host ${host},${host}.${cfg.domain}";
+      #       HostName = "${host}.${cfg.domain}";
+      #       User = cfg.networking.subnets.${subnet}.hosts.${host}.user;
+      #       Port = cfg.networking.subnets.${subnet}.hosts.${host}.sshPort;
       #     };
       #   })
       #   |> lib.attrsets.mergeAttrsList;
     in
     {
-      # external hosts with
-      # "moth" = lib.hm.dag.entryAfter [ "yubikey-hosts" ] {
-      #   host = "moth";
-      #   hostname = "moth.${cfg.domain}";
-      #   user = "${cfg.primaryUsername}";
-      #   port = cfg.networking.ports.tcp.moth;
-      # };
+      #   # external hosts with
+      #   "moth" = lib.hm.dag.entryAfter [ "yubikey-hosts" ] {
+      #     Host = "moth";
+      #     HostName = "moth.${cfg.domain}";
+      #     User = "${cfg.primaryUsername}";
+      #     Port = cfg.networking.ports.tcp.moth;
+      #   };
       # "myth" = lib.hm.dag.entryAfter [ "yubikey-hosts" ] {
-      #   host = "myth ${secrets.networking.domains.myth}";
-      #   hostname = "${secrets.networking.domains.myth}";
-      #   user = "admin";
-      #   port = cfg.networking.ports.tcp.myth;
+      #   Host = "myth ${secrets.networking.domains.myth}";
+      #   HostName = "${secrets.networking.domains.myth}";
+      #   User = "admin";
+      #   Port = cfg.networking.ports.tcp.myth;
       # };
     };
   # // (extraSubnetEntries gladeSubnetHosts "glade")

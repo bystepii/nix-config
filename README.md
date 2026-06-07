@@ -1,5 +1,5 @@
 <div align="center">
-<h1nsta>
+<h1>
 <img width="100" src="docs/nixos-ascendancy.png" /> <br>
 </h1>
 </div>

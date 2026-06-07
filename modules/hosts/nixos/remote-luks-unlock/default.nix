@@ -133,7 +133,7 @@ in
             from ${cfg.notify.from}
             host ${cfg.notify.server}
             password ${cfg.notify.password}
-            port ${toString cfg.notify.port}
+            port ${lib.toString cfg.notify.port}
             syslog LOG_MAIL
             tls on
             tls_starttls on

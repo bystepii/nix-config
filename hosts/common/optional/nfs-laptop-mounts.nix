@@ -4,29 +4,16 @@
   boot.supportedFilesystems = [ "nfs" ];
   services.rpcbind.enable = true; # needed for NFS
 
-  systemd.mounts = [
-    {
-      type = "nfs";
-      mountConfig = {
-        Options = "noatime";
-      };
-      what = "stepan-laptop.home:/home/stepii";
-      where = "/home/stepii/laptop";
-    }
-  ];
-
-  systemd.automounts = [
-    {
-      wantedBy = [ "multi-user.target" ];
-      automountConfig = {
-        TimeoutIdleSec = "600";
-      };
-      where = "/home/stepii/laptop";
-    }
-  ];
-
-  # Ensure the mountpoint directory exists before the automount tries to use it.
-  systemd.tmpfiles.rules = [
-    "d /home/stepii/laptop 0755 stepii users -"
-  ];
+  fileSystems."/home/stepii/laptop" = {
+    device = "stepan-laptop.home:/home/stepii";
+    fsType = "nfs";
+    options = [
+      "noatime"
+      "noauto" # don't mount at boot
+      "x-systemd.automount" # create automount unit
+      "nofail" # don't fail activation if mount fails
+      "x-systemd.device-timeout=5s" # limit hang time when laptop is off
+      "x-systemd.idle-timeout=600" # unmount after 600s idle (matches current behavior)
+    ];
+  };
 }

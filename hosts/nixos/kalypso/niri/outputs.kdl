@@ -1,12 +1,12 @@
 // kalypso dual monitors
 output "DP-5" {
-  mode "2560x1440@164.802"
-  scale 1.0
-  position x=0 y=0
-  focus-at-startup
+    mode "2560x1440@164.802"
+    scale 1.0
+    position x=0 y=0
+    focus-at-startup
 }
 output "DP-6" {
-  mode "2560x1440@164.554"
-  scale 1.0
-  position x=2560 y=0
+    mode "2560x1440@164.554"
+    scale 1.0
+    position x=2560 y=0
 }
