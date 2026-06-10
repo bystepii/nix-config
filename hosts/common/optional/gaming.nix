@@ -24,6 +24,7 @@
       enable = true;
       settings = {
         #see gamemode man page for settings info
+        #written to /etc/gamemode.ini
         general = {
           softrealtime = "on";
           inhibit_screensaver = 1;
@@ -38,6 +39,10 @@
           end = "${pkgs.libnotify}/bin/notify-send 'GameMode ended'";
         };
       };
+    };
+    gamescope = {
+      enable = true;
+      package = pkgs.unstable.gamescope;
     };
   };
 }
