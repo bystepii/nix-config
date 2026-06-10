@@ -247,7 +247,8 @@
     };
     # desktop shell
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
+      #FIXME: pinned to 4.7.7 until 5.x becomes more stable (still alpha as 26.06.09)
+      url = "github:noctalia-dev/noctalia?ref=v4.7.7";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     #
