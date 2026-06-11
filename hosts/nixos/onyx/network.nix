@@ -16,7 +16,7 @@ in
     useDHCP = lib.mkDefault true;
     networkmanager.enable = true;
 
-    networkmanager.dispatcherScripts = lib.optional (routes != [ ]) [
+    networkmanager.dispatcherScripts = lib.optionals (routes != [ ]) [
       {
         type = "basic";
         source = pkgs.writeText "onyx-static-routes" ''
