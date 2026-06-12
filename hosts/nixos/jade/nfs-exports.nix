@@ -23,9 +23,8 @@
     ];
   };
 
-  # Re-export after DNS is ready, so that hostname-based exports resolve correctly.
-  # exportfs silently ignores unresolvable hostnames and exits 0, so we must check
-  # resolution ourselves and fail (triggering systemd restart) until it works.
+  # Re-export NFS after DNS is ready. If the client hostname doesn't resolve
+  # (e.g. away from home), skip gracefully — no error, no retry.
   systemd.services.nfs-reexport-after-dns = {
     description = "Re-export NFS after DNS is ready";
     after = [
@@ -35,21 +34,13 @@
     ];
     wants = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
-    unitConfig = {
-      StartLimitIntervalSec = 0;
-    };
     script = ''
-      if ! /run/current-system/sw/bin/timeout 5 /run/current-system/sw/bin/getent hosts stepan-desktop.home > /dev/null; then
-        echo "DNS not ready for stepan-desktop.home"
-        exit 1
+      if /run/current-system/sw/bin/timeout 5 /run/current-system/sw/bin/getent hosts stepan-desktop.home > /dev/null; then
+        ${pkgs.nfs-utils}/bin/exportfs -r
       fi
-      exec ${pkgs.nfs-utils}/bin/exportfs -r
     '';
     serviceConfig = {
       Type = "oneshot";
-      RemainAfterExit = true;
-      Restart = "on-failure";
-      RestartSec = 10;
     };
   };
 }
