@@ -15,6 +15,9 @@ in
     inherit (pkgs)
       kubectl
       kubernetes-helm
+      headlamp
+      k9s
+      lens
       ;
   };
 
