@@ -19,6 +19,7 @@
           "kitty.nix"
           "yazi.nix"
           "development"
+          "introdus-xdg.nix"
           "sops.nix"
           "keepassxc"
           "docker.nix"

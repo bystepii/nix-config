@@ -1,2 +1,2 @@
 // kalypso startup apps
-spawn-at-startup "discord"
+spawn-at-startup "vesktop"

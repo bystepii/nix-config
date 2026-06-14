@@ -4,7 +4,8 @@
 
   home.packages = lib.attrValues {
     inherit (pkgs)
-      discord
+      # discord
+      vesktop
       #telegram-desktop
       #slack
       ;

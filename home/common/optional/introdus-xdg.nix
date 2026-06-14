@@ -6,4 +6,11 @@
       "nvim.desktop"
     ];
   };
+
+  xdg.portal = {
+    config = {
+      # Fix for niri screen sharing
+      common.default = [ "gnome" ];
+    };
+  };
 }
