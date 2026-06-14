@@ -12,7 +12,10 @@
       "noauto" # don't mount at boot
       "x-systemd.automount" # create automount unit
       "nofail" # don't fail activation if mount fails
-      "x-systemd.device-timeout=5s" # limit hang time when laptop is off
+      "soft" # return errors instead of retrying forever when laptop is off
+      "timeo=5" # 0.5s per RPC attempt
+      "retrans=3" # retry 3 times before giving up (~1.5s total)
+      "x-systemd.mount-timeout=2s" # fail mount after 2s if laptop is unreachable
       "x-systemd.idle-timeout=600" # unmount after 600s idle (matches current behavior)
     ];
   };
