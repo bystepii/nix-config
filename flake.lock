@@ -984,11 +984,11 @@
         "wrappers": "wrappers_3"
       },
       "locked": {
-        "lastModified": 1780050036,
-        "narHash": "sha256-Oxgjizky78BcLZkdP6ljMgj1yE2uX1igs48uFtxwiVc=",
+        "lastModified": 1781472430,
+        "narHash": "sha256-1YJIGw3Oy9qdVavrLFinqYaG2HeVn75FrP0mKVbymY0=",
         "owner": "bystepii",
         "repo": "neovim",
-        "rev": "89242b92307c3732c58a4b349c24e06d7d9f0099",
+        "rev": "deb93a379d6e3bd974fd69da6910d1408425d81d",
         "type": "github"
       },
       "original": {
