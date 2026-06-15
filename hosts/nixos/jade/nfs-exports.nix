@@ -35,9 +35,11 @@
     wants = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
     script = ''
-      if /run/current-system/sw/bin/timeout 5 /run/current-system/sw/bin/getent hosts stepan-desktop.home > /dev/null; then
-        ${pkgs.nfs-utils}/bin/exportfs -r
+      sleep 15
+      if ! /run/current-system/sw/bin/timeout 5 /run/current-system/sw/bin/getent hosts stepan-desktop.home > /dev/null; then
+        exit 0
       fi
+      exec ${pkgs.nfs-utils}/bin/exportfs -r
     '';
     serviceConfig = {
       Type = "oneshot";
