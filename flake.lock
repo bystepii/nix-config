@@ -545,11 +545,11 @@
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1780784531,
-        "narHash": "sha256-AsGX4tNjWohzuEEbEcX5Hu5pmOYb2v8YbTOlUDYVpAE=",
+        "lastModified": 1781659426,
+        "narHash": "sha256-jbKoMD4DHlcWw3TwV0Blxpn+efzm3ecrBSJnekQ6F4Y=",
         "ref": "ta",
-        "rev": "551ab1bc74de2d58b66525afd59f71285684dc25",
-        "revCount": 140,
+        "rev": "cf0181d507aa1e5ec0f7ab7f4eb6334e0716dd63",
+        "revCount": 141,
         "type": "git",
         "url": "https://codeberg.org/fidgetingbits/introdus"
       },
