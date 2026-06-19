@@ -17,6 +17,8 @@ in
     networkmanager.enable = true;
   };
 
+  networking.firewall.allowedTCPPorts = [ 3003 ];
+
   systemd.services."static-routes" = lib.optionalAttrs (routes != [ ]) {
     description = "Add static routes";
     wantedBy = [ "multi-user.target" ];
