@@ -47,6 +47,7 @@
 
         # NFS mounts
         "nfs-laptop-mounts.nix"
+        "nfs-immich-mounts.nix"
 
         # GPU / Gaming
         "nvidia.nix"
