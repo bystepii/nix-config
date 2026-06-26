@@ -147,7 +147,14 @@ in
               "/var/lib/bluetooth" # move to bluetooth-specific
               "/var/lib/nixos"
               "/var/lib/systemd/coredump"
-              "/etc/NetworkManager/system-connections" # move to network manager specific
+
+              # NOTE: /etc/NetworkManager/system-connections is intentionally NOT
+              # persisted. The previous behaviour kept a bad `enp6s0` profile with
+              # `ipv4.method=manual` + a static IP across reboots, which the router
+              # drops after a power loss (port-security / stale ARP). Letting NM
+              # manage itself per-boot means the ephemeral root is wiped, NM
+              # auto-creates a fresh `method=auto` profile, and DHCP works on
+              # every boot. Declare any hand-tuned profiles in nix-config.
 
               # systemd DynamicUser requires /var/{lib,cache}/private to exist and be 0700
               {
