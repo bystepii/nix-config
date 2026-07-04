@@ -213,20 +213,29 @@ binds {
   Super+Ctrl+Shift+L hotkey-overlay-title="Move window to monitor right" {
     move-window-to-monitor-right
   }
+  //
   // ========== Window Tabs ==========
+  //
+  // Toggle the focused column between normal and tabbed display
   // Use `consume-or-expel-...` binds above to add/remove windows to a tabbed column
   Super+G hotkey-overlay-title="Toggle column tabs" {
     toggle-column-tabbed-display
   }
-  // Toggle the focused column between normal and tabbed display    //
-  // ========== Window and column size ==========
   //
-  Super+R hotkey-overlay-title="Switch preset column widths" {
+  // ========== Window and column resize ==========
+  //
+  Super+R hotkey-overlay-title="Expand preset column widths" {
     switch-preset-column-width
   }
   // Presets are defined in rules.kdl
-  Super+Shift+R hotkey-overlay-title="Switch preset window heights" {
+  Super+Shift+R hotkey-overlay-title="Shrink preset column widths" {
+    switch-preset-column-width-back
+  }
+  Super+U hotkey-overlay-title="Expand preset window heights" {
     switch-preset-window-height
+  }
+  Super+Shift+U hotkey-overlay-title="Shrink preset window heights" {
+    switch-preset-window-height-back
   }
   // Presets are defined in rules.kdl
   Super+F hotkey-overlay-title="Toggle fullscreen" {
@@ -389,23 +398,23 @@ binds {
     spawn "thunar"
   }
  //
-    // ========== Clipboard ==========
-    //
-    // FIXME(niri): setup with copyq
-	// Select from the clipboard.
-	//Super+Shift+V { spawn "dash" "-c" "clipman pick -t CUSTOM -T 'fuzzel -d --no-icons --width 60'"; }
-	// Clear the clipboard.
-	//Super+Ctrl+V { spawn "dash" "-c" "clipman clear --all && dunstify 'Clipboard cleared.'"; }
-	// Opan a permanent "clipboard" file.
-	//Alt+Shift+V { spawn "dash" "-c" "$TERMINAL -e micro $HOME/Documents/Clipboard.txt"; }
+  // ========== Clipboard ==========
+  //
+  // FIXME(niri): setup with copyq
+  // Select from the clipboard.
+  //Super+Shift+V { spawn "dash" "-c" "clipman pick -t CUSTOM -T 'fuzzel -d --no-icons --width 60'"; }
+  // Clear the clipboard.
+  //Super+Ctrl+V { spawn "dash" "-c" "clipman clear --all && dunstify 'Clipboard cleared.'"; }
+  // Opan a permanent "clipboard" file.
+  //Alt+Shift+V { spawn "dash" "-c" "$TERMINAL -e micro $HOME/Documents/Clipboard.txt"; }
 
-	// Applications such as remote-desktop clients and software KVM switches may
-	// request that niri stops processing the keyboard shortcuts defined here
-	// so they may, for example, forward the key presses as-is to a remote machine.
-	// It's a good idea to bind an escape hatch to toggle the inhibitor,
-	// so a buggy application can't hold your session hostage.
-	//
-	// The allow-inhibiting=false property can be applied to other binds as well,
-	// which ensures niri always processes them, even when an inhibitor is active.
-	// Super+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+  // Applications such as remote-desktop clients and software KVM switches may
+  // request that niri stops processing the keyboard shortcuts defined here
+  // so they may, for example, forward the key presses as-is to a remote machine.
+  // It's a good idea to bind an escape hatch to toggle the inhibitor,
+  // so a buggy application can't hold your session hostage.
+  //
+  // The allow-inhibiting=false property can be applied to other binds as well,
+  // which ensures niri always processes them, even when an inhibitor is active.
+  // Super+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 }
