@@ -34,6 +34,7 @@
     };
 
     keybindings = {
+      "ctrl+shift+n" = "next_layout";
       "ctrl+shift+h" = "neighboring_window left";
       "ctrl+shift+j" = "neighboring_window down";
       "ctrl+shift+k" = "neighboring_window up";
