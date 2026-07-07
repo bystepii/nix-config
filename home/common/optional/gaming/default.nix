@@ -3,7 +3,7 @@
 {
   #  osConfig,
   #  lib,
-  #  pkgs,
+  pkgs,
   ...
 }:
 
@@ -44,5 +44,7 @@
   #     #rusty-path-of-building
   #     ;
   # };
+
+  home.packages = with pkgs; [ prismlauncher ];
 
 }

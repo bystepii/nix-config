@@ -13,6 +13,7 @@
           "desktops/niri"
           "desktops/services/kanshi.nix"
           "desktops/noctalia.nix"
+          "gaming/"
           "networking/protonvpn.nix"
           "extrabrowsers"
           "comms/"
