@@ -248,14 +248,15 @@
     };
     # desktop shell
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
+      #FIXME: pinned to 4.7.7 until 5.x becomes more stable (still alpha as 26.06.09)
+      url = "github:noctalia-dev/noctalia?ref=v4.7.7";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     #
     # ========= Ricing =========
     #
     stylix = {
-      url = "github:danth/stylix/release-25.11";
+      url = "github:danth/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     silentSDDM = {

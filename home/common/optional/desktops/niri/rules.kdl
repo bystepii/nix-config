@@ -126,7 +126,8 @@ window-rule {
 // ========== Tile on launch ==========
 // FIXME: May want to make this proton vpn specific and specific starting geometry
 window-rule {
-    match app-id="^(Proton VPN)$"
+    // match title="^(Proton VPN)$"
+    match app-id="^(proton.vpn.app.gtk)$"
     open-floating false
 }
 // ========== Float on open ==========
