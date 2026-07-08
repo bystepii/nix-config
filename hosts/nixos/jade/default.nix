@@ -86,7 +86,19 @@
   hardware.graphics.enable = true;
 
   # GTX 1060 (Pascal) is not supported by 595; pin to 580
-  hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.legacy_580;
+  # Using mkDriver to pin 580.173.02 — nixos-26.05 still ships 580.142
+  # which doesn't compile on kernel 7.x (missing linux/of_gpio.h). Remove when
+  # nixos-26.05 catches up to master's 580.173.02+.
+  hardware.nvidia.package = lib.mkForce (
+    config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      version = "580.173.02";
+      sha256_64bit = "sha256-jY65AB4FqaimY9PV0wT+tk7yhE7hhczf2VJ4aCD0bhs=";
+      sha256_aarch64 = "sha256-1lvVYIfvTXjwSoCNp4g8NaWQHF/TfpXRUKdgLrqXqoA=";
+      openSha256 = "sha256-lhloZdf6XbaAFTZBF1DxE0Nv9VC6obY8UPf0VyfVepE=";
+      settingsSha256 = "sha256-dfdu/3tnwHUfP7WoeQFNOMalMlpmUWjeMDIOnu+yi8E=";
+      persistencedSha256 = "sha256-j8YM1w231X+JIP3c3TpUNurEBumEu1stVjzFGWu1JXE=";
+    }
+  );
 
   # Set early framebuffer resolution for all monitors
   boot.kernelParams = lib.map (
