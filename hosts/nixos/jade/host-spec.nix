@@ -14,6 +14,8 @@
     isRemote = lib.mkForce false;
     isWork = lib.mkForce false;
 
+    wifi = true;
+
     useYubikey = lib.mkForce true;
     useNeovimTerminal = lib.mkForce false;
 

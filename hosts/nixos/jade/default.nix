@@ -59,6 +59,7 @@
         # Desktop tools
         "polkit-agent.nix" # graphical polkit authentication agent
       ])
+      ++ [ "modules/hosts/nixos/wifi.nix" ]
     ))
   ];
 
@@ -78,6 +79,11 @@
   introdus.services.silent-sddm.enable = true;
   services.displayManager.sddm.wayland.enable = lib.mkForce true;
   introdus.services.audio.enable = true;
+
+  wifi = {
+    enable = true;
+    roaming = true;
+  };
 
   # Battery services for noctalia
   batteryPowerServices.enable = true;
