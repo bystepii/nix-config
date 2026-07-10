@@ -83,6 +83,7 @@
   wifi = {
     enable = true;
     roaming = true;
+    wlans = [ "eduroam" ];
   };
 
   # Battery services for noctalia
