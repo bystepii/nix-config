@@ -140,6 +140,9 @@
     notify.enable = false;
   };
 
+  # Remote Nix builders via ProxyJump
+  services.remoteBuilder.enable = true;
+
   # boot.kernelParams = [
   #   "systemd.setenv=SYSTEMD_SULOGIN_FORCE=1"
   # ];
