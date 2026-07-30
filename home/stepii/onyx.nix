@@ -24,6 +24,7 @@
           "sops.nix"
           "keepassxc"
           "docker.nix"
+          "bottles.nix"
         ])
     )
   );

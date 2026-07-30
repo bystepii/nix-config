@@ -61,6 +61,9 @@
 
         # Disk tools
         "gparted.nix" # graphical disk partition editor
+
+        # Wine
+        "wine.nix"
       ])
     ))
   ];
