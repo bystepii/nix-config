@@ -16,6 +16,7 @@
 {
   config,
   lib,
+  pkgs,
   inputs,
   secrets,
   ...
@@ -28,13 +29,12 @@ let
   sopsFolder = lib.toString inputs.nix-secrets + "/sops";
 
   # Build SSH config entries dynamically from secrets
-  # The proxy1 entry gives the ProxyJump subprocess the builder key.
+  # The Match block gives the ProxyJump subprocess the builder key, but only for root.
   # The per-host entries set ProxyJump and User.
   sshConfigEntries = [
     ''
-      Host ${builders.proxyJump}
+      Match originalhost ${builders.proxyJump} exec "test $(${pkgs.coreutils}/bin/id -u) = 0"
         IdentityFile ${builderKey}
-        IdentitiesOnly yes
     ''
   ]
   ++ (map (b: ''
