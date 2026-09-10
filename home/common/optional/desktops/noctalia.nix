@@ -2,6 +2,7 @@
   config,
   inputs,
   lib,
+  pkgs,
   ...
 }:
 {
@@ -39,6 +40,10 @@
             enabled = true;
             sourceUrl = url;
           };
+          screen-recorder = {
+            enabled = true;
+            sourceUrl = url;
+          };
         };
         version = 2;
       };
@@ -57,6 +62,10 @@
         defaultDuration = 0;
         iconColor = "secondary";
         textColor = "secondary";
+      };
+      screen-recorder = {
+        copy_to_clipboard = true;
+        hide_inactive = true;
       };
     };
     settings = {
@@ -612,6 +621,12 @@ deepin-system-monitor || pantheon-system-monitor";
               };
               id = "plugin:timer";
             }
+            {
+              defaultSettings = {
+                hide_inactive = true;
+              };
+              id = "plugin:screen-recorder";
+            }
           ];
           right = [
             {
@@ -812,4 +827,5 @@ deepin-system-monitor || pantheon-system-monitor";
       mShadow = lib.mkForce "#000000";
     };
   };
+  home.packages = [ pkgs.gpu-screen-recorder ];
 }
