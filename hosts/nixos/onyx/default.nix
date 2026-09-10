@@ -56,6 +56,9 @@
         # Containerization
         "docker.nix"
 
+        # Virtualization
+        "libvirt.nix"
+
         # Desktop tools
         "polkit-agent.nix" # graphical polkit authentication agent
 
