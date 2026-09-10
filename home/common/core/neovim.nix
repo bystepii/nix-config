@@ -1,11 +1,15 @@
 {
   # lib,
   # pkgs,
-  # inputs,
+  inputs,
   osConfig,
   ...
 }:
 {
+  # This is required here now because introdus stopped using mkInstallModule,
+  # otherwise introdus will infinite recurse
+  imports = [ inputs.omnivium.wrappers.neovim.install ];
+
   # No need to import, aready done by introdus
   # imports = [
   #   (inputs.wrappers.lib.mkInstallModule {
@@ -22,7 +26,7 @@
   introdus.neovim = {
     enable = true;
     fontSize = 13;
-    wrapper = "omnivium"; # Override default to avoid "emergentvim" lookup error
+    # wrapper = "omnivium"; # Override default to avoid "emergentvim" lookup error
   };
   # My custom neovim wrapper, built on top of the introdus neovim base, is enabled by the above
   # and exposed in the config as wrappers.neovim.
