@@ -42,6 +42,7 @@
         devenv # environment manager
         mob # mob programming tool
         opencode # AI coding assistant
+        antigravity-cli # AI coding assistant
         ;
     })
   ];
