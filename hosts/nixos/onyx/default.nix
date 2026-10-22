@@ -85,6 +85,7 @@
 
   introdus.niri.enable = true;
   introdus.services.silent-sddm.enable = true;
+  introdus.services.silent-sddm.theme = "default";
   services.displayManager.sddm.wayland.enable = lib.mkForce true;
   introdus.services.audio.enable = true;
 
