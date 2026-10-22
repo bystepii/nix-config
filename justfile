@@ -241,17 +241,22 @@ dev:
 fmt:
     nix fmt --reference-lock-file locks/$(hostname).lock
 
-# Generate json diff of current noctalia settings
+#
+# ========== Noctalia recipes ==========
+#
+
+# Diff the Nix-managed config against the effective runtime config
 [group("noctalia")]
 noctalia-diff:
-    nix shell nixpkgs#json-diff -c bash -c "json-diff <(jq -S . ~/.config/noctalia/settings.json) <(noctalia-shell ipc call state all | jq -S .settings)"
+    #!/usr/bin/env bash
+    diff -u ~/.config/noctalia/config.toml <(noctalia config export full) || true
 
-# Dump noctalia settings
+# Dump the effective noctalia config
 [group("noctalia")]
-noctalia-json:
-    noctalia-shell ipc call state all | jq -S .settings
+noctalia-toml:
+    noctalia config export full
 
-# Dump noctalia settings as nix
+# Dump the effective noctalia config as nix
 [group("noctalia")]
 noctalia-nix:
-    @just noctalia-json | json2nix
+    @noctalia config export full | yq -p toml -o json | json2nix

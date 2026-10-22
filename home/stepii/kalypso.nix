@@ -12,7 +12,7 @@
         (map (f: "home/common/optional/${f}") [
           "desktops/niri"
           "desktops/services/kanshi.nix"
-          "desktops/noctalia.nix"
+          "desktops/noctalia"
           "networking/protonvpn.nix"
           "extrabrowsers"
           "comms/"

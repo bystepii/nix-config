@@ -227,6 +227,10 @@
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # Declarative vms using libvirt
     nixvirt = {
       url = "https://flakehub.com/f/AshleyYakeley/NixVirt/*.tar.gz";
@@ -249,7 +253,8 @@
     # desktop shell
     noctalia = {
       #FIXME: pinned to 4.7.7 until 5.x becomes more stable (still alpha as 26.06.09)
-      url = "github:noctalia-dev/noctalia?ref=v4.7.7";
+      #url = "github:noctalia-dev/noctalia?ref=v4.7.7";
+      url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     #
