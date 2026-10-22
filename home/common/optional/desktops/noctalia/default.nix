@@ -39,12 +39,43 @@ in
         mShadow = "#000000";
         mHover = "#${stylixColors.base01}";
         mOnHover = "#${stylixColors.base0A}";
+
+        terminal = {
+          background = "#${stylixColors.base00}";
+          foreground = "#${stylixColors.base05}";
+          cursor = "#${stylixColors.base05}";
+          cursorText = "#${stylixColors.base00}";
+          selectionBg = "#${stylixColors.base02}";
+          selectionFg = "#${stylixColors.base05}";
+
+          normal = {
+            black = "#${stylixColors.base00}";
+            red = "#${stylixColors.base08}";
+            green = "#${stylixColors.base0B}";
+            yellow = "#${stylixColors.base0A}";
+            blue = "#${stylixColors.base0D}";
+            magenta = "#${stylixColors.base0E}";
+            cyan = "#${stylixColors.base0C}";
+            white = "#${stylixColors.base05}";
+          };
+
+          bright = {
+            black = "#${stylixColors.base03}";
+            red = "#${stylixColors.base08}";
+            green = "#${stylixColors.base0B}";
+            yellow = "#${stylixColors.base0A}";
+            blue = "#${stylixColors.base0D}";
+            magenta = "#${stylixColors.base0E}";
+            cyan = "#${stylixColors.base0C}";
+            white = "#${stylixColors.base07}";
+          };
+        };
       };
     };
 
     settings =
       let
-        baseSettings = import ./stepii.nix;
+        baseSettings = import ./stepii.nix { inherit inputs osConfig; };
         hostConfigPath = lib.custom.relativeToRoot "hosts/nixos/${osConfig.hostSpec.hostName}/noctalia.nix";
         hostSettings = if lib.pathExists hostConfigPath then import hostConfigPath else { };
       in
