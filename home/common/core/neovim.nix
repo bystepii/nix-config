@@ -35,8 +35,8 @@
   #     if osConfig.hostSpec.isIntrodusDev then
   #       {
   #         # Set impure paths to allow hot reloading of `plugin/`, `snippets/`, etc
-  #         unwrappedConfig = "/home/ta/src/nix/neovim";
-  #         baseConfig = lib.mkForce "/home/ta/src/nix/introdus/ta/wrappers/neovim";
+  #         unwrappedConfig = "/home/ta/dev/nix/neovim";
+  #         baseConfig = lib.mkForce "/home/ta/dev/nix/introdus/ta/wrappers/neovim";
   #       }
   #     else
   #       {
@@ -51,7 +51,7 @@
       if osConfig.hostSpec.isDevelopment then
         {
           # hotReload = true;
-          unwrappedConfig = "/home/stepii/src/nix/neovim";
+          unwrappedConfig = "/home/stepii/dev/nix/neovim";
         }
       else
         {

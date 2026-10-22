@@ -321,7 +321,7 @@ introdus.neovim = {
   package = pkgs.emergentvim;  # or pkgs.neovim-unwrapped
   hotReload = {
     enable = osConfig.hostSpec.isIntrodusDev;
-    configPath = "~/src/nix/neovim/nvim";
+    configPath = "~/dev/nix/neovim/nvim";
   };
 };
 ```
@@ -331,7 +331,7 @@ introdus.neovim = {
 introdus.gitDev = {
   enable = true;
   keysPath = "~/.ssh";
-  devFolders = [ "~/src" ];
+  devFolders = [ "~/dev" ];
   devKeys = [ "id_ed25519" ];
   workFolders = lib.optionals osConfig.hostSpec.isWork [ "~/work" ];
   workKeys = lib.optionals osConfig.hostSpec.isWork [ "id_work" ];

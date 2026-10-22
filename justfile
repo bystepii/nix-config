@@ -24,7 +24,7 @@ rebuild-post: check-sops
 # Run nix flake update on neovim flake to ensure latest introdus is input
 [private]
 update-neovim-flake:
-  cd /home/stepii/src/nix/neovim && \
+  cd /home/stepii/dev/nix/neovim && \
   nix flake update introdus
 
 # Run a flake check on the config and installer
