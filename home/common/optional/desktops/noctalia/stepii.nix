@@ -223,7 +223,8 @@
 
     panel = {
       transparency_mode = "soft";
-      launcher_placement = "attached";
+      launcher_placement = "floating";
+      launcher_position = "center";
       clipboard_placement = "attached";
     };
 
