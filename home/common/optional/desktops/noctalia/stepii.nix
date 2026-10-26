@@ -1,6 +1,7 @@
 {
   inputs,
   osConfig,
+  pkgs,
   ...
 }:
 {
@@ -63,6 +64,11 @@
 
   widget = {
     launcher.glyph = "rocket";
+
+    "control-center" = {
+      custom_image = "${pkgs.nixos-icons}/share/icons/hicolor/256x256/apps/nix-snowflake.png";
+      custom_image_colorize = false;
+    };
 
     spacer-left = {
       type = "spacer";
@@ -225,6 +231,8 @@
       transparency_mode = "soft";
       launcher_placement = "floating";
       launcher_position = "center";
+      control_center_placement = "floating";
+      control_center_position = "center";
       clipboard_placement = "attached";
     };
 

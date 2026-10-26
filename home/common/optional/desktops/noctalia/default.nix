@@ -75,7 +75,7 @@ in
 
     settings =
       let
-        baseSettings = import ./stepii.nix { inherit inputs osConfig; };
+        baseSettings = import ./stepii.nix { inherit inputs osConfig pkgs; };
         hostConfigPath = lib.custom.relativeToRoot "hosts/nixos/${osConfig.hostSpec.hostName}/noctalia.nix";
         hostSettings = if lib.pathExists hostConfigPath then import hostConfigPath else { };
       in
