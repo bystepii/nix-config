@@ -10,6 +10,7 @@
     margin_edge = 4;
     margin_ends = 4;
     padding = 2;
+    thickness = 37;
     font_scale = 1.25;
     background_opacity = 0.2;
     border = "outline";
@@ -19,6 +20,7 @@
     capsule = true;
     capsule_opacity = 1.0;
     widget_spacing = 6;
+    actions.middle = "none";
 
     start = [
       "launcher"
@@ -144,7 +146,10 @@
       show_label = false;
     };
 
-    network.show_label = false;
+    network = {
+      show_label = false;
+      vpn_status = "both";
+    };
     brightness.show_label = false;
 
     tray = {
@@ -154,7 +159,7 @@
 
     privacy = {
       hide_inactive = false;
-      active_color = "error";
+      active_color = "primary";
       inactive_color = "on_surface_variant";
       icon_spacing = 4;
     };
@@ -233,11 +238,17 @@
       launcher_position = "center";
       control_center_placement = "floating";
       control_center_position = "center";
-      clipboard_placement = "attached";
+      clipboard_placement = "floating";
+      clipboard_position = "center";
+      wallpaper_placement = "floating";
+      wallpaper_position = "center";
+      session_placement = "floating";
+      session_position = "center";
     };
 
     launcher = {
       layout = "full";
+      default_view = "all";
       app_grid = false;
       sort_by_usage = true;
       show_session_button = true;
@@ -324,8 +335,16 @@
     lock_before_suspend = true;
   };
 
+  audio = {
+    enable_notification_sounds = false;
+    enable_volume_sounds = false;
+  };
+
+  bluetooth.connect_when_enabled = true;
+
   notification = {
     background_opacity = 0.8;
+    keep_dismissed_in_history = false;
     layer = "overlay";
     position = "top_right";
   };
