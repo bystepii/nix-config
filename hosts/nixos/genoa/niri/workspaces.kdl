@@ -35,7 +35,8 @@ window-rule {
 window-rule {
   match app-id="signal"
   match app-id="discord"
-  match app-id="brave-browser"
+  // match app-id="brave-browser"
+  match app-id="chromium-browser"
   open-on-workspace "9_com"
 }
 window-rule {

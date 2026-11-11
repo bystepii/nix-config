@@ -258,6 +258,14 @@ window-rule {
     proportion 0.66667
   }
 }
+// ========== Chromium ==========
+// Resize certain windows to specific sizes.
+window-rule {
+  match app-id="chromium-browser"
+  default-column-width {
+    proportion 0.66667
+  }
+}
 // ========== Projects ==========
 // Resize certain windows to specific sizes.
 window-rule {

@@ -10,7 +10,7 @@
       ++
         # ========== Optional modules ==========
         (map (f: "home/common/optional/${f}") [
-          "extrabrowsers/brave.nix" # for testing against 'media' user
+          "extrabrowsers/chromium.nix" # for testing against 'media' user
           "helper-scripts"
 
           "atuin.nix"
