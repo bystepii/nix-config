@@ -301,5 +301,10 @@
       url = "github:nix-community/lanzaboote/v1.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    bedrock-on-linux = {
+      url = "github:Wyze3306/BedrockOnLinux";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 }

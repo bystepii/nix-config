@@ -68,6 +68,26 @@
         "type": "github"
       }
     },
+    "bedrock-on-linux": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793285585,
+        "narHash": "sha256-LyMu1mF9GmwWbVonTZDDiqTv667a4eFajsG1M8bzzDc=",
+        "owner": "Wyze3306",
+        "repo": "BedrockOnLinux",
+        "rev": "cc6ac3235bfbbf9d05fe6870b09ef71e7f1a4f52",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Wyze3306",
+        "repo": "BedrockOnLinux",
+        "type": "github"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1765145449,
@@ -635,11 +655,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792915725,
-        "narHash": "sha256-v75hPw5NJ+mRRcwUzKi2OQtVSVv1hgq6ceAlPQB2kEE=",
+        "lastModified": 1793543282,
+        "narHash": "sha256-PHtGxKYM99f8WhGR5YD7iiCiwemKa2wUD4yVI2oALFg=",
         "owner": "nix-community",
         "repo": "nix-index-database",
-        "rev": "93696586f3463024cceb089353539be95a38ae2b",
+        "rev": "cee0f879d338cf08f814210fa6c2b280594ade0a",
         "type": "github"
       },
       "original": {
@@ -655,10 +675,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1783703922,
-        "narHash": "sha256-Ew5DfPfiy67zme7uuXpGNZb+HLEQDDGEPyH4LrGmrqc=",
+        "lastModified": 1793268266,
+        "narHash": "sha256-Yy7AKMS7abH8DrJ4QOUPs1KIpy0RxQ73BSVOSSlAagc=",
         "ref": "complex",
-        "rev": "249db5bac2a2a957dc5fcb6655aad861cb7d67be",
+        "rev": "1b91cf90d80ddc316af607f4e3f150d78e7e6cfa",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/bystepii/nix-secrets"
@@ -1458,6 +1478,7 @@
     },
     "root": {
       "inputs": {
+        "bedrock-on-linux": "bedrock-on-linux",
         "disko": "disko",
         "firefox-addons": "firefox-addons",
         "firefox2nix": "firefox2nix",

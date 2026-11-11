@@ -3,6 +3,7 @@
 {
   #  osConfig,
   #  lib,
+  inputs,
   pkgs,
   ...
 }:
@@ -45,6 +46,9 @@
   #     ;
   # };
 
-  home.packages = with pkgs; [ prismlauncher ];
+  home.packages = [
+    pkgs.prismlauncher
+    inputs.bedrock-on-linux.packages.${pkgs.stdenv.hostPlatform.system}.default
+  ];
 
 }
