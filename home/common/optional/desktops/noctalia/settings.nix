@@ -175,7 +175,7 @@
       "noctalia/timer"
       "noctalia/screen_recorder"
     ];
-    auto_update = "none";
+    auto_update = "all";
   };
 
   plugin_settings."noctalia/screen_recorder" = {
@@ -185,7 +185,7 @@
 
   theme = {
     mode = "dark";
-    shell_mode = "dark";
+    shell_mode = "follow";
     source = "custom";
     custom_palette = "stylix";
     sync_color_scheme = false;
@@ -248,11 +248,11 @@
 
     launcher = {
       layout = "full";
-      default_view = "all";
+      default_view = "recent";
       app_grid = false;
       sort_by_usage = true;
-      show_session_button = true;
-      show_settings_button = true;
+      show_session_button = false;
+      show_settings_button = false;
       categories = true;
       pinned = [ ];
       auto_paste = "off";
@@ -344,8 +344,9 @@
 
   notification = {
     background_opacity = 0.8;
-    keep_dismissed_in_history = false;
+    keep_dismissed_in_history = true;
     layer = "overlay";
+    max_visible = 3;
     position = "top_right";
   };
 
@@ -372,7 +373,7 @@
   };
 
   location = {
-    address = "Calgary";
+    address = "Tarragona, Spain";
     auto_locate = false;
   };
 

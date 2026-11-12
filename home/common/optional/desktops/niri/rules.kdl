@@ -230,6 +230,14 @@ window-rule {
 window-rule {
     match app-id="brave-browser"
 }
+// ========== Chromium ==========
+// Resize certain windows to specific sizes.
+window-rule {
+    match app-id="chromium-browser"
+    default-column-width {
+        proportion 0.66667
+    }
+}
 // ========== Projects ==========
 // Resize certain windows to specific sizes.
 window-rule {
