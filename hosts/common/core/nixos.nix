@@ -23,6 +23,10 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.supportedFilesystems.ntfs = true;
 
+  # for building aarch64-linux binaries on x86_64-linux hosts (cross-compilation)
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  boot.binfmt.preferStaticEmulators = true;
+
   # This should be handled by config.security.pam.sshAgentAuth.enable
   security.sudo.extraConfig = ''
     Defaults lecture = never # rollback results in sudo lectures after each reboot, it's somewhat useless anyway

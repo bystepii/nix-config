@@ -6,7 +6,10 @@
 {
   virtualisation.docker = {
     enable = true;
-    daemon.settings.features.cdi = true;
+    daemon.settings.features = {
+      cdi = true;
+      containerd-snapshotter = true;
+    };
   };
 
   users.users.${config.hostSpec.primaryUsername} = {
