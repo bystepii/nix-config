@@ -202,7 +202,7 @@ in
               unitConfig.DefaultDependencies = false;
               serviceConfig = {
                 Type = "oneshot";
-                ExecStart = "systemctl reboot";
+                ExecStart = "${config.boot.initrd.systemd.package}/bin/systemctl --force reboot";
               };
             };
           }

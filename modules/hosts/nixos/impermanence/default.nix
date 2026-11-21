@@ -48,7 +48,7 @@ in
       # Correct block device holding the btrfs filesystem
       drivePath =
         if lvm.enable then
-          "/dev/${lvm.vgName}/root"
+          "/dev/mapper/${lvm.vgName}-root"
         else if luks.enable then
           "/dev/mapper/${luks.label}"
         else
@@ -57,7 +57,7 @@ in
       # systemd .device unit to wait for
       deviceUnit =
         if lvm.enable then
-          (utils.escapeSystemdPath "dev/${lvm.vgName}/root.device")
+          (utils.escapeSystemdPath "dev/mapper/${lvm.vgName}-root.device")
         else if luks.enable then
           (utils.escapeSystemdPath "dev/mapper/${luks.label}.device")
         else
@@ -86,10 +86,8 @@ in
         systemd.services.btrfs-rollback = {
           description = "Rollback BTRFS root subvolume to a pristine state";
           wantedBy = [ "initrd.target" ];
-          after = lib.optionals luks.enable [
-            deviceUnit
-            cryptsetupService
-          ];
+          after = [ deviceUnit ] ++ lib.optional luks.enable cryptsetupService;
+          requires = [ deviceUnit ];
           before = [ "sysroot.mount" ];
           unitConfig.DefaultDependencies = "no";
           serviceConfig.Type = "oneshot";
@@ -106,7 +104,7 @@ in
               ## Note that unlike similar scripts, we don't use a blank snapshot to reset the root,
               ## instead we delete the root and create a new one.
 
-              mkdir /btrfs_tmp
+              mkdir -p /btrfs_tmp
 
               mount -t btrfs -o subvol=/ ${drivePath} /btrfs_tmp
 
